@@ -2,6 +2,7 @@
   "name": "kalkulator-pit38-portfel",
   "private": true,
   "version": "0.2.0",
+  "license": "SEE LICENSE IN LICENSE",
   "description": "Kalkulator podatku gieldowego PIT-38 i portfel inwestora: deterministyczny silnik FIFO/NBP z notowaniami na zywo i integracjami brokerskimi.",
   "type": "module",
   "scripts": {

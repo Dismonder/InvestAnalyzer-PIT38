@@ -1,0 +1,94 @@
+LICENCJA UŻYTKOWANIA INVESTANALYZER
+(wersja 1.0, 2 października 2026)
+
+Copyright (c) 2026 Dismonder. Wszelkie prawa zastrzeżone.
+
+To NIE jest licencja wolnego ani otwartego oprogramowania. Kod źródłowy jest
+udostępniony publicznie wyłącznie do wglądu i do użytku osobistego na zasadach
+opisanych niżej. Wszystkie prawa, których ta licencja wyraźnie nie przyznaje,
+pozostają przy autorze.
+
+1. DEFINICJE
+   „Oprogramowanie” oznacza InvestAnalyzer: kod źródłowy, pliki binarne,
+   wersję przenośną, aplikację online (PWA), dokumentację, zrzuty ekranu,
+   grafikę i wszystkie inne materiały w repozytorium oraz w jego wydaniach.
+   „Użytek niekomercyjny” oznacza użycie przez osobę fizyczną na własne,
+   prywatne potrzeby, bez bezpośredniego lub pośredniego celu zarobkowego.
+
+2. CO WOLNO
+   a) Pobrać, zainstalować i uruchamiać Oprogramowanie w niezmienionej postaci
+      na własnych urządzeniach do Użytku niekomercyjnego, w szczególności do
+      rozliczenia własnych inwestycji.
+   b) Przeglądać kod źródłowy w celu oceny działania Oprogramowania
+      i weryfikacji sposobu obliczeń.
+   c) Zgłaszać błędy i propozycje przez narzędzia repozytorium (Issues).
+   d) Korzystać z kopii repozytorium wyświetlanej lub tworzonej przez
+      platformę GitHub (np. „fork”) wyłącznie w zakresie, jaki wynika
+      z regulaminu GitHub; nie daje to żadnych dodatkowych praw do
+      Oprogramowania.
+
+3. CZEGO NIE WOLNO (bez odrębnej, pisemnej zgody autora)
+   a) Kopiować, rozpowszechniać, publikować, udostępniać, sprzedawać,
+      wynajmować, wypożyczać ani sublicencjonować Oprogramowania ani jego
+      części, w jakiejkolwiek formie i na jakimkolwiek nośniku.
+   b) Modyfikować, tłumaczyć, adaptować, tworzyć utworów zależnych ani
+      wykorzystywać kodu, jego fragmentów, algorytmów, struktury, grafiki
+      lub dokumentacji w innych projektach, produktach lub usługach.
+   c) Używać Oprogramowania do celów komercyjnych: w działalności
+      gospodarczej, w ramach świadczenia usług osobom trzecim (w tym usług
+      księgowych, doradczych lub rozliczeniowych), w produktach płatnych
+      lub finansowanych reklamą, ani w jakikolwiek sposób przynoszący
+      bezpośrednio lub pośrednio korzyść majątkową.
+   d) Usuwać ani zmieniać informacji o prawach autorskich, znaków
+      i oznaczeń Oprogramowania.
+   e) Dekompilować, dezasemblować ani odtwarzać kodu źródłowego plików
+      binarnych poza zakresem, na jaki bezwzględnie zezwalają przepisy prawa.
+   f) Wykorzystywać Oprogramowania ani jego kodu do trenowania, strojenia
+      lub oceny modeli uczenia maszynowego.
+
+4. SKŁADNIKI OSÓB TRZECICH
+   Biblioteki i narzędzia osób trzecich użyte w Oprogramowaniu podlegają
+   własnym licencjom, które zachowują pierwszeństwo wobec niniejszej licencji
+   w zakresie tych składników.
+
+5. BRAK GWARANCJI
+   Oprogramowanie jest udostępniane „tak jak jest”, bez jakiejkolwiek
+   gwarancji, wyraźnej lub dorozumianej, w tym gwarancji przydatności do
+   określonego celu i poprawności obliczeń. Oprogramowanie nie stanowi
+   porady podatkowej ani prawnej. Wynik rozliczenia wymaga samodzielnej
+   weryfikacji z dokumentami i obowiązującymi przepisami; odpowiedzialność
+   za zeznanie podatkowe ponosi wyłącznie podatnik.
+
+6. OGRANICZENIE ODPOWIEDZIALNOŚCI
+   W najszerszym zakresie dopuszczonym przez prawo autor nie ponosi
+   odpowiedzialności za jakiekolwiek szkody wynikłe z użycia lub niemożności
+   użycia Oprogramowania, w tym za błędne rozliczenie podatkowe, utratę
+   danych lub utracone korzyści.
+
+7. WYGAŚNIĘCIE
+   Naruszenie któregokolwiek z postanowień licencji powoduje jej
+   automatyczne wygaśnięcie. Po wygaśnięciu należy zaprzestać używania
+   Oprogramowania i usunąć wszystkie jego kopie.
+
+8. PRAWO WŁAŚCIWE
+   Licencja podlega prawu polskiemu. Spory rozstrzyga sąd właściwy dla
+   siedziby autora.
+
+9. INNE LICENCJE
+   Chcesz użyć Oprogramowania komercyjnie, zmodyfikować je albo włączyć
+   jego fragmenty do własnego projektu? Napisz przez Issues w repozytorium
+   https://github.com/Dismonder/InvestAnalyzer-PIT38 — odrębna licencja
+   wymaga pisemnej zgody autora.
+
+-----------------------------------------------------------------------
+ENGLISH SUMMARY (the Polish text above is binding)
+
+InvestAnalyzer is proprietary, source-available software. Copyright (c) 2026
+Dismonder. All rights reserved. You may download, install and run unmodified
+copies for personal, non-commercial use and view the source code for
+evaluation. You may NOT copy, redistribute, sell, sublicense, modify, create
+derivative works, reuse any part of the code in other projects, use it
+commercially (including providing services to third parties), or use it to
+train machine-learning models, without the author's prior written consent.
+Provided "as is" without warranty; this is not tax advice. Governed by
+Polish law.

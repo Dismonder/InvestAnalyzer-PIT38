@@ -2,7 +2,7 @@
 
 InvestAnalyzer to lokalna aplikacja dla Windows, która łączy portfel inwestora z deterministycznym kalkulatorem PIT-38 na podstawie plików brokera.
 
-`Windows` · `lokalnie bez chmury` · `PIT-38` · `Tauri + React + Python`
+`Windows` · `lokalnie bez chmury` · `PIT-38` · `Tauri + React + Python` · `licencja: tylko użytek niekomercyjny`
 
 ## Dla kogo i po co
 
@@ -266,6 +266,14 @@ Stan na **2026-10-01**:
 - Zmniejszono pakiet startowy i poprawiono układ portfela, PIT-38, wykresów i alertów na różnych szerokościach.
 
 Szczegóły stanu i dalszych prac: [dziennik zmian](docs/dziennik-zmian.md).
+
+## Licencja
+
+Oprogramowanie własnościowe z jawnym kodem (*source-available*), **nie** open source. Wszelkie prawa zastrzeżone.
+Wolno: pobrać, zainstalować i uruchamiać niezmienioną wersję do użytku osobistego, niekomercyjnego oraz przeglądać kod.
+Nie wolno bez pisemnej zgody autora: kopiować, rozpowszechniać, modyfikować, tworzyć utworów zależnych, używać kodu
+lub jego fragmentów w innych projektach ani używać komercyjnie (także do świadczenia usług osobom trzecim).
+Pełna treść: [LICENSE](LICENSE). Licencja komercyjna lub inna: przez Issues w repozytorium.
 
 ## Zastrzeżenie
 
