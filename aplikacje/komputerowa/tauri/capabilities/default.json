@@ -1,0 +1,17 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Local desktop runtime with HTTP access limited to public rates and quotes.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        { "url": "https://api.nbp.pl/*" },
+        { "url": "https://query1.finance.yahoo.com/*" },
+        { "url": "https://api.binance.com/api/v3/ticker/price*" }
+      ]
+    }
+  ]
+}

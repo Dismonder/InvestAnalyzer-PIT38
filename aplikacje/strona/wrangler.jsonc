@@ -1,0 +1,13 @@
+{
+  // Strona projektu InvestAnalyzer jako Worker ze statycznymi plikami.
+  // Katalog wydania buduje `npm run strona:build` (tylko index.html + zrzuty).
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "investanalyzer-strona",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "../../wydania/strona",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "observability": { "enabled": true }
+}

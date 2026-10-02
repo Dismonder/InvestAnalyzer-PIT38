@@ -1,0 +1,20 @@
+{
+  "name": "InvestAnalyzer — portfel inwestora i PIT-38",
+  "short_name": "InvestAnalyzer",
+  "description": "Portfel inwestora z notowaniami na żywo i kalkulator podatku giełdowego PIT-38.",
+  "lang": "pl",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f6f2",
+  "theme_color": "#226044",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    { "src": "/ikony/ikona-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/ikony/ikona-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/ikony/ikona-maskowalna-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/ikony/ikona.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

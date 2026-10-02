@@ -1,0 +1,19 @@
+{
+  "opis": "Wzorce nazw plikow, ktore zdradzaja wlasciciela albo jego dane. Jedno zrodlo dla bramki danych osobowych (narzedzia/skrypty/assert-no-private-data.mjs) i dla testu dymnego paczki przenosnej (narzedzia/skrypty/smoke_desktop_portable.py). Rozjazd miedzy dwiema kopiami tej listy oznaczal, ze paczka do rozdania przechodzila kontrole, ktorej repozytorium by nie przeszlo.",
+  "wzorce": [
+    "damian",
+    "gmail",
+    "broker_raport",
+    "broker_damian",
+    "historia_transakcji",
+    "pelny_zrzut_api_transakcje",
+    "transakcje.xlsx",
+    "ruchy_got",
+    "traderzy",
+    "stawki.pdf",
+    "dezpozytariusz",
+    "depozytariusz",
+    "tradernet_table",
+    "tradesv"
+  ]
+}

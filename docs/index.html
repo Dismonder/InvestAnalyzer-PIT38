@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="InvestAnalyzer: lokalna aplikacja Windows do portfela inwestora i rozliczenia PIT-38. Architektura, zrzuty ekranu, jakość i uruchomienie projektu.">
+  <meta name="theme-color" content="#f4f7f5">
+  <meta property="og:title" content="InvestAnalyzer — Twój portfel. Przejrzysty PIT-38.">
+  <meta property="og:description" content="Lokalny kalkulator PIT-38 i portfel inwestora. Silnik FIFO, kursy NBP T-1 i ślad dowodowy. Windows oraz portfel w przeglądarce i na telefonie.">
+  <meta property="og:image" content="./zrzuty/portfel.jpg">
+  <meta property="og:type" content="website">
+  <title>InvestAnalyzer — portfel i PIT-38 z dowodami</title>
+  <script>
+    try {
+      const theme = localStorage.getItem('investanalyzer-project-theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    } catch (_) {}
+  </script>
+  <style id="page-design">
+    :root {
+      color-scheme: light;
+      --bg: #f4f7f5; --surface: #fff; --glass: #ffffffd9; --surface-alt: #e8eeeb;
+      --text: #142b29; --muted: #506661; --line: #cddbd5;
+      --accent: #116951; --accent-soft: #dbefe5; --on-accent: #fff;
+      --mesh-a: #a3e8c9; --mesh-b: #b8d9f3; --shadow: 0 20px 65px #173f3010;
+      --code-bg: #132c29; --code-text: #e0f5ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #0b191a; --surface: #132628; --glass: #132628e8; --surface-alt: #1b3335;
+        --text: #edf6f2; --muted: #b0c5bf; --line: #35514f;
+        --accent: #8ae2ba; --accent-soft: #203f35; --on-accent: #102c24;
+        --mesh-a: #235847; --mesh-b: #254554; --shadow: 0 20px 65px #00000030;
+        --code-bg: #081415; --code-text: #e0f5ec;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0b191a; --surface: #132628; --glass: #132628e8; --surface-alt: #1b3335;
+      --text: #edf6f2; --muted: #b0c5bf; --line: #35514f;
+      --accent: #8ae2ba; --accent-soft: #203f35; --on-accent: #102c24;
+      --mesh-a: #235847; --mesh-b: #254554; --shadow: 0 20px 65px #00000030;
+      --code-bg: #081415; --code-text: #e0f5ec;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 Inter, "Segoe UI", system-ui, sans-serif; }
+    button, summary, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; cursor: pointer; }
+    a { color: var(--accent); text-underline-offset: 4px; overflow-wrap: anywhere; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    .wrap { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }
+    .skip { position: fixed; top: 12px; left: 16px; padding: 12px 18px; transform: translateY(-150%); z-index: 10; background: var(--surface); border-radius: 10px; }
+    .skip:focus { transform: none; }
+    .top { position: sticky; top: 0; z-index: 5; background: var(--glass); border-bottom: 1px solid var(--line); backdrop-filter: blur(18px); }
+    .top-inner { min-height: 76px; display: flex; align-items: center; gap: 22px; position: relative; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 750; letter-spacing: -.035em; font-size: 19px; flex-shrink: 0; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: var(--accent); color: var(--on-accent); font-size: 13px; letter-spacing: -.04em; }
+    nav { margin-left: auto; }
+    .nav-links { display: flex; gap: 2px; align-items: center; }
+    .nav-links a { padding: 10px; border-radius: 9px; color: var(--muted); font-size: 12px; font-weight: 650; text-decoration: none; white-space: nowrap; }
+    .nav-links a:hover, .nav-links a[aria-current="location"] { background: var(--accent-soft); color: var(--accent); }
+    .theme, .menu-toggle, .icon-button { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; padding: 8px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--surface); }
+    .theme svg { width: 20px; height: 20px; }
+    .theme, .menu-toggle { display: none; }
+    .js .theme { display: inline-grid; }
+    .scroll-progress { position: absolute; bottom: -1px; left: 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.045em; margin: 0; text-wrap: balance; }
+    h1 { font-size: clamp(42px, 5.4vw, 76px); font-weight: 750; margin: 22px 0; }
+    h1 span { color: var(--accent); }
+    h2 { font-size: clamp(29px, 3.6vw, 44px); }
+    h3 { font-size: 20px; letter-spacing: -.025em; margin-bottom: 12px; }
+    p { margin: 0 0 16px; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+    .status-dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 5px var(--accent-soft); flex-shrink: 0; }
+    .hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 44px; align-items: center; padding: 86px 0 32px; border: 0; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .65; border-radius: 40px; background: radial-gradient(ellipse at 78% 32%, var(--mesh-a), transparent 48%), radial-gradient(ellipse at 22% 80%, var(--mesh-b), transparent 48%); animation: mesh 18s ease-in-out infinite alternate; pointer-events: none; }
+    @keyframes mesh { from { transform: translate3d(-1%, -1%, 0) scale(.94); } to { transform: translate3d(1%, 1%, 0) scale(.99); } }
+    .lead { font-size: clamp(17px, 1.6vw, 19px); color: var(--muted); max-width: 570px; }
+    .badges, .actions { display: flex; flex-wrap: wrap; gap: 9px; }
+    .badges { margin: 25px 0; }
+    .badge { padding: 5px 11px; border-radius: 30px; border: 1px solid var(--line); background: var(--glass); font-size: 11px; font-weight: 600; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding: 11px 17px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); text-decoration: none; font-size: 13px; font-weight: 700; transition: transform .2s, box-shadow .2s; }
+    .button.primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+    .button:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .small { font-size: 13px; color: var(--muted); }
+    .hero-footnote { margin: 17px 0 0; max-width: 500px; }
+    .hero-visual { min-width: 0; }
+    .preview { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transform: perspective(1400px) rotateY(-4deg) rotateX(2deg); }
+    .preview-bar { display: flex; align-items: center; gap: 6px; padding: 13px 16px; }
+    .preview-bar i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); opacity: .65; }
+    .preview-bar span { margin-left: auto; color: var(--muted); font-size: 11px; }
+    img { display: block; max-width: 100%; height: auto; }
+    .preview img { width: 100%; }
+    .preview figcaption { padding: 10px 16px; color: var(--muted); font-size: 11px; }
+    figure { margin: 0; }
+    .hero-note { position: relative; margin: 20px 0 0 24px; padding: 22px; background: var(--glass); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); backdrop-filter: blur(10px); }
+    .hero-note h2 { font-size: 22px; letter-spacing: -.025em; margin-bottom: 14px; }
+    .evidence { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; font-size: 11px; font-weight: 650; color: var(--accent); }
+    .evidence span { background: var(--accent-soft); padding: 5px 8px; border-radius: 6px; }
+    .hero-note p { font-size: 12px; color: var(--muted); margin: 14px 0 0; }
+    .hero-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 11px; color: var(--muted); }
+    .scroll-cue { display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 650; }
+    .scroll-cue span { animation: nudge 2.5s ease-in-out infinite; }
+    @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+    main > section:not(.hero) { padding-block: 80px; border-top: 1px solid var(--line); }
+    .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 32px; }
+    .section-head .eyebrow { margin-bottom: 12px; }
+    .section-head > p { max-width: 380px; margin: 0; font-size: 14px; color: var(--muted); }
+    .grid { display: grid; gap: 20px; }
+    .problems { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card { position: relative; min-width: 0; padding: 28px; background: var(--glass); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); transition: transform .25s, border-color .25s; }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card p { font-size: 14px; color: var(--muted); margin-bottom: 0; }
+    .tag { display: inline-block; padding: 5px 10px; margin-bottom: 26px; border-radius: 7px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 700; }
+    .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+    .gallery figure { min-width: 0; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--surface); }
+    .image-frame { position: relative; display: grid; place-items: center; padding: 14px; background: var(--surface-alt); aspect-ratio: 16 / 10; }
+    .image-frame a { display: block; width: 100%; border-radius: 8px; }
+    .image-frame img { width: 100%; border-radius: 8px; transition: transform .4s; }
+    .image-frame:hover img { transform: scale(1.025); }
+    .zoom { position: absolute; bottom: 24px; right: 24px; width: 32px; height: 32px; display: grid; place-items: center; background: var(--code-bg); color: var(--code-text); border-radius: 9px; pointer-events: none; }
+    .phone .image-frame a { width: auto; height: 100%; aspect-ratio: 780 / 1688; min-height: 0; }
+    .phone .image-frame img { height: 100%; width: 100%; object-fit: contain; }
+    .gallery figcaption { padding: 19px 22px; }
+    .gallery figcaption strong { display: block; font-size: 16px; letter-spacing: -.02em; margin-bottom: 4px; }
+    .gallery figcaption span { font-size: 12px; color: var(--muted); display: block; }
+    .deferred { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+    .layers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-bottom: 26px; }
+    .layer { position: relative; min-width: 0; padding: 23px 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    .layer > span { display: block; font-size: 11px; color: var(--accent); font-weight: 750; margin-bottom: 20px; }
+    .layer h3 { font-size: 16px; }
+    .layer p { font-size: 12px; color: var(--muted); margin: 0; }
+    .layer:not(:last-child)::after { content: "→"; position: absolute; right: -21px; top: 50%; color: var(--accent); font-size: 18px; }
+    .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    code { font-family: Consolas, "Cascadia Code", monospace; font-size: .9em; overflow-wrap: anywhere; }
+    details { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 0 22px; margin-top: 22px; }
+    summary { cursor: pointer; font-size: 14px; font-weight: 700; padding: 18px 0; }
+    details .detail-content { padding: 2px 0 20px; color: var(--muted); font-size: 14px; }
+    .detail-content p:last-child { margin-bottom: 0; }
+    .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 26px; }
+    .stat { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: var(--accent-soft); }
+    .stat-number { display: block; font-size: clamp(36px, 5vw, 56px); font-weight: 750; line-height: 1.15; letter-spacing: -.06em; color: var(--accent); font-variant-numeric: tabular-nums; }
+    .stat-label { display: block; margin-top: 8px; font-weight: 650; font-size: 13px; }
+    .stat .small { display: block; margin-top: 5px; font-size: 11px; }
+    .quality { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--surface); }
+    table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 13px; }
+    caption { padding: 18px 20px; text-align: left; color: var(--muted); font-size: 12px; }
+    th, td { padding: 16px 20px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+    th { background: var(--surface-alt); font-size: 11px; font-weight: 750; }
+    th:first-child { width: 30%; }
+    th:last-child { width: 24%; }
+    tr:last-child td { border-bottom: 0; }
+    .pass { color: var(--accent); font-weight: 750; }
+    .quality-note { margin: 20px 0 0; }
+    .timeline { list-style: none; padding: 0 0 0 28px; margin: 0 0 0 5px; border-left: 1px solid var(--line); }
+    .timeline li { position: relative; padding: 0 0 30px; }
+    .timeline li:last-child { padding-bottom: 0; }
+    .timeline li::before { content: ""; position: absolute; top: 8px; left: -34px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px var(--bg); }
+    .timeline time { color: var(--accent); font-size: 11px; font-weight: 700; }
+    .timeline h3 { margin: 8px 0 10px; }
+    .timeline p { max-width: 850px; font-size: 14px; color: var(--muted); margin: 0; }
+    .start { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .start .developer { grid-column: 1 / -1; }
+    .start p { font-size: 14px; color: var(--muted); }
+    .start .tag { margin-bottom: 18px; }
+    .start p + p, .start .actions { margin-top: 18px; }
+    .start .small { font-size: 12px; }
+    pre { padding: 22px; border-radius: 12px; background: var(--code-bg); color: var(--code-text); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; line-height: 1.8; margin: 20px 0; }
+    footer { border-top: 1px solid var(--line); padding-block: 32px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 30px; }
+    footer p { max-width: 750px; color: var(--muted); font-size: 12px; margin: 0; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; align-content: flex-start; font-size: 12px; }
+    dialog { width: min(1160px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 16px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); color: var(--text); box-shadow: 0 24px 90px #0006; }
+    dialog::backdrop { background: #051313d9; backdrop-filter: blur(6px); }
+    .lightbox-top, .lightbox-bottom { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .lightbox-top { margin-bottom: 12px; }
+    .lightbox-top h2 { font-size: 19px; }
+    .lightbox-image { width: 100%; max-height: calc(100dvh - 210px); object-fit: contain; background: var(--surface-alt); border-radius: 10px; }
+    .lightbox-caption { font-size: 12px; color: var(--muted); padding: 12px 0; }
+    .lightbox-bottom p { margin: 0; font-size: 12px; color: var(--muted); }
+    .lightbox-controls { display: flex; gap: 8px; }
+    .js.motion-ready .reveal:not(.is-visible) { opacity: 0; transform: translateY(22px); }
+    .js.motion-ready .reveal { transition: opacity .65s ease, transform .65s ease; }
+    @media (max-width: 1100px) {
+      .top-inner { gap: 12px; }
+      .brand { font-size: 17px; }
+      .nav-links a { font-size: 11px; padding-inline: 8px; }
+      .hero { gap: 28px; }
+      .problems .card { padding: 23px; }
+    }
+    @media (max-width: 900px) {
+      .top-inner { flex-wrap: wrap; }
+      .js .menu-toggle { display: inline-grid; }
+      .nav-links { flex-wrap: wrap; }
+      .js .nav-links { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); border-radius: 16px; padding: 12px; display: none; }
+      .js .nav-links.is-open { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav-links a { font-size: 13px; padding: 12px; }
+      html:not(.js) nav { width: 100%; order: 3; padding-bottom: 10px; }
+      .hero { grid-template-columns: 1fr; padding-top: 60px; gap: 36px; }
+      .hero-copy { max-width: 680px; }
+      .hero-visual { max-width: 650px; width: 100%; margin-inline: auto; }
+      .preview { transform: none; }
+      .problems { grid-template-columns: 1fr; }
+      .layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .layer::after { display: none; }
+      .section-head { align-items: flex-start; flex-direction: column; gap: 16px; }
+      .section-head > p { max-width: 650px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: calc(100% - 32px); }
+      .top-inner { min-height: 68px; gap: 8px; }
+      .brand { font-size: 16px; gap: 8px; }
+      .brand-mark { width: 30px; height: 30px; border-radius: 9px; }
+      .menu-toggle { font-size: 12px; padding-inline: 12px; }
+      .hero { padding-block: 44px 26px; gap: 28px; }
+      h1 { font-size: clamp(39px, 10.7vw, 60px); }
+      .hero .eyebrow { font-size: 9px; letter-spacing: .09em; flex-wrap: wrap; }
+      .hero .actions .button { flex: 1 1 140px; }
+      .hero-note { margin-left: 0; padding: 20px; }
+      .hero-bottom { align-items: flex-start; }
+      .hero-bottom > span { max-width: 180px; }
+      main > section:not(.hero) { padding-block: 52px; }
+      .section-head { margin-bottom: 24px; }
+      .gallery, .principles, .start { grid-template-columns: 1fr; }
+      .grid { gap: 16px; }
+      .card { padding: 23px; }
+      .stats { gap: 8px; }
+      .stat { padding: 16px 10px; border-radius: 12px; }
+      .stat-number { font-size: 34px; }
+      .stat-label { font-size: 11px; line-height: 1.4; }
+      .stat .small { font-size: 10px; }
+      th, td { padding: 12px 9px; font-size: 11px; }
+      th { font-size: 10px; }
+      th:last-child { width: 27%; }
+      caption { padding: 14px 12px; }
+      .layers { gap: 12px; }
+      .layer { padding: 20px 15px; }
+      .layer h3 { font-size: 15px; }
+      pre { padding: 16px; font-size: 11px; }
+      details { padding-inline: 17px; }
+      .footer-inner { flex-direction: column; gap: 22px; }
+      .lightbox-bottom p { max-width: 170px; }
+      dialog { padding: 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js.motion-ready .reveal:not(.is-visible) { opacity: 1; transform: none; }
+      .preview, .button:hover, .card:hover, .image-frame:hover img { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#tresc">Przejdź do treści</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="#tresc"><span class="brand-mark" aria-hidden="true">IA</span>InvestAnalyzer</a>
+      <nav aria-label="Sekcje strony">
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links">Menu <span aria-hidden="true">≡</span></button>
+        <div class="nav-links" id="nav-links">
+        <a href="#problem">Problem</a><a href="#zrzuty">Zrzuty</a><a href="#architektura">Jak to działa</a><a href="#jakosc">Jakość</a><a href="#dziennik">Dziennik</a><a href="#start">Szybki start</a>
+        </div>
+      </nav>
+      <button class="theme" id="theme-toggle" type="button" aria-label="Włącz ciemny motyw" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14a8.2 8.2 0 0 1-10-10A8.5 8.5 0 1 0 20 14Z"/></svg></button>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
+  </header>
+  <main class="wrap" id="tresc" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>InvestAnalyzer · lokalnie, bez chmury</p>
+        <h1 id="hero-title">Twój portfel.<br><span>Przejrzysty PIT-38.</span></h1>
+        <p class="lead">Lokalna aplikacja dla Windows, która łączy portfel inwestora z deterministycznym kalkulatorem PIT-38 na podstawie plików brokera. Portfel, notowania i alerty działają też jako aplikacja na telefon (PWA) w przeglądarce.</p>
+        <div class="badges" aria-label="Cechy projektu"><span class="badge">Windows</span><span class="badge">Silnik FIFO</span><span class="badge">Kursy NBP T-1</span><span class="badge">Tauri + React + Python</span><span class="badge">PWA na telefon</span></div>
+        <div class="actions"><a class="button primary" href="https://investanalyzer-app.dismonder.workers.dev/">Otwórz aplikację <span aria-hidden="true">↗</span></a><a class="button" href="https://github.com/Dismonder/InvestAnalyzer-PIT38/releases">Pobierz na Windows <span aria-hidden="true">↓</span></a><a class="button" href="https://github.com/Dismonder/InvestAnalyzer-PIT38">Repozytorium <span aria-hidden="true">↗</span></a></div>
+        <p class="small hero-footnote">PWA: portfel w przeglądarce. Rozliczenie PIT-38 wymaga wersji Windows lub lokalnego serwera z silnikiem Python.</p>
+      </div>
+      <div class="hero-visual">
+        <figure class="preview"><div class="preview-bar" aria-hidden="true"><i></i><i></i><i></i><span>InvestAnalyzer / Portfel</span></div><img src="./zrzuty/portfel.jpg" alt="Podgląd aplikacji: portfel inwestora z syntetycznymi aktywami" width="1280" height="800" decoding="async" fetchpriority="high"><figcaption>Rzeczywisty interfejs aplikacji · dane syntetyczne</figcaption></figure>
+        <article class="hero-note"><h2>Każda kwota ma ślad dowodowy.</h2><div class="evidence"><span>Plik</span><span>→ Kurs NBP</span><span>→ Partia FIFO</span><span>→ Wyliczenie</span><span>→ Podstawa prawna</span></div><p>Interfejs pokazuje wynik. Silnik Python liczy podatek. Rozliczenie z plików nie wymaga klucza API brokera.</p></article>
+      </div>
+      <div class="hero-bottom"><a class="scroll-cue" href="#problem">Poznaj projekt <span aria-hidden="true">↓</span></a><span>Strona projektu · stan na <time datetime="2026-10-02">2026-10-02</time></span></div>
+    </section>
+    <section id="problem" aria-labelledby="problem-title">
+      <div class="section-head reveal"><div><p class="eyebrow">01 / Od wyciągu do zeznania</p><h2 id="problem-title">Problem i rozwiązanie</h2></div><p>Wyciąg zagranicznego brokera nie zastępuje rozliczenia w Polsce.</p></div>
+      <div class="grid problems">
+        <article class="card reveal"><span class="tag">NBP T-1</span><h3>Przeliczenie na złote</h3><p>Przychody i koszty wymagają właściwego kursu. Silnik wybiera tabelę A z ostatniego dnia roboczego przed przychodem lub kosztem. Najpierw czyta lokalne CSV; brakujące kursy pobiera z NBP, jeśli fallback jest włączony.</p></article>
+        <article class="card reveal"><span class="tag">FIFO i koszty</span><h3>Historia nabycia</h3><p>Sprzedaż trzeba połączyć z zakupem. Silnik przypisuje najstarsze partie, także z historii wieloletniej, i oblicza koszty oraz dochód lub stratę. Sprzedaż ponad zapisany stan blokuje gotowość rozliczenia.</p></article>
+        <article class="card reveal"><span class="tag">Podatek u źródła / PIT-ZG</span><h3>Dywidendy zagraniczne</h3><p>Silnik uwzględnia podatek zapłacony za granicą i dopłatę do 19% w Polsce. Odliczenie nie przekracza polskiego podatku od tego dochodu. Pakiet PIT-38/PIT-ZG i eksport do e-PIT pomagają przenieść sprawdzony wynik do zeznania.</p></article>
+      </div>
+    </section>
+    <section id="zrzuty" aria-labelledby="zrzuty-title">
+      <div class="section-head reveal"><div><p class="eyebrow">02 / W środku aplikacji</p><h2 id="zrzuty-title">Zrzuty ekranu</h2></div><p>Dane syntetyczne we wszystkich widokach.</p></div>
+      <div class="grid gallery">
+        <figure class="reveal"><div class="image-frame"><a href="./zrzuty/portfel.jpg" data-lightbox aria-label="Powiększ zrzut: Portfel"><img src="./zrzuty/portfel.jpg" width="1280" height="800" alt="Widok portfela inwestora z aktywami i podsumowaniem — dane syntetyczne" loading="lazy" decoding="async"></a><span class="zoom" aria-hidden="true">↗</span></div><figcaption><strong>Portfel</strong><span>Podgląd aktywów i rachunków. Dane syntetyczne.</span></figcaption></figure>
+        <figure class="reveal"><div class="image-frame"><a href="./zrzuty/pit38.jpg" data-lightbox aria-label="Powiększ zrzut: PIT-38"><img src="./zrzuty/pit38.jpg" width="1280" height="800" alt="Widok rozliczenia PIT-38 — dane syntetyczne" loading="lazy" decoding="async"></a><span class="zoom" aria-hidden="true">↗</span></div><figcaption><strong>PIT-38</strong><span>Wynik rozliczenia i materiały do sprawdzenia. Dane syntetyczne.</span></figcaption></figure>
+        <figure class="reveal"><div class="image-frame"><a href="./zrzuty/wykresy.jpg" data-lightbox aria-label="Powiększ zrzut: Wykresy"><img src="./zrzuty/wykresy.jpg" width="1280" height="800" alt="Widok wykresów notowań — dane syntetyczne" loading="lazy" decoding="async"></a><span class="zoom" aria-hidden="true">↗</span></div><figcaption><strong>Wykresy</strong><span>Notowania i wybór instrumentu. Dane syntetyczne.</span></figcaption></figure>
+        <figure class="reveal"><div class="image-frame"><a href="./zrzuty/alerty.jpg" data-lightbox aria-label="Powiększ zrzut: Alerty"><img src="./zrzuty/alerty.jpg" width="1280" height="800" alt="Widok alertów cenowych inwestora — dane syntetyczne" loading="lazy" decoding="async"></a><span class="zoom" aria-hidden="true">↗</span></div><figcaption><strong>Alerty</strong><span>Alerty cenowe dla instrumentów. Dane syntetyczne.</span></figcaption></figure>
+        <figure class="reveal"><div class="image-frame"><a href="./zrzuty/transakcje.jpg" data-lightbox aria-label="Powiększ zrzut: Transakcje"><img src="./zrzuty/transakcje.jpg" width="1280" height="800" alt="Historia transakcji portfela — dane syntetyczne" loading="lazy" decoding="async"></a><span class="zoom" aria-hidden="true">↗</span></div><figcaption><strong>Transakcje</strong><span>Historia operacji w portfelu. Dane syntetyczne.</span></figcaption></figure>
+        <figure class="phone reveal"><div class="image-frame"><a href="./zrzuty/portfel-telefon.jpg" data-lightbox aria-label="Powiększ zrzut: Portfel na telefonie"><img src="./zrzuty/portfel-telefon.jpg" width="780" height="1688" alt="Portfel w wąskim widoku telefonu — dane syntetyczne" loading="lazy" decoding="async"></a><span class="zoom" aria-hidden="true">↗</span></div><figcaption><strong>Portfel na telefonie</strong><span>Dane syntetyczne. Wąski widok interfejsu; aplikacja desktop jest przeznaczona dla Windows.</span></figcaption></figure>
+      </div>
+    </section>
+    <section class="deferred" id="architektura" aria-labelledby="architektura-title">
+      <div class="section-head reveal"><div><p class="eyebrow">03 / Architektura</p><h2 id="architektura-title">Jak to działa</h2></div><p>Ten sam interfejs, oddzielny silnik podatkowy.</p></div>
+      <div class="layers reveal" aria-label="Warstwy: UI, runtime, silnik, dysk">
+        <article class="layer"><span>01 / Interfejs</span><h3>UI React / Vite</h3><p>Prezentacja danych. Interfejs nie liczy podatku.</p></article>
+        <article class="layer"><span>02 / Runtime</span><h3>Express / Tauri</h3><p>Serwer Express w web/dev. Powłoka Tauri w produkcyjnym desktopie, bez portu HTTP.</p></article>
+        <article class="layer"><span>03 / Obliczenia</span><h3>Python / PyInstaller</h3><p>Sidecar onedir. Kontrakt JSON, FIFO, kursy NBP i PIT-38.</p></article>
+        <article class="layer"><span>04 / Dane</span><h3>Pliki na dysku</h3><p>Dokumenty brokera, raporty, XLSX, JSON i pakiet PIT-38.</p></article>
+      </div>
+      <div class="grid principles">
+        <article class="card reveal"><h3>Local-first</h3><p>Pliki i wyniki pozostają na dysku. Silnik uzupełnia przez sieć tylko kursy NBP; notowania i integracje rachunków korzystają z zewnętrznych API.</p></article>
+        <article class="card reveal"><h3>Deterministyczny silnik</h3><p>Matematyka finansowa używa <code>decimal.Decimal</code>. Logika PIT, FIFO i NBP mieszka wyłącznie w <code>silnik/python/</code>.</p></article>
+        <article class="card reveal"><h3>Ślad dowodowy</h3><p>Wynik łączy dokument, kurs, partię i wyliczenie. Brak kursu, historii nabycia albo kompletnego wejścia blokuje uznanie wyniku za gotowy do złożenia.</p></article>
+        <article class="card reveal"><h3>Dane poza repo</h3><p>Pliki brokera, wyniki, kopie i logi pozostają poza kontrolą wersji. Bramka <code>assert:no-private-data</code> sprawdza pliki śledzone przez git.</p></article>
+      </div>
+      <details><summary>Kiedy rozliczenie wymaga uzupełnienia?</summary><div class="detail-content"><p>Silnik blokuje gotowość do złożenia przy braku kursu NBP, sprzedaży ponad stan FIFO, konflikcie wyciągów, niekompletnym wejściu albo kategorii wejściowej bez śladu w wyniku. Wynik ma wtedy status <code>CALCULATION_BLOCKED</code> i <code>filing_ready: false</code>.</p><p>Ręczne korekty, rozstrzygnięcia dowodowe i zamknięcia roku zapisują decyzje użytkownika. Kopie decyzji można przywrócić lub przenieść na inny komputer.</p></div></details>
+    </section>
+    <section class="deferred" id="jakosc" aria-labelledby="jakosc-title">
+      <div class="section-head reveal"><div><p class="eyebrow">04 / Weryfikacja projektu</p><h2 id="jakosc-title">Jakość</h2></div><p>Ostatnie zapisane wyniki z README, stan na 2026-10-01. Daty sprawdzeń podano poniżej.</p></div>
+      <div class="grid stats reveal" aria-label="Ostatnie zapisane wyniki testów">
+        <div class="stat"><span class="stat-number" data-count="990">990</span><span class="stat-label">TS / serwer · PASS</span><span class="small">2026-10-01</span></div>
+        <div class="stat"><span class="stat-number" data-count="904">904</span><span class="stat-label">Python · PASS</span><span class="small">2026-09-30</span></div>
+        <div class="stat"><span class="stat-number" data-count="110">110</span><span class="stat-label">Rust · PASS</span><span class="small">2026-09-30</span></div>
+      </div>
+      <div class="quality reveal">
+        <table><caption>Bramki i ostatnie zapisane wyniki weryfikacji</caption><thead><tr><th scope="col">Bramka</th><th scope="col">Wynik</th><th scope="col">Data sprawdzenia</th></tr></thead><tbody>
+          <tr><td><code>lint</code></td><td><span class="pass">PASS</span> · kontrola typów</td><td>2026-10-01</td></tr>
+          <tr><td>Testy TS / serwera</td><td><span class="pass">990 PASS</span></td><td>2026-10-01</td></tr>
+          <tr><td>Testy Python</td><td><span class="pass">904 PASS</span></td><td>2026-09-30</td></tr>
+          <tr><td>Testy Rust</td><td><span class="pass">110 PASS</span></td><td>2026-09-30</td></tr>
+          <tr><td><code>perf:bundle</code></td><td><span class="pass">PASS</span> · początkowy JS 464,9 kB / próg 500 kB</td><td>2026-10-01</td></tr>
+          <tr><td><code>assert:no-private-data</code></td><td><span class="pass">PASS</span> · kontrola danych prywatnych</td><td>2026-10-01</td></tr>
+        </tbody></table>
+      </div>
+      <p class="small quality-note">Ostatni pełny <code>npm run verify</code>: 2026-09-30; tego dnia potwierdzono również testy Rust. Testów Python i Rust nie powtarzano 2026-10-01. Zielone testy nie zastępują sprawdzenia rozliczenia z dokumentami.</p>
+    </section>
+    <section class="deferred" id="dziennik" aria-labelledby="dziennik-title">
+      <div class="section-head reveal"><div><p class="eyebrow">05 / Rozwój projektu</p><h2 id="dziennik-title">Dziennik</h2></div><p>Wpisy z <a href="https://github.com/Dismonder/InvestAnalyzer-PIT38/blob/main/docs/dziennik-zmian.md"><code>docs/dziennik-zmian.md</code></a>.</p></div>
+      <ol class="timeline">
+        <li class="reveal"><article><time datetime="2026-10-02">2026-10-02</time><h3>Układ dopracowany na telefonie</h3><p>Zmniejszono nagłówki i odstępy na wąskich ekranach. Akcje PIT-38 i rejestru transakcji mają układ w dwóch kolumnach, a filtry pozycji zajmują pełną szerokość. Sprawdzono portfel, wykresy i alerty na telefonie.</p></article></li>
+        <li class="reveal"><article><time datetime="2026-10-02">2026-10-02</time><h3>Portfel w przeglądarce</h3><p>W hostingu pozycje portfela liczy przeglądarka: FIFO i koszt w PLN po kursach NBP T-1. Kwoty PIT-38 pozostają nieobliczone. Uproszczono informacje o wersji na telefon i ukryto panele wymagające lokalnego silnika lub integracji brokera.</p></article></li>
+        <li class="reveal"><article><time datetime="2026-10-02">2026-10-02</time><h3>Aplikacja online jako PWA</h3><p>Dodano wersję na telefon i przeglądarkę, instalację na ekranie głównym oraz API notowań i kursów. Hosting działa na Cloudflare Workers w planie darmowym, bez bazy danych.</p></article></li>
+        <li class="reveal"><article><time datetime="2026-10-01">2026-10-01</time><h3>Strona projektu i wydanie Windows</h3><p>Opublikowano statyczną stronę projektu ze zrzutami na danych syntetycznych. Przygotowano wydanie przenośne, sprawdzono paczkę i silnik oraz potwierdzono bramki jakości i ochrony danych.</p></article></li>
+      </ol>
+      <details><summary>Wcześniejsze podsumowania zmian</summary><div class="detail-content"><ol class="timeline">
+        <li><time datetime="2026-10-02">2026-10-02</time><h3>Zamknięcie punktów do decyzji</h3><p>Dodano panel kwarantanny, zgodę na odzyskiwanie bez kompletnej kopii i ponowienie doczytania widoków. Zmniejszono pakiet startowy oraz zabezpieczono odczyt wadliwych wpisów i dane użytkownika przy usuwaniu pozostałości demo.</p></li>
+        <li><time datetime="2026-09-30">2026-09-30</time><h3>Poprawki po przeglądzie</h3><p>Poprawiono przepełnienia alertów, portfela i wykresów oraz neutralny stan wyniku PIT-38. Komunikaty odzyskiwania wskazują etap błędu i identyfikator zapisanej kopii.</p></li>
+        <li><time datetime="2026-09-30">2026-09-30</time><h3>Wznowienie dopracowania wyglądu</h3><p>Ograniczono szerokość wyszukiwarki wykresów i filtrów alertów. Długie nazwy rachunków zawijają się w kartach; sprawdzono także wąski ekran blokady dostępu.</p></li>
+        <li><time datetime="2026-09-30">2026-09-30</time><h3>Spójny wygląd i odzyskiwanie po błędzie</h3><p>Ujednolicono portfel i PIT-38 w obu motywach. Okna otrzymały anulowalny stan oczekiwania i obsługę błędu, a odzyskiwanie zabezpieczono kopią i lokalną kwarantanną.</p></li>
+        <li><time datetime="2026-09-30">2026-09-30</time><h3>Obsługa i motyw PIT-38</h3><p>Poprawiono kolory panelu rozliczenia i zerowanie przewijania przy zmianie zakładki. Odczyt preferencji odrzuca wadliwe wartości, a dodawanie tickera blokuje równoległe wysłania; pełny verify zakończył się powodzeniem.</p></li>
+      </ol></div></details>
+    </section>
+    <section class="deferred" id="start" aria-labelledby="start-title">
+      <div class="section-head reveal"><div><p class="eyebrow">06 / Wybierz swoją wersję</p><h2 id="start-title">Szybki start</h2></div><p>Aplikacja na telefon w przeglądarce. Wersja przenośna dla użytkownika Windows. Repozytorium dla programisty.</p></div>
+      <div class="grid start">
+        <article class="card reveal"><span class="tag">Telefon / przeglądarka</span><h3>Telefon i przeglądarka (PWA)</h3><p>Otwórz <a href="https://investanalyzer-app.dismonder.workers.dev/">investanalyzer-app.dismonder.workers.dev</a> i dodaj do ekranu głównego („Zainstaluj aplikację” w Chrome, „Dodaj do ekranu początkowego” w Safari). Działają portfel, notowania na żywo, wykresy i alerty; dane zostają w pamięci telefonu, dane portfela nie trafiają na serwer.</p><p class="small">Rozliczenie PIT-38, import plików brokera i integracje brokera wymagają wersji Windows albo lokalnego serwera — telefon nie ma silnika Pythona. Hosting: Cloudflare Workers w planie darmowym, bez bazy danych.</p></article>
+        <article class="card reveal"><span class="tag">Windows / wersja przenośna</span><h3>Użytkownik Windows</h3><p>Wydania i instrukcję instalacji znajdziesz na GitHubie. Uruchom program z kompletnego folderu paczki, razem z zasobami i katalogiem <code>binaries</code>. Node.js i systemowy Python nie są wymagane.</p><pre><code># W katalogu projektu, PowerShell
+&amp; ".\wydania\komputerowa\przenosna\najnowsza\InvestAnalyzer.exe"</code></pre><p class="small">Dane aplikacji: <code>%APPDATA%\InvestAnalyzer</code> i <code>%LOCALAPPDATA%\InvestAnalyzer</code>. Wydania i ZIP-y: <code>wydania/komputerowa/przenosna/wersje</code>.</p><div class="actions"><a class="button" href="https://github.com/Dismonder/InvestAnalyzer-PIT38/releases">Wydania i instalacja <span aria-hidden="true">↗</span></a></div></article>
+        <article class="card developer reveal"><span class="tag">Dla programisty</span><h3>Uruchom lokalnie</h3><p>Wymagania: Node.js 20+ i Python 3.12. W katalogu repozytorium wykonaj:</p><pre><code>npm install
+py -3.12 -m venv silnik/python/.venv
+silnik/python/.venv/Scripts/python.exe -m pip install -e "silnik/python[desktop,test]"
+npm run dev</code></pre><p class="small">Interfejs: <code>http://localhost:3000</code>. Pliki brokera: <code>dane/pliki/</code>, poza git. Desktop wymaga także Rust (msvc), Visual Studio Build Tools i WebView2; uruchomienie: <code>npm run desktop:dev</code>.</p><div class="actions"><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38#readme">README i kod źródłowy ↗</a></div></article>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><p>InvestAnalyzer · stan na 2026-10-02. Program nie stanowi porady podatkowej. Wynik wymaga weryfikacji z dokumentami i obowiązującymi przepisami. Oprogramowanie jest udostępniane bez gwarancji poprawności rozliczenia; odpowiedzialność za zeznanie ponosi podatnik.</p><div class="footer-links"><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38">Repozytorium ↗</a><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38/releases">Wydania ↗</a><a href="#tresc">Na górę ↑</a></div></div></footer>
+  <dialog id="lightbox" aria-labelledby="lightbox-title" aria-describedby="lightbox-help">
+    <div class="lightbox-top"><h2 id="lightbox-title">Zrzut ekranu</h2><button class="icon-button" id="lightbox-close" type="button" aria-label="Zamknij podgląd" autofocus>×</button></div>
+    <figure><img class="lightbox-image" id="lightbox-image" src="./zrzuty/portfel.jpg" alt="Portfel inwestora — dane syntetyczne" width="1280" height="800" loading="lazy"><figcaption class="lightbox-caption" id="lightbox-caption" aria-live="polite"></figcaption></figure>
+    <div class="lightbox-bottom"><p id="lightbox-help">Strzałki ← → zmieniają zrzut. Esc zamyka podgląd.</p><div class="lightbox-controls"><button class="icon-button" id="lightbox-prev" type="button" aria-label="Poprzedni zrzut">←</button><button class="icon-button" id="lightbox-next" type="button" aria-label="Następny zrzut">→</button></div></div>
+  </dialog>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const preference = matchMedia('(prefers-color-scheme: dark)');
+      const themeButton = document.getElementById('theme-toggle');
+      const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : preference.matches;
+      function updateTheme() {
+        const dark = isDark();
+        themeButton.setAttribute('aria-pressed', String(dark));
+        themeButton.setAttribute('aria-label', dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw');
+        themeButton.title = dark ? 'Włącz jasny motyw' : 'Włącz ciemny motyw';
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#0b191a' : '#f4f7f5';
+      }
+      themeButton.addEventListener('click', () => {
+        root.dataset.theme = isDark() ? 'light' : 'dark';
+        try { localStorage.setItem('investanalyzer-project-theme', root.dataset.theme); } catch (_) {}
+        updateTheme();
+      });
+      preference.addEventListener('change', updateTheme);
+      updateTheme();
+
+      const menuButton = document.querySelector('.menu-toggle');
+      const menu = document.getElementById('nav-links');
+      function closeMenu(returnFocus = false) {
+        menu.classList.remove('is-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        if (returnFocus) menuButton.focus();
+      }
+      menuButton.addEventListener('click', () => {
+        const open = menu.classList.toggle('is-open');
+        menuButton.setAttribute('aria-expanded', String(open));
+      });
+      menu.addEventListener('click', event => {
+        const link = event.target.closest('a');
+        if (!link) return;
+        event.preventDefault();
+        closeMenu();
+        const section = document.querySelector(link.hash);
+        section.scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth' });
+        const heading = section.querySelector('h2');
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+        try { history.replaceState(null, '', link.hash); } catch (_) {}
+      });
+      document.addEventListener('click', event => {
+        if (!event.target.closest('nav')) closeMenu();
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menu.classList.contains('is-open')) closeMenu(true);
+      });
+      matchMedia('(min-width: 901px)').addEventListener('change', () => closeMenu());
+
+      const revealElements = [...document.querySelectorAll('.reveal')];
+      const counters = [...document.querySelectorAll('[data-count]')];
+      const counted = new WeakSet();
+      function countUp(counter) {
+        if (counted.has(counter)) return;
+        counted.add(counter);
+        if (reduced.matches) return;
+        const target = Number(counter.dataset.count);
+        const start = performance.now();
+        function frame(now) {
+          const progress = Math.min((now - start) / 1100, 1);
+          counter.textContent = String(Math.round(target * (1 - Math.pow(1 - progress, 3))));
+          if (progress < 1 && !reduced.matches) requestAnimationFrame(frame);
+          else counter.textContent = counter.dataset.count;
+        }
+        requestAnimationFrame(frame);
+      }
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.06 });
+        revealElements.forEach(element => revealObserver.observe(element));
+        const counterObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            countUp(entry.target);
+            counterObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.5 });
+        counters.forEach(counter => counterObserver.observe(counter));
+        const links = [...menu.querySelectorAll('a')];
+        const activeSections = new Set();
+        const sectionObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) activeSections.add(entry.target);
+            else activeSections.delete(entry.target);
+          });
+          const active = [...activeSections].sort((a, b) => Math.abs(a.getBoundingClientRect().top - 90) - Math.abs(b.getBoundingClientRect().top - 90))[0];
+          links.forEach(link => {
+            if (active && link.hash === '#' + active.id) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          });
+        }, { rootMargin: '-80px 0px -55% 0px', threshold: 0 });
+        links.forEach(link => sectionObserver.observe(document.querySelector(link.hash)));
+        if (!reduced.matches) root.classList.add('motion-ready');
+      }
+      reduced.addEventListener('change', () => {
+        if (reduced.matches) {
+          root.classList.remove('motion-ready');
+          revealElements.forEach(element => element.classList.add('is-visible'));
+          counters.forEach(counter => { counter.textContent = counter.dataset.count; });
+        }
+      });
+
+      const progressBar = document.querySelector('.scroll-progress');
+      let progressPending = false;
+      function updateProgress() {
+        const height = root.scrollHeight - root.clientHeight;
+        progressBar.style.transform = 'scaleX(' + (height > 0 ? Math.min(Math.max(window.scrollY / height, 0), 1) : 0) + ')';
+        progressPending = false;
+      }
+      function scheduleProgress() {
+        if (!progressPending) { progressPending = true; requestAnimationFrame(updateProgress); }
+      }
+      window.addEventListener('scroll', scheduleProgress, { passive: true });
+      window.addEventListener('resize', scheduleProgress);
+      if ('ResizeObserver' in window) new ResizeObserver(scheduleProgress).observe(document.body);
+      updateProgress();
+
+      const dialog = document.getElementById('lightbox');
+      const shots = [...document.querySelectorAll('[data-lightbox]')];
+      const largeImage = document.getElementById('lightbox-image');
+      let selected = 0;
+      let opener = null;
+      function showShot(index) {
+        selected = (index + shots.length) % shots.length;
+        const shot = shots[selected];
+        const image = shot.querySelector('img');
+        const caption = shot.closest('figure').querySelector('figcaption');
+        largeImage.width = Number(image.getAttribute('width'));
+        largeImage.height = Number(image.getAttribute('height'));
+        largeImage.src = shot.href;
+        largeImage.alt = image.alt;
+        document.getElementById('lightbox-title').textContent = caption.querySelector('strong').textContent;
+        document.getElementById('lightbox-caption').textContent = (selected + 1) + ' / ' + shots.length + ' · ' + caption.querySelector('span').textContent;
+      }
+      if (typeof dialog.showModal === 'function') {
+        shots.forEach((shot, index) => shot.addEventListener('click', event => {
+          event.preventDefault();
+          opener = shot;
+          showShot(index);
+          dialog.showModal();
+        }));
+        document.getElementById('lightbox-close').addEventListener('click', () => dialog.close());
+        document.getElementById('lightbox-prev').addEventListener('click', () => showShot(selected - 1));
+        document.getElementById('lightbox-next').addEventListener('click', () => showShot(selected + 1));
+        dialog.addEventListener('keydown', event => {
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            event.preventDefault();
+            showShot(selected + (event.key === 'ArrowLeft' ? -1 : 1));
+          }
+          if (event.key === 'Tab') {
+            const controls = [...dialog.querySelectorAll('button')];
+            const first = controls[0];
+            const last = controls[controls.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+          }
+        });
+        dialog.addEventListener('click', event => {
+          const rect = dialog.getBoundingClientRect();
+          if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
+        });
+        dialog.addEventListener('close', () => { if (opener) opener.focus({ preventScroll: true }); });
+      }
+      root.classList.add('js');
+    })();
+  </script>
+</body>
+</html>

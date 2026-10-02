@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  /* Telefon: wysokosc okna zmienia sie z chowaniem paska adresu; dvh podaza za nia
+     (100% zostawialo pusty pas na dole po schowaniu paska). */
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Telefon: tytuly sekcji w jednym-dwoch wierszach zamiast trzech; reguła poza
+   warstwami Tailwinda, wiec wygrywa z klasami text-xl/2xl bez ruszania widokow. */
+@media (max-width: 639px) {
+  main h1 {
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+  main h2 {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+}
+
+/* Ekrany dotykowe: bez podswietlenia dotkniecia i bez opoznienia podwojnego
+   stukniecia na elementach klikalnych. */
+@media (pointer: coarse) {
+  button,
+  a,
+  label,
+  select,
+  [role="button"],
+  [role="tab"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Cel dotykowy co najmniej 36 px wysokosci (przegladarka S25: chipy i
+     przyciski akcji mialy 24-30 px). Przelaczniki maja wlasna wysokosc. */
+  button:not([role="switch"]),
+  [role="button"]:not([role="switch"]),
+  [role="tab"] {
+    min-height: 2.25rem;
+  }
+}
+
+/* Tlo dokumentu zanim React narysuje aplikacje (kolory glownego kontenera:
+   slate-100 / slate-950) i ciemne paski przewijania oraz kontrolki systemowe. */
+html {
+  background-color: #f1f5f9;
+}
+html.dark {
+  background-color: #020617;
+  color-scheme: dark;
+}
+
+@layer utilities {
+  .ia-scroll-container {
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .ia-history-scroll {
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable both-edges;
+    contain: layout paint;
+    transform: translateZ(0);
+  }
+
+  .ia-content-visibility {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 720px;
+  }
+
+  .ia-gpu-composite {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ia-scroll-container,
+    .ia-history-scroll,
+    .ia-gpu-composite {
+      transform: none;
+    }
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #cbd5e1; 
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; 
+  }
+}
+
+/* Zablokowany przycisk ma wygladac na zablokowany. Wiele przyciskow (eksport
+   PDF/XML/CSV przy blokadach rozliczenia, kopiowanie pol PIT, akcje pozycji
+   bez rachunku) mialo `disabled` bez zadnego stylu i wygladalo na aktywne.
+   Regula jest poza warstwami, zeby wygrac z `cursor-pointer`; pomija
+   przyciski, ktore same stylizuja stan (wariant `disabled:` lub przezroczystosc). */
+button:disabled:not([class*="disabled:"]):not([class*="opacity"]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Widoczny fokus klawiatury. Okolo 40 pol i przyciskow mialo
+   `focus:outline-none` bez zadnego zamiennika, wiec przy nawigacji Tab nie
+   bylo widac, gdzie jest fokus. Regula poza warstwami wygrywa z
+   `outline-none`; pomija elementy z wlasnym stylem fokusu (ring, obramowanie). */
+:is(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible:not([class*="focus:ring"]):not([class*="focus:border"]):not([class*="focus-visible:"]) {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+
+/* Kontrast szarego tekstu w jasnym motywie. `text-slate-400` na bialym tle
+   ma 2,4-2,6:1 (WCAG dla malego tekstu: 4,5:1), a ok. 150 miejsc uzywa go do
+   tresci informacyjnych (puste stany, etykiety kwot, "poz. 29"). W jasnym
+   motywie zamieniamy go na slate-500 (ok. 4,8:1) - z wyjatkiem ciemnych kart
+   (tam slate-400 jest jasnym tekstem na ciemnym tle) i stanu :hover, zeby
+   klasy hover:text-* dalej dzialaly. `[class~=...]` lapie tylko klase bez
+   wariantu, a nie dark:bg-... */
+:root:not(.dark) .text-slate-400:not(:hover):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"])):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"]) *) {
+  color: var(--color-slate-500);
+}
+/* Warsztat ("Dokumenty i silnik") uzywa palety gray: text-gray-400 w ok. 230
+   miejscach, na bialym 2,6:1. Ta sama zamiana na odcien 500 (ok. 4,8:1). */
+:root:not(.dark) .text-gray-400:not(:hover):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"])):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"]) *) {
+  color: var(--color-gray-500);
+}
+
+/* Kolorowy tekst w odcieniach 500/600 na jasnym tle (ok. 170 miejsc: zmiany
+   kursu, statusy, plakietki) ma 2,1-3,8:1 - ponizej 4,5:1. W jasnym motywie
+   odcien 700 tej samej barwy (4,9-6,3:1). Poza regula: ikony SVG (ozdobne,
+   obok jest tekst), ciemne karty i :hover. */
+:root:not(.dark) :is(.text-emerald-500, .text-emerald-600, .text-green-500):not(svg, svg *, :hover):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"]) *) { color: var(--color-emerald-700); }
+:root:not(.dark) :is(.text-amber-500, .text-amber-600, .text-orange-500):not(svg, svg *, :hover):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"]) *) { color: var(--color-amber-700); }
+:root:not(.dark) :is(.text-rose-500, .text-red-500):not(svg, svg *, :hover):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"]) *) { color: var(--color-rose-700); }
+:root:not(.dark) :is(.text-blue-500, .text-indigo-500):not(svg, svg *, :hover):not(:is([class~="bg-slate-800"], [class~="bg-slate-900"], [class~="bg-slate-950"], [class~="bg-gray-800"], [class~="bg-gray-900"], [class~="bg-gray-950"], [class~="bg-black"], [class*="from-slate-9"], [class*="from-blue-9"], [class*="from-indigo-9"]) *) { color: var(--color-blue-700); }
+
+/* To samo w ciemnym motywie: `text-slate-500` bez wlasnego wariantu dark:
+   ma na tle slate-900 ok. 3,7:1. Jasniejszy slate-400 daje ok. 6:1. Elementy
+   z wlasnym dark:text-* i stan :hover zostaja bez zmian. */
+.dark .text-slate-500:not([class*="dark:text-"]):not(:hover) {
+  color: var(--color-slate-400);
+}
+
+/* ==========================================================================
+   Portfel inwestora - warstwa wizualna przeniesiona z Kalkulatora PIT-38
+   ========================================================================== */
+
+/* Cienki, zaokraglony pasek przewijania w calej aplikacji */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.dark * {
+  scrollbar-color: #334155 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background-color: #334155;
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background-color: #475569;
+}
+
+/* Wstegi filtrow i zakladek przewijane w poziomie maja byc bez paska. Klasa
+   `scrollbar-none` z Tailwinda lezy w warstwie utilities, a regula `*` wyzej
+   jest poza warstwami i z nia wygrywa - pasek zostawal widoczny pod filtrami. */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tooltipy Recharts - wysoki kontrast w obu motywach */
+.recharts-default-tooltip {
+  background-color: #0f172a !important;
+  border: 1px solid #334155 !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3) !important;
+  padding: 8px 12px !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.recharts-tooltip-label {
+  color: #f8fafc !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  margin-bottom: 4px !important;
+  letter-spacing: 0.025em !important;
+}
+
+.recharts-tooltip-item-list {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+.recharts-tooltip-item {
+  color: #e2e8f0 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 2px 0 !important;
+}
+
+.recharts-tooltip-item-name {
+  color: #94a3b8 !important;
+  margin-right: 4px !important;
+}
+
+.recharts-tooltip-item-value {
+  color: #38bdf8 !important;
+  font-weight: 700 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
+
+.recharts-tooltip-item-unit {
+  color: #94a3b8 !important;
+  margin-left: 2px !important;
+}

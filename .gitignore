@@ -1,0 +1,47 @@
+node_modules/
+build/
+wydania/
+dane/pliki/*
+!dane/pliki/.gitkeep
+dane/out/*
+!dane/out/.gitkeep
+# Kopie decyzji uzytkownika - ta sama tresc co jego wlasne wpisy w aplikacji.
+dane/backupy/*
+!dane/backupy/.gitkeep
+dane/tymczasowe/*
+!dane/tymczasowe/.gitkeep
+dane/logi/*
+!dane/logi/.gitkeep
+silnik/python/.pytest_cache/
+silnik/python/tmp/
+silnik/python/out/
+# Wyniki uruchomien silnika w korzeniu repozytorium - te same dane co dane/out.
+out/
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+aplikacje/komputerowa/tauri/target/
+aplikacje/komputerowa/tauri/binaries/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+aplikacje/komputerowa/tauri/gen/
+
+# Logi narzedzi uruchamianych lokalnie (audyt npm, dzienniki MCP).
+logs/
+
+# Credentiale brokera (tylko lokalnie, nigdy do repo)
+/dane/API/
+
+# Probki cen z sesji nocnej zbierane przez serwer (dane lokalne)
+/dane/notowania_nocne/
+
+# Archiwum lokalne: odlozone raporty brokera i notatki (dane prywatne)
+/dane/archiwum/
+docs/zrzuty/raport.json
+.wrangler/

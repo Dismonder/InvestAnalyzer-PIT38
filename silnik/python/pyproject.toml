@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "investment-tax-engine"
+version = "0.2.0"
+description = "Deterministyczny, fail-closed i w pełni audytowalny silnik podatkowy"
+authors = [{name = "Author"}]
+dependencies = [
+    "pandas>=2.0.0",
+    "openpyxl>=3.1.2",
+    "requests>=2.31.0",
+    # Odczyt taryfy oplat z PDF - kontrola spojnosci naliczen za ujemne saldo.
+    "pypdf>=4.0.0"
+]
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+desktop = [
+    "pyinstaller>=6.0.0"
+]
+test = [
+    "pytest>=7.0"
+]
+
+[project.scripts]
+invest-tax = "investment_tax_engine.app.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100

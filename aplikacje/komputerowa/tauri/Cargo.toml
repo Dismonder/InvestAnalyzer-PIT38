@@ -1,0 +1,32 @@
+[package]
+name = "invest-analyzer-desktop"
+version = "0.2.0"
+description = "InvestAnalyzer desktop shell"
+authors = ["InvestAnalyzer"]
+edition = "2021"
+
+[lib]
+name = "invest_analyzer_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+base64 = "0.22"
+chrono = { version = "0.4", features = ["serde"] }
+hmac = "0.12"
+hex = "0.4"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+tauri = { version = "2", features = [] }
+tauri-plugin-http = "2"
+uuid = { version = "1", features = ["v4", "serde"] }
+walkdir = "2"
+
+[features]
+# Test na zywym API Freedom24 (tylko odczyt), uruchamiany jawnie:
+# cargo test --lib --features freedom24-live real_read_only
+freedom24-live = []

@@ -1,0 +1,100 @@
+{
+  "date_start": "2025-01-01",
+  "date_end": "2026-12-31",
+  "plainAccountInfoData": {
+    "account_type": "standard",
+    "client_name": "Konto testowe",
+    "client_code": "TEST0001",
+    "base_currency": "USD",
+    "tariff_name": "Testowa",
+    "client_date_open": "2025-01-01"
+  },
+  "depoData": [
+    {
+      "name": "TEST.US",
+      "instr_nm": "TEST.US",
+      "isin": "US0000000000",
+      "quantity_at_start": 0,
+      "quantity_at_end": 0,
+      "currency": "USD"
+    },
+    {
+      "name": "PROBA.US",
+      "instr_nm": "PROBA.US",
+      "isin": "US0000000001",
+      "quantity_at_start": 0,
+      "quantity_at_end": 23,
+      "currency": "USD"
+    },
+    {
+      "name": "BONUS.US",
+      "instr_nm": "BONUS.US",
+      "isin": "US0000000002",
+      "quantity_at_start": 0,
+      "quantity_at_end": 3,
+      "currency": "USD"
+    }
+  ],
+  "repo_at_start": {},
+  "repo_at_end": {},
+  "swap_at_start": {},
+  "swap_at_end": {},
+  "depo_at_start": {},
+  "depo_at_end": {},
+  "mkt_prices": {
+    "TEST.US": 145.0,
+    "PROBA.US": 62.5,
+    "BONUS.US": 15.0
+  },
+  "unique_securities": [
+    "TEST.US",
+    "PROBA.US",
+    "BONUS.US"
+  ],
+  "securities_in_outs": [
+    {
+      "id": 700000001,
+      "type": "stock_award",
+      "ticker": "BONUS.US",
+      "quantity": 3,
+      "market_value": 45.0,
+      "cost": 0,
+      "pay_d": "2025-05-06",
+      "datetime": "2025-05-06 10:00:00",
+      "balance_currency": "USD",
+      "commission_currency": "USD"
+    },
+    {
+      "id": 700000002,
+      "type": "maturity",
+      "ticker": "STRUKT4017.AUG25",
+      "quantity": 1,
+      "market_value": 111.0,
+      "cost": 100.0,
+      "pay_d": "2025-08-19",
+      "datetime": "2025-08-19 10:00:00",
+      "balance_currency": "USD",
+      "commission_currency": "USD"
+    }
+  ],
+  "securities_flows_json": [
+    {
+      "ticker": "BONUS.US",
+      "instr_type": "1",
+      "mkt_id": "30000000001",
+      "quantity_at_end": 3
+    },
+    {
+      "ticker": "PROBA.US",
+      "instr_type": "1",
+      "mkt_id": "30000000001",
+      "quantity_at_end": 23
+    },
+    {
+      "ticker": "STRUKT4017.AUG25",
+      "instr_type": "19",
+      "mkt_id": "30000000046",
+      "quantity_at_end": 0
+    }
+  ]
+}
