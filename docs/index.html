@@ -357,7 +357,7 @@
     <section class="deferred" id="start" aria-labelledby="start-title">
       <div class="section-head reveal"><div><p class="eyebrow">06 / Wybierz swoją wersję</p><h2 id="start-title">Szybki start</h2></div><p>Aplikacja na telefon w przeglądarce. Wersja przenośna dla użytkownika Windows. Repozytorium dla programisty.</p></div>
       <div class="grid start">
-        <article class="card reveal"><span class="tag">Telefon / przeglądarka</span><h3>Telefon i przeglądarka (PWA)</h3><p>Otwórz <a href="https://investanalyzer-app.dismonder.workers.dev/">investanalyzer-app.dismonder.workers.dev</a> i dodaj do ekranu głównego („Zainstaluj aplikację” w Chrome, „Dodaj do ekranu początkowego” w Safari). Działają portfel, notowania na żywo, wykresy i alerty; dane zostają w pamięci telefonu, dane portfela nie trafiają na serwer.</p><p class="small">Rozliczenie PIT-38, import plików brokera i integracje brokera wymagają wersji Windows albo lokalnego serwera — telefon nie ma silnika Pythona. Hosting: Cloudflare Workers w planie darmowym, bez bazy danych.</p></article>
+        <article class="card reveal"><span class="tag">Telefon / przeglądarka</span><h3>Telefon i przeglądarka (PWA)</h3><p>Otwórz <a href="https://investanalyzer-app.dismonder.workers.dev/">investanalyzer-app.dismonder.workers.dev</a> i dodaj do ekranu głównego („Zainstaluj aplikację” w Chrome, „Dodaj do ekranu początkowego” w Safari). Działają portfel, notowania na żywo, wykresy i alerty; dane portfela zostają w pamięci telefonu; na serwer trafiają tylko symbole instrumentów, o które pytasz (notowania, kursy NBP).</p><p class="small">Rozliczenie PIT-38, import plików brokera i integracje brokera wymagają wersji Windows albo lokalnego serwera — telefon nie ma silnika Pythona. Hosting: Cloudflare Workers w planie darmowym, bez bazy danych.</p></article>
         <article class="card reveal"><span class="tag">Windows / wersja przenośna</span><h3>Użytkownik Windows</h3><p>Wydania i instrukcję instalacji znajdziesz na GitHubie. Uruchom program z kompletnego folderu paczki, razem z zasobami i katalogiem <code>binaries</code>. Node.js i systemowy Python nie są wymagane.</p><pre><code># W katalogu projektu, PowerShell
 &amp; ".\wydania\komputerowa\przenosna\najnowsza\InvestAnalyzer.exe"</code></pre><p class="small">Dane aplikacji: <code>%APPDATA%\InvestAnalyzer</code> i <code>%LOCALAPPDATA%\InvestAnalyzer</code>. Wydania i ZIP-y: <code>wydania/komputerowa/przenosna/wersje</code>.</p><div class="actions"><a class="button" href="https://github.com/Dismonder/InvestAnalyzer-PIT38/releases">Wydania i instalacja <span aria-hidden="true">↗</span></a></div></article>
         <article class="card developer reveal"><span class="tag">Dla programisty</span><h3>Uruchom lokalnie</h3><p>Wymagania: Node.js 20+ i Python 3.12. W katalogu repozytorium wykonaj:</p><pre><code>npm install
@@ -367,7 +367,7 @@ npm run dev</code></pre><p class="small">Interfejs: <code>http://localhost:3000<
       </div>
     </section>
   </main>
-  <footer><div class="wrap footer-inner"><p>InvestAnalyzer · stan na 2026-10-02. Program nie stanowi porady podatkowej. Wynik wymaga weryfikacji z dokumentami i obowiązującymi przepisami. Oprogramowanie jest udostępniane bez gwarancji poprawności rozliczenia; odpowiedzialność za zeznanie ponosi podatnik.</p><div class="footer-links"><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38">Repozytorium ↗</a><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38/releases">Wydania ↗</a><a href="#tresc">Na górę ↑</a></div></div></footer>
+  <footer><div class="wrap footer-inner"><p>© 2026 Dismonder · InvestAnalyzer · stan na 2026-10-07. Program nie stanowi porady podatkowej. Wynik wymaga weryfikacji z dokumentami i obowiązującymi przepisami. Oprogramowanie jest udostępniane bez gwarancji poprawności rozliczenia; odpowiedzialność za zeznanie ponosi podatnik.</p><div class="footer-links"><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38">Repozytorium ↗</a><a href="https://github.com/Dismonder/InvestAnalyzer-PIT38/releases">Wydania ↗</a><a href="/prywatnosc.html">Prywatność i cookies</a><a href="#tresc">Na górę ↑</a></div></div></footer>
   <dialog id="lightbox" aria-labelledby="lightbox-title" aria-describedby="lightbox-help">
     <div class="lightbox-top"><h2 id="lightbox-title">Zrzut ekranu</h2><button class="icon-button" id="lightbox-close" type="button" aria-label="Zamknij podgląd" autofocus>×</button></div>
     <figure><img class="lightbox-image" id="lightbox-image" src="./zrzuty/portfel.jpg" alt="Portfel inwestora — dane syntetyczne" width="1280" height="800" loading="lazy"><figcaption class="lightbox-caption" id="lightbox-caption" aria-live="polite"></figcaption></figure>
@@ -411,11 +411,14 @@ npm run dev</code></pre><p class="small">Interfejs: <code>http://localhost:3000<
         if (!link) return;
         event.preventDefault();
         closeMenu();
-        const section = document.querySelector(link.hash);
+        const section = link.hash && /^#[A-Za-z][\w-]*$/.test(link.hash) ? document.getElementById(link.hash.slice(1)) : null;
+        if (!section) return;
         section.scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth' });
         const heading = section.querySelector('h2');
-        heading.setAttribute('tabindex', '-1');
-        heading.focus({ preventScroll: true });
+        if (heading) {
+          heading.setAttribute('tabindex', '-1');
+          heading.focus({ preventScroll: true });
+        }
         try { history.replaceState(null, '', link.hash); } catch (_) {}
       });
       document.addEventListener('click', event => {
@@ -473,7 +476,10 @@ npm run dev</code></pre><p class="small">Interfejs: <code>http://localhost:3000<
             else link.removeAttribute('aria-current');
           });
         }, { rootMargin: '-80px 0px -55% 0px', threshold: 0 });
-        links.forEach(link => sectionObserver.observe(document.querySelector(link.hash)));
+        links.forEach(link => {
+          const section = link.hash && /^#[A-Za-z][\w-]*$/.test(link.hash) ? document.getElementById(link.hash.slice(1)) : null;
+          if (section) sectionObserver.observe(section);
+        });
         if (!reduced.matches) root.classList.add('motion-ready');
       }
       reduced.addEventListener('change', () => {

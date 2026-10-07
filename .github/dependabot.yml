@@ -1,0 +1,26 @@
+# Dependabot: cotygodniowe propozycje aktualizacji zaleznosci npm (bezpieczenstwo
+# i wersje), pogrupowane, zeby nie zalewac repozytorium pojedynczymi PR-ami.
+# Pakiet `xlsx` jest instalowany z oficjalnego wydania SheetJS (tgz), nie z npm -
+# Dependabot go pomija; nowe wydania: https://docs.sheetjs.com/docs/getting-started/installation/nodejs
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Warsaw
+    open-pull-requests-limit: 5
+    groups:
+      bezpieczenstwo:
+        applies-to: security-updates
+        patterns: ["*"]
+      zaleznosci:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

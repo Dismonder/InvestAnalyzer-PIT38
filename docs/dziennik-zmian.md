@@ -2,6 +2,41 @@
 
 Format: data · kto · co · plik(i) · stan weryfikacji. Najnowsze na górze.
 
+- 2026-10-07 · wdrożenie obu Workerów (`hosting:deploy`, `strona:deploy`) na polecenie
+  użytkownika; produkcja sprawdzona curlem i w przeglądarce (nagłówki, brak cookies, 400/405/403/501, krypto przez
+  `SOL-USD`, pamięć brzegowa, service worker aktywny, CSP strony ze skrótami). Szczegóły: README, sekcja o wersji online.
+- 2026-10-07 · dwie poprawki przed wdrożeniem:
+  kryptowaluty w API hostingu pytane u Yahoo jako para z dolarem (`SOL-USD`), nie goły symbol akcji
+  (`shared/symbolDostawcy.ts`: `KRYPTOWALUTY`, `symbolYahooKrypto`; `apiHostowane.ts`); powłoka PWA tylko pod `/`
+  (hosting przekierowuje `/index.html` → `/`), service worker zapisuje czyste kopie bez `redirected`
+  (`sw.szablon.js`, `vite.config.ts`). Testy: `serviceWorker.test.ts` ×4, krypto w `apiHostowane`; razem 1042 PASS.
+- 2026-10-07 · druga runda po triażu audytu: Worker — wspólne walidatory `shared/walidacjaNotowan.ts`, budżet
+  subrequestów (44/50, pominięte instrumenty jawnie w `staleTickers`), biała lista walut NBP, `force` jako świeżość ≤ 5 s,
+  limit notowań po chybieniu pamięci, klucz IPv6 /64, `same-site` → 403 (testy ×32); SW — kontrola typu treści, strony
+  osobne pod własnym kluczem; PWA — przepływ aktualizacji (`POMIN_OCZEKIWANIE`, jedno odświeżenie przy schowanej karcie,
+  `update()` ≤ 1/h); `trybHostingu` bez pętli przeładowań; `marketDataService` — odstęp ≥ 10 s w hostingu i wstrzymanie
+  po 429 (`Retry-After`); `czyszczenieDanych.ts` — „Wyczyść wszystko” czyści localStorage/sessionStorage/IndexedDB i
+  przeładowuje; rachunki w hostingu bez zapisu kluczy API; tekst 2FA zgodny z prawdą; Express — `same-site` 403,
+  `server.cjs` 404, walidacja `quotes.ts`/`nbp.ts`, limity czasu, czyszczenie `%TEMP%` silnika; Vite `server.fs.deny`;
+  `security.txt` z kanałem GitHub Security Advisories, `head_sampling_rate: 0.25`, polityka (cookie techniczne
+  Cloudflare, próbkowanie, 2FA), `docs/index.html` (guard kotwic, stopka ©), README, `engines.node`. Weryfikacja:
+  tsc PASS, 1037 testów PASS, build/perf/strona:build PASS, `wrangler dev` 8788/8787 w przeglądarce (400 walut,
+  świeżość `force`, 150× trafień bez 429, SW klucze, CSP strony). Nie wdrożono.
+- 2026-10-07 · zabezpieczenie wersji
+  online. Worker: walidacja wejścia, `GET`/`HEAD` tylko (405/204), 403 dla `Sec-Fetch-Site: cross-site`, limity per IP
+  (`ratelimits` 300/min i 120/min → 429), kanoniczne klucze cache, limit 4 MiB odpowiedzi dostawcy, nagłówki API,
+  `try/catch` → 500, `preview_urls: false` (`src/hosting/apiHostowane.ts`, `worker.ts`, `wrangler.jsonc`; testy
+  `apiHostowane` ×19). Statyczne: `public/_headers` (CSP `script-src 'self'`, HSTS, nosniff, Permissions-Policy, COOP/CORP,
+  cache), `public/.well-known/security.txt`, service worker zapisuje tylko `ok` + `basic` (`sw.szablon.js`). Prawo:
+  polityka prywatności `docs/prywatnosc.html` (brak cookies, art. 399 ust. 3 PKE, logi Cloudflare 3 dni, RODO) — w
+  wydaniu aplikacji przez wtyczkę w `vite.config.ts`, linki w `PortfelApp.tsx` i `InvestSettingsPanel.tsx`, stopka
+  `docs/index.html`. Strona: `zbuduj-strone.mjs` generuje `_headers` z CSP po skrótach SHA-256 skryptów inline i
+  `security.txt`. Express: `x-powered-by` off, Permissions-Policy/COOP/CORP, CSP w trybie wydania. Zależności: `xlsx`
+  → SheetJS 0.20.3 z cdn.sheetjs.com, `npm audit fix` (express 4.22.3 i spółka), `.github/dependabot.yml`.
+  Weryfikacja: lint PASS, 1021 testów PASS, build/perf/strona:build PASS, `wrangler dev` 8788/8787 w przeglądarce:
+  nagłówki, 400/405/429, SW, CSP bez naruszeń. Nie wdrożono (decyzja użytkownika). Spec:
+  `docs/superpowers/specs/2026-10-07-zabezpieczenie-hostingu-design.md`.
+
 - 2026-10-02 · Codex · publikacja: nowe publiczne repozytorium `Dismonder/InvestAnalyzer-PIT38` z czystą kopią
   źródeł w jednym commicie (bez `STATE.md`, `docs/kontekst-sesji.md` i `docs/archiwum/`; stare prywatne `Dismonder/InvestAnalyzer`
   ma w historii `out/*` z wynikami rozliczenia, dlatego nie nadaje się do upublicznienia), wydanie `v0.2.0` z ZIP-em wersji

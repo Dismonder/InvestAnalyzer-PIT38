@@ -137,8 +137,8 @@ bramka jest automatyczna.
 
 Aplikacja działa też online: https://investanalyzer-app.dismonder.workers.dev — dodaj ją do ekranu
 głównego telefonu („Zainstaluj aplikację” w Chrome, „Dodaj do ekranu początkowego” w Safari).
-W tej wersji działają portfel, notowania na żywo, wykresy i alerty; dane zostają w pamięci przeglądarki
-telefonu i nie trafiają na serwer. Pozycje portfela liczy wtedy przeglądarka (FIFO, koszt po kursach NBP T-1),
+W tej wersji działają portfel, notowania na żywo, wykresy i alerty; dane portfela zostają w pamięci przeglądarki
+telefonu i nie trafiają na serwer (serwer widzi tylko symbole instrumentów z zapytań o notowania i kursy). Pozycje portfela liczy wtedy przeglądarka (FIFO, koszt po kursach NBP T-1),
 a kwoty PIT-38 pozostają nieobliczone. Układ sprawdzony na rozmiarze Samsung Galaxy S25 (360×780 px). Rozliczenie PIT-38, import plików brokera i integracje brokera wymagają
 wersji Windows albo lokalnego serwera (`npm run dev`), bo telefon nie ma silnika Pythona.
 
@@ -235,6 +235,13 @@ Wyłączony jest też `out/` w korzeniu. Bramka sprawdza każdy plik śledzony p
 blokuje śledzenie katalogów wynikowych, wykrywa dane osobowe w źródłach
 oraz prywatne nazwy plików w paczkach przenośnych.
 Silnik nie wysyła danych rozliczenia; notowania pobierane są z Yahoo Finance i Binance, a kursy z NBP.
+
+Wersja online (Cloudflare Workers) nie używa cookies ani kont, a dane portfela zostają w przeglądarce — zasady
+opisuje [polityka prywatności](docs/prywatnosc.html) (w aplikacji pod `/prywatnosc.html`). Hosting ma komplet
+nagłówków bezpieczeństwa (`aplikacje/web/public/_headers`: CSP bez skryptów inline, HSTS, `Permissions-Policy`),
+API Workera sprawdza wejście, odrzuca żądania z obcych witryn i limituje liczbę zapytań na adres IP
+(`aplikacje/web/wrangler.jsonc`, `ratelimits`), a zgłoszenia luk przyjmuje `/.well-known/security.txt`.
+Zależności pilnuje Dependabot (`.github/dependabot.yml`); `xlsx` jest instalowany z oficjalnego wydania SheetJS.
 
 Pliki brokera można wgrać ponownie, ale nie odtworzy to ręcznych decyzji użytkownika.
 **Ustawienia → Dane → Kopie Twoich decyzji** zapisują korekty transakcji, straty z lat ubiegłych,

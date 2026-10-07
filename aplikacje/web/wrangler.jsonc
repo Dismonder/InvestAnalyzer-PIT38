@@ -6,11 +6,26 @@
   "name": "investanalyzer-app",
   "main": "./worker.ts",
   "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  // Stare wersje nie sa publiczne pod <wersja>-investanalyzer-app.*.workers.dev:
+  // kazda poprawka bezpieczenstwa obowiazuje od razu dla jedynego adresu.
+  "preview_urls": false,
   "assets": {
     "directory": "../../wydania/web",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
   },
-  "observability": { "enabled": true }
+  // Limity zadan per adres IP (Rate Limiting API, darmowe, bez stanu po naszej stronie).
+  // `period` przyjmuje tylko 10 albo 60 sekund. Limity sa "miekkie" (zliczane w jednej
+  // lokalizacji Cloudflare), ale wystarczaja, zeby jeden klient nie wyczerpal dziennego
+  // limitu planu darmowego (100 tys. zadan) ani nie obciazyl Yahoo przez ten Worker.
+  "ratelimits": [
+    { "name": "LIMIT_API", "namespace_id": "1001", "simple": { "limit": 300, "period": 60 } },
+    { "name": "LIMIT_NOTOWAN", "namespace_id": "1002", "simple": { "limit": 120, "period": 60 } }
+  ],
+  // Logi Workera (3 dni w planie darmowym) to jedyne miejsce, gdzie pojawiaja sie dane
+  // polaczen. Probka 25% wystarcza do diagnozy i wykrywania nadmiernego ruchu, a ogranicza
+  // ilosc zapisywanych danych o uzytkownikach (minimalizacja z RODO).
+  "observability": { "enabled": true, "head_sampling_rate": 0.25 }
 }

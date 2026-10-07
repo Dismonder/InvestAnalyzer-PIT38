@@ -92,6 +92,9 @@ export function InvestSettingsPanel({
     zapiszMotywWszedzie(motyw);
   };
   const [activeTab, setActiveTab] = useState<'dane' | 'tax' | 'history' | 'logs' | 'advanced'>('tax');
+  // Polityka prywatnosci to plik wydania (/prywatnosc.html) - jest w przegladarce
+  // i hostingu; wersja desktop (Tauri) nie otwiera kart i ma wlasny protokol.
+  const pokazPolitykePrywatnosci = typeof window !== 'undefined' && !('__TAURI_INTERNALS__' in window);
   const [logFilter, setLogFilter] = useState<'all' | 'error' | 'warn' | 'info'>('all');
   const [taxPlan, setTaxPlan] = useState<'aggressive_user' | 'balanced_user' | 'conservative_user'>(() =>
     (taxSettingsStorage.getItem('taxCalculationPlan') as 'aggressive_user' | 'balanced_user' | 'conservative_user') || 'aggressive_user'
@@ -755,6 +758,23 @@ export function InvestSettingsPanel({
                 <div className="space-y-6">
                   <BackupPanel onRestored={onReload} />
                   <KwarantannaPanel />
+                  {pokazPolitykePrywatnosci && (
+                    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700 dark:border-gray-700 dark:bg-gray-900/50 dark:text-gray-300">
+                      <div className="font-semibold text-gray-900 dark:text-gray-100">Prywatność i dane w urządzeniu</div>
+                      <p className="mt-1">
+                        Aplikacja nie używa cookies ani kont; dane portfela są tylko w pamięci tej przeglądarki, a serwer
+                        hostingu widzi wyłącznie zapytania o notowania i kursy.
+                      </p>
+                      <a
+                        href="/prywatnosc.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-block font-semibold text-emerald-700 underline underline-offset-2 dark:text-emerald-400"
+                      >
+                        Czytaj politykę prywatności
+                      </a>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                     <div className="rounded-xl border border-blue-100 bg-blue-50 p-4 text-blue-950 shadow-sm dark:border-blue-900/50 dark:bg-blue-950/20 dark:text-blue-100">
                       <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Lokalna baza importu</p>

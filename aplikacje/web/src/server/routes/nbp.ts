@@ -1,6 +1,8 @@
 import { Router } from 'express';
 // Kalendarz dni roboczych (zasada T-1) jest wspolny z przegladarka.
 import { getLastBusinessDayBefore, getPreviousDayStr, isPolishBusinessDay } from '../../shared/kalendarzPl';
+// Walidacja wejscia wspolna z Workerem hostingu: do NBP idzie tylko kod z tabeli A i data z kalendarza.
+import { czyPoprawnaDataKursu, normalizujWalute } from '../../shared/walidacjaNotowan';
 
 export { getLastBusinessDayBefore, getPreviousDayStr, isPolishBusinessDay };
 
@@ -119,8 +121,14 @@ router.get('/rate', async (req, res) => {
       typeof dateParam !== 'string' || !dateParam.trim()) {
     return res.status(400).json({ success: false, error: 'Podaj walutę (currency) i datę transakcji (date).' });
   }
-  const currency = currencyParam.trim().toUpperCase();
+  const currency = normalizujWalute(currencyParam);
   const date = dateParam.trim();
+  if (!currency) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowy kod waluty (oczekiwany kod z tabeli A NBP, np. USD).' });
+  }
+  if (!czyPoprawnaDataKursu(date)) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowa data kursu (oczekiwane RRRR-MM-DD).' });
+  }
 
   try {
     const rate = await fetchOfficialNBPRate(currency, date);
@@ -147,7 +155,10 @@ router.get('/rate', async (req, res) => {
 // Official NBP Table A (All foreign currencies)
 router.get('/table-a', async (req, res) => {
   const now = Date.now();
-  const dateParam = (req.query.date as string) || '';
+  const dateParam = typeof req.query.date === 'string' ? req.query.date.trim() : '';
+  if (dateParam && !czyPoprawnaDataKursu(dateParam)) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowa data tabeli (oczekiwane RRRR-MM-DD).' });
+  }
   if (
     latestNBPTableCache &&
     latestNBPTableCache.dlaDaty === dateParam &&
@@ -203,13 +214,17 @@ router.get('/table-a', async (req, res) => {
 
 // NBP Historical Rates for Charts and Audits
 router.get('/history', async (req, res) => {
-  const currency = ((req.query.currency as string) || 'USD').toLowerCase();
+  const waluta = normalizujWalute(typeof req.query.currency === 'string' ? req.query.currency : 'USD');
+  if (!waluta) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowy kod waluty (oczekiwany kod z tabeli A NBP, np. USD).' });
+  }
+  const currency = waluta.toLowerCase();
   const days = parseInt((req.query.days as string) || '30', 10);
-  const count = Math.min(Math.max(days, 5), 90);
+  const count = Math.min(Math.max(Number.isFinite(days) ? days : 30, 5), 90);
 
   try {
     const url = `https://api.nbp.pl/api/exchangerates/rates/a/${currency}/last/${count}/?format=json`;
-    const response = await fetch(url, { headers: { Accept: 'application/json' } });
+    const response = await fetch(url, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(5000) });
     if (response.ok) {
       const data: any = await response.json();
       return res.json({

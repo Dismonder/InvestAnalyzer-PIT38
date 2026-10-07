@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useZamknijEscape } from '../../shared/useZamknijEscape';
 import { kolorTekstuNa } from '../../shared/kolorTekstu';
 import { apiFetch } from '../services/apiTransport';
+import { czyTrybHostowany } from '../../shared/trybHostingu';
 import {
   BrokerAccount,
   BrokerConnectionTestResult,
@@ -288,6 +289,15 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
     e.preventDefault();
     if (!name.trim()) return;
 
+    // W wersji hostowanej (telefon, przegladarka) integracje brokera nie dzialaja
+    // (API odpowiada 501), wiec klucze API, hasla i sesje nie maja czego zasilac -
+    // nie trafiaja do localStorage. Rachunek zostaje jako zwykly rachunek do
+    // recznych transakcji.
+    const trybHostowany = czyTrybHostowany();
+    const sekrety = trybHostowany
+      ? { apiKey: '', apiSecret: '', queryId: '', sid: '' }
+      : { apiKey, apiSecret, queryId, sid: freedom24Sid };
+
     // Wpisany klucz to jeszcze nie polaczenie. Plakietka "Połączono z API
     // (Live)" i data synchronizacji bralay sie z dlugosci tekstu w polu (>3
     // znaki) - do brokera nie szlo zadne zapytanie. Nowe konto zaczyna jako
@@ -295,16 +305,16 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
     // albo udana synchronizacja.
     const freedomData = brokerType === 'FREEDOM24' ? {
       freedom24AuthMethod,
-      sid: freedom24AuthMethod === 'SESSION_TOKEN' ? freedom24Sid : undefined,
+      sid: freedom24AuthMethod === 'SESSION_TOKEN' ? sekrety.sid : undefined,
       loginEmail: freedom24AuthMethod === 'SMS_SESSION' ? freedom24Email : undefined,
       apiServerType: (freedom24AuthMethod === 'DEMO' ? 'DEMO' : apiServerType) as BrokerAccount['apiServerType'],
     } : {};
 
     const daneLogowaniaZmienione =
       editingAccount !== null &&
-      (editingAccount.apiKey !== apiKey ||
-        editingAccount.apiSecret !== apiSecret ||
-        editingAccount.queryId !== queryId ||
+      (editingAccount.apiKey !== sekrety.apiKey ||
+        editingAccount.apiSecret !== sekrety.apiSecret ||
+        editingAccount.queryId !== sekrety.queryId ||
         editingAccount.accountNumber !== accountNumber);
 
     if (editingAccount) {
@@ -314,9 +324,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
         brokerType,
         currency,
         accountNumber: brokerType === 'FREEDOM24' && freedom24AuthMethod === 'SMS_SESSION' ? freedom24Email : accountNumber,
-        apiKey: brokerType === 'FREEDOM24' ? undefined : apiKey,
-        apiSecret: brokerType === 'FREEDOM24' ? undefined : apiSecret,
-        queryId,
+        apiKey: brokerType === 'FREEDOM24' ? undefined : sekrety.apiKey,
+        apiSecret: brokerType === 'FREEDOM24' ? undefined : sekrety.apiSecret,
+        queryId: sekrety.queryId,
         apiServerType,
         color,
         autoSync,
@@ -330,9 +340,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
         brokerType,
         currency,
         accountNumber: brokerType === 'FREEDOM24' && freedom24AuthMethod === 'SMS_SESSION' ? freedom24Email : accountNumber,
-        apiKey: brokerType === 'FREEDOM24' ? undefined : apiKey,
-        apiSecret: brokerType === 'FREEDOM24' ? undefined : apiSecret,
-        queryId,
+        apiKey: brokerType === 'FREEDOM24' ? undefined : sekrety.apiKey,
+        apiSecret: brokerType === 'FREEDOM24' ? undefined : sekrety.apiSecret,
+        queryId: sekrety.queryId,
         apiServerType,
         color,
         autoSync,
@@ -406,7 +416,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
               Wyczyścić wszystkie dane?
             </h3>
             <p className="text-xs text-slate-600 dark:text-slate-400">
-              Operacja usunie z bazy wszystkie konta maklerskie, historię transakcji i aktywne alerty.
+              Operacja usunie z tej przeglądarki wszystkie dane aplikacji: rachunki (razem z kluczami API i sesjami
+              brokera), historię transakcji, alerty, zlecenia, dane podatnika i ustawienia rozliczenia. Zostaną tylko
+              motyw i język. Strona uruchomi się od nowa.
             </p>
             <div className="flex items-center justify-end gap-2 pt-2">
               <button
@@ -1181,6 +1193,14 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       </>
                     )}
                   </>
+                )}
+
+                {czyTrybHostowany() && (
+                  <p className="text-[11px] text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-2.5 py-2">
+                    Wersja online nie łączy się z brokerami: klucze API, hasła ani sesje nie są zapisywane w tej
+                    przeglądarce. Rachunek zostanie dodany do ręcznych transakcji; integracje działają w wersji Windows
+                    albo z lokalnym serwerem.
+                  </p>
                 )}
 
                 {/* Test Connection Button inside Modal */}

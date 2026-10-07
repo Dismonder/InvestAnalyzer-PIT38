@@ -131,3 +131,34 @@ export function kandydaciSymboluDostawcy(ticker: string): string[] {
   }
   return [upperTicker, `${upperTicker}.WA`, `${upperTicker}.DE`, `${upperTicker}.L`];
 }
+
+/**
+ * Kryptowaluty znane aplikacji (ta sama lista co CRYPTO_MAP serwera i CRYPTO_TICKERS
+ * transportu desktopu). Hosting pyta o nie Yahoo pod symbolem pary z dolarem
+ * (BTC-USD): goly symbol (SOL, LINK) jest u Yahoo akcja o tym samym tickerze
+ * (Emeren Group, Interlink Electronics) i wyceniałby pozycje krypto cena spolki.
+ */
+export const KRYPTOWALUTY: Record<string, { name: string }> = {
+  BTC: { name: 'Bitcoin' },
+  ETH: { name: 'Ethereum' },
+  SOL: { name: 'Solana' },
+  BNB: { name: 'BNB' },
+  XRP: { name: 'XRP' },
+  DOGE: { name: 'Dogecoin' },
+  ADA: { name: 'Cardano' },
+  AVAX: { name: 'Avalanche' },
+  LINK: { name: 'Chainlink' },
+  DOT: { name: 'Polkadot' },
+  NEAR: { name: 'NEAR Protocol' },
+  SUI: { name: 'Sui' },
+  PEPE: { name: 'Pepe' },
+  SHIB: { name: 'Shiba Inu' },
+  LTC: { name: 'Litecoin' },
+};
+
+/** Symbol Yahoo kryptowaluty (`SOL` → `SOL-USD`) z nazwa albo null, gdy ticker nie jest znana kryptowaluta. */
+export function symbolYahooKrypto(ticker: string): { symbol: string; name: string } | null {
+  const upperTicker = ticker.trim().toUpperCase();
+  const krypto = KRYPTOWALUTY[upperTicker];
+  return krypto ? { symbol: `${upperTicker}-USD`, name: krypto.name } : null;
+}

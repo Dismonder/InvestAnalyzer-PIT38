@@ -1,0 +1,37 @@
+# Naglowki plikow statycznych hostowanej aplikacji (Workers Static Assets czyta ten
+# plik z katalogu wydania; Vite kopiuje go z public/). Odpowiedzi /api/* generuje
+# Worker i dostaja swoje naglowki w src/hosting/apiHostowane.ts.
+#
+# CSP: tylko wlasne skrypty (wydanie Vite nie ma skryptow inline, motyw.js jest
+# plikiem), style inline potrzebne bibliotekom wykresow (atrybuty style=), obrazy
+# data:/blob: dla eksportow, polaczenia tylko do wlasnego originu (API hostingu),
+# bez ramek, bez osadzania tej strony gdzie indziej, bez wtyczek.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; media-src 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
+
+# Paczki z odciskiem w nazwie: przegladarka trzyma je rok bez odpytywania.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Powloka i service worker: zawsze sprawdzane na serwerze, zeby nowa wersja
+# (w tym poprawki bezpieczenstwa) docierala od razu.
+/
+  Cache-Control: no-cache, must-revalidate
+/index.html
+  Cache-Control: no-cache, must-revalidate
+/sw.js
+  Cache-Control: no-cache, must-revalidate
+/manifest.webmanifest
+  Cache-Control: no-cache, must-revalidate
+/prywatnosc
+  Cache-Control: no-cache, must-revalidate
+/prywatnosc.html
+  Cache-Control: no-cache, must-revalidate

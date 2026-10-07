@@ -5,6 +5,9 @@
   "license": "SEE LICENSE IN LICENSE",
   "description": "Kalkulator podatku gieldowego PIT-38 i portfel inwestora: deterministyczny silnik FIFO/NBP z notowaniami na zywo i integracjami brokerskimi.",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "tsx aplikacje/web/server-dev.ts",
     "build": "vite build --config aplikacje/web/vite.config.ts && esbuild aplikacje/web/server.ts --bundle --platform=node --format=cjs --outfile=wydania/web/server.cjs --external:esbuild --external:lightningcss --external:lightningcss-*",
@@ -58,7 +61,7 @@
     "react-dom": "^19.0.0",
     "recharts": "^3.8.1",
     "vite": "^6.2.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.11.2",

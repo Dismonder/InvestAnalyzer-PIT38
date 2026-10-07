@@ -372,9 +372,6 @@ class BrokerApiService {
 
       if (data.success) {
         console.log(`[BrokerApiService] ✅ Sukces (${latencyMs}ms):`, data.message);
-        if (data.diagnostics) {
-          console.log(`[BrokerApiService] Diagnostyka serwera:`, data.diagnostics);
-        }
       } else if (this.czyBrakApi(data.errorCode)) {
         console.info(`[BrokerApiService] ℹ️ Rachunek bez API (${latencyMs}ms):`, data.message);
       } else {
@@ -459,9 +456,6 @@ class BrokerApiService {
 
       if (data.success) {
         console.log(`[BrokerApiService] ✅ Pomyślnie zsynchronizowano ${data.syncedTransactions?.length || 0} pozycji (${latencyMs}ms).`);
-        if (data.diagnostics) {
-          console.log(`[BrokerApiService] Diagnostyka:`, data.diagnostics);
-        }
       } else if (this.czyBrakApi(data.errorCode)) {
         console.info(`[BrokerApiService] ℹ️ Rachunek bez API (${latencyMs}ms):`, data.message);
       } else {

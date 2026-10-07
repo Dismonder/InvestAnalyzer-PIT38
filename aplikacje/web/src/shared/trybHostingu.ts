@@ -32,6 +32,15 @@ export function zapiszTrybZeZdrowia(cialo: unknown, magazyn: { setItem(k: string
   return hosting;
 }
 
+/**
+ * Czy po zapisaniu wyniku sondy strona ma sie odswiezyc: tylko gdy rozpoznanie
+ * faktycznie sie zmienilo (zapis w sessionStorage sie udal). Gdy magazyn jest
+ * zablokowany, zapis nie zostaje, a odswiezenie po kazdym starcie zapetlaloby strone.
+ */
+export function czyOdswiezycPoSondzie(przed: boolean, poZapisie: boolean, hostname: string): boolean {
+  return poZapisie !== przed && !hostname.endsWith('.workers.dev');
+}
+
 /** Jednorazowa sonda po starcie; przy zmianie wyniku odswieza strone raz, zeby widoki od razu byly wlasciwe. */
 export async function sprawdzTrybHostingu(): Promise<void> {
   if (typeof fetch !== 'function' || typeof location === 'undefined') return;
@@ -40,8 +49,8 @@ export async function sprawdzTrybHostingu(): Promise<void> {
   try {
     const odpowiedz = await fetch('/api/health', { cache: 'no-store' });
     if (!odpowiedz.ok) return;
-    const po = zapiszTrybZeZdrowia(await odpowiedz.json());
-    if (po !== przed && !location.hostname.endsWith('.workers.dev')) location.reload();
+    zapiszTrybZeZdrowia(await odpowiedz.json());
+    if (czyOdswiezycPoSondzie(przed, czyTrybHostowany(), location.hostname)) location.reload();
   } catch {
     // Brak sieci: zostaje rozpoznanie po adresie.
   }

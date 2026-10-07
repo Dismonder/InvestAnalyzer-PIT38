@@ -4,10 +4,14 @@
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "name": "investanalyzer-strona",
   "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  // Stare wersje nie sa publiczne pod <wersja>-investanalyzer-strona.*.workers.dev.
+  "preview_urls": false,
   "assets": {
     "directory": "../../wydania/strona",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   },
-  "observability": { "enabled": true }
+  // Probka logow: strona statyczna, logi sluza tylko diagnozie - mniej danych o odwiedzajacych.
+  "observability": { "enabled": true, "head_sampling_rate": 0.25 }
 }

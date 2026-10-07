@@ -11,6 +11,7 @@ import { odczytajUstawienia } from './services/optymalizacjaPodatkowa';
 import { oczyscZlecenia } from './services/zleceniaBrokera';
 import { oczyscRachunki } from './services/rachunkiBrokera';
 import { oczyscTransakcje } from './services/transakcjePortfela';
+import { wyczyscDaneAplikacji } from './services/czyszczenieDanych';
 import {
   BrokerAccount,
   Transaction,
@@ -885,15 +886,20 @@ export default function App() {
     setTransactions([]);
     setAlerts([]);
     setBrokerOrders([]);
-    localStorage.removeItem('pit38_accounts');
-    localStorage.removeItem('pit38_transactions');
-    localStorage.removeItem('pit38_alerts');
-    localStorage.removeItem('pit38_broker_orders');
-    pushNotificationService.sendPushNotification(
-      'Wyczyszczono Wszystkie Dane',
-      'Zresetowano wszystkie konta maklerskie, transakcje i alerty do stanu czystego.',
-      'INFO'
-    );
+    // Stan czysty naprawde: wszystkie klucze aplikacji (takze rachunki z kluczami
+    // API, dane podatnika, decyzje rozliczenia, IndexedDB), nie tylko cztery listy
+    // portfela. Po czyszczeniu strona startuje od nowa, zeby zaden widok nie
+    // zapisal z pamieci tego, co wlasnie usunieto.
+    void wyczyscDaneAplikacji().then((wynik) => {
+      pushNotificationService.sendPushNotification(
+        'Wyczyszczono Wszystkie Dane',
+        wynik.indexedDb === 'blad'
+          ? 'Usunięto dane aplikacji z tej przeglądarki; część magazynu (IndexedDB) nie dała się wyczyścić - usuń dane witryny w ustawieniach przeglądarki.'
+          : 'Usunięto z tej przeglądarki wszystkie dane aplikacji: rachunki, transakcje, alerty, dane podatnika i ustawienia rozliczenia.',
+        'INFO'
+      );
+      window.location.reload();
+    });
   };
 
   const handleImportTransactions = (imported: Transaction[]) => {
@@ -1232,7 +1238,15 @@ export default function App() {
             <div className="min-w-0 flex-1">
               <span className="font-bold text-slate-800 dark:text-slate-100">Wersja na telefon.</span>{' '}
               Portfel, notowania, wykresy i alerty działają tutaj; dane zostają na tym urządzeniu. Rozliczenie PIT-38
-              i import plików brokera liczy wersja Windows.
+              i import plików brokera liczy wersja Windows.{' '}
+              <a
+                href="/prywatnosc.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-emerald-700 underline decoration-emerald-700/40 underline-offset-2 hover:decoration-emerald-700 dark:text-emerald-400 dark:decoration-emerald-400/40"
+              >
+                Prywatność i dane w urządzeniu
+              </a>
             </div>
             <button
               type="button"

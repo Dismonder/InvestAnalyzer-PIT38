@@ -297,7 +297,9 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
                 <div>
                   <div className="font-bold">Ochrona dwuetapowa jest aktywna</div>
                   <div className="text-[11px] text-emerald-700 dark:text-emerald-300 mt-0.5">
-                    Wszystkie dane podatkowe, transakcje oraz eksporty raportów są zabezpieczone Twoim kluczem TOTP.
+                    Kod TOTP blokuje ekran aplikacji w tej przeglądarce. Dane (transakcje, rachunki, dane podatnika)
+                    pozostają zapisane w pamięci przeglądarki w postaci jawnej - blokada nie jest szyfrowaniem. Na
+                    współdzielonym urządzeniu po pracy usuń dane aplikacji.
                   </div>
                 </div>
               </div>

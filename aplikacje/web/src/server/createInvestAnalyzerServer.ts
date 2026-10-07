@@ -75,6 +75,16 @@ export function wynikMaProblemNbp(result: unknown): boolean {
 /** Wersja zasad pamieci wynikow silnika (wchodzi do klucza wpisu). 2: bez wynikow z awarii sieci NBP. */
 export const ZASADY_PAMIECI_WYNIKOW = 2;
 
+/**
+ * CSP wydania produkcyjnego podawanego przez ten serwer (npm start): tylko wlasne
+ * skrypty i polaczenia, style inline dla bibliotek wykresow, bez ramek i wtyczek.
+ * Odpowiednik public/_headers hostingu; trzymac oba w zgodzie.
+ */
+export const POLITYKA_CSP_WYDANIA =
+  "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; "
+  + "font-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; media-src 'self'; "
+  + "object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
+
 /** Limit pliku wgrywanego do magazynu: 32 MiB danych = 44 739 240 znakow base64 (jak desktop). */
 const MAX_MIB_NA_PLIK = 32;
 const MAX_BASE64_NA_PLIK = 44_739_240;
@@ -248,7 +258,7 @@ async function clearDirectoryContents(dir: string, result: ClearWorkspaceDataRes
   }
 }
 
-async function clearWorkspaceAppData(workspaceRoot: string): Promise<ClearWorkspaceDataResult> {
+async function clearWorkspaceAppData(workspaceRoot: string, runtimeRoot?: string): Promise<ClearWorkspaceDataResult> {
   const result: ClearWorkspaceDataResult = {
     removedFiles: 0,
     removedDirs: 0,
@@ -281,6 +291,18 @@ async function clearWorkspaceAppData(workspaceRoot: string): Promise<ClearWorksp
     }
     await clearDirectoryContents(root, result);
     result.clearedRoots.push(root);
+  }
+  // Wyniki silnika i jego pamiec podreczna leza w katalogu tymczasowym systemu
+  // (poza workspace, przestrzen tego workspace) i tez niosa dane rachunku -
+  // „wyczysc dane aplikacji" obejmuje i je. Tylko gdy katalog juz istnieje.
+  const katalogTymczasowy = path.dirname(getTaxEngineRunOutputDir(workspaceRoot, runtimeRoot));
+  if (fs.existsSync(katalogTymczasowy)) {
+    try {
+      await clearDirectoryContents(katalogTymczasowy, result);
+      result.clearedRoots.push(katalogTymczasowy);
+    } catch (error) {
+      result.warnings.push(`Nie udało się wyczyścić katalogu tymczasowego silnika: ${error instanceof Error ? error.message : String(error)}`);
+    }
   }
   return result;
 }
@@ -374,6 +396,8 @@ export async function checkOllamaStatus(fetchImpl: typeof fetch = fetch, config:
 
 export function createInvestAnalyzerServer(options: InvestAnalyzerServerOptions = {}) {
   const app = express();
+  // Naglowek "X-Powered-By: Express" tylko ulatwia dobor exploitow pod wersje.
+  app.disable("x-powered-by");
   const workspaceRoot = options.workspaceRoot || process.cwd();
   const managedWriteLocks = new Map<string, Promise<void>>();
   const acquireManagedWriteLock = async (targetPath: string): Promise<() => void> => {
@@ -430,7 +454,9 @@ export function createInvestAnalyzerServer(options: InvestAnalyzerServerOptions 
     // GET nie ma kontroli Origin, a obca strona moze go wywolac (no-cors) i
     // obciazyc dostawcow notowan. Wlasny front jest same-origin (takze vite dev
     // w trybie middleware i devUrl Tauri), wiec nie wysyla cross-site.
-    if (req.method === "GET" && req.headers["sec-fetch-site"] === "cross-site") {
+    // `same-site` tez odpada: localhost na innym porcie to ta sama witryna
+    // (schemeful same-site ignoruje port), a nie ten front.
+    if (req.method === "GET" && ["cross-site", "same-site"].includes(String(req.headers["sec-fetch-site"]))) {
       res.status(403).json({ success: false, error: "Żądanie API pochodzi z innej witryny." });
       return;
     }
@@ -481,6 +507,11 @@ export function createInvestAnalyzerServer(options: InvestAnalyzerServerOptions 
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Frame-Options", "DENY");
     res.setHeader("Referrer-Policy", "no-referrer");
+    // Aplikacja nie uzywa kamery, mikrofonu, polozenia ani platnosci - wylaczone
+    // takze dla ewentualnego kodu wstrzyknietego do strony.
+    res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), serial=(), usb=(), xr-spatial-tracking=()");
+    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
     next();
   });
 
@@ -555,7 +586,7 @@ export function createInvestAnalyzerServer(options: InvestAnalyzerServerOptions 
       return;
     }
     try {
-      res.json({ success: true, ...(await clearWorkspaceAppData(workspaceRoot)) });
+      res.json({ success: true, ...(await clearWorkspaceAppData(workspaceRoot, runtimeRoot)) });
     } catch (error: unknown) {
       res.status(500).json({
         success: false,
@@ -1425,7 +1456,25 @@ export function createInvestAnalyzerServer(options: InvestAnalyzerServerOptions 
 
   if (options.serveStatic) {
     const wydaniaPath = options.staticDir || getWebDistRoot(workspaceRoot);
-    app.use(express.static(wydaniaPath));
+    // Ta sama polityka CSP co w hostingu (public/_headers), bez upgrade-insecure-requests,
+    // bo lokalny serwer dziala po http. Tylko dla wydania produkcyjnego: serwer
+    // deweloperski Vite wstrzykuje wlasny skrypt inline (React Refresh).
+    app.use((req, res, next) => {
+      if (!req.path.startsWith("/api")) {
+        res.setHeader("Content-Security-Policy", POLITYKA_CSP_WYDANIA);
+      }
+      next();
+    });
+    // Paczka serwera (server.cjs) lezy w tym samym katalogu wydania, ale nie jest
+    // plikiem aplikacji: nie wolno jej podawac przegladarce (kod serwera, sciezki).
+    app.use((req, res, next) => {
+      if (/\.cjs$/i.test(req.path)) {
+        res.status(404).type("text/plain").send("Nie ma takiego pliku wydania.");
+        return;
+      }
+      next();
+    });
+    app.use(express.static(wydaniaPath, { dotfiles: "ignore", index: "index.html" }));
     // Brakujacy plik wydania to 404, nie index.html: otwarta karta po aktualizacji
     // prosi o stary fragment kodu, a HTML w miejscu skryptu dawal blad typu MIME.
     app.use("/assets", (_req, res) => {

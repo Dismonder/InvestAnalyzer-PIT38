@@ -119,7 +119,9 @@ test('GET /api z Sec-Fetch-Site: cross-site jest odrzucany, wlasny front przecho
           }).on('error', reject);
         });
       assert.equal(await pobierz({ 'Sec-Fetch-Site': 'cross-site' }), 403);
-      for (const zrodlo of ['same-origin', 'same-site', 'none']) {
+      // same-site (localhost na innym porcie, inna poddomena) to nie ten front - tez 403.
+      assert.equal(await pobierz({ 'Sec-Fetch-Site': 'same-site' }), 403);
+      for (const zrodlo of ['same-origin', 'none']) {
         assert.equal(await pobierz({ 'Sec-Fetch-Site': zrodlo }), 200, zrodlo);
       }
       assert.equal(await pobierz({}), 200, 'klient bez naglowka (skrypty, testy)');

@@ -1,4 +1,5 @@
 import { apiFetch } from "./apiTransport";
+import { czyTrybHostowany } from '../../shared/trybHostingu';
 import { LiveMarketQuote, AssetCategory, CurrencyCode } from '../types';
 import type { BrokerSupportedAsset } from '../data/brokerAssetsDatabase';
 
@@ -62,6 +63,32 @@ export const STREAM_SPEED_OPTIONS: StreamSpeedOption[] = [
 ];
 
 export const DEFAULT_STREAM_INTERVAL_MS = 3000; // 3 seconds - maximum safe speed for Yahoo & Binance APIs
+/** Najkrotszy odstep odpytywania na lokalnym serwerze (pamiec podreczna po naszej stronie). */
+export const MIN_INTERWAL_LOKALNY_MS = 2000;
+/**
+ * Najkrotszy odstep w wersji hostowanej: API ma limit zadan na adres IP i dzienny
+ * limit planu darmowego, a pamiec brzegowa trzyma notowania 10 s - czestsze
+ * pytanie i tak dostawaloby te same dane albo 429.
+ */
+export const MIN_INTERWAL_HOSTINGU_MS = 10000;
+export const MAX_INTERWAL_MS = 60000;
+
+export function minimalnyInterwalMs(hostowany: boolean): number {
+  return hostowany ? MIN_INTERWAL_HOSTINGU_MS : MIN_INTERWAL_LOKALNY_MS;
+}
+
+/** Odstep odswiezania po przycieciu do dozwolonego zakresu (zalezy od trybu). */
+export function przytnijInterwalMs(ms: number, hostowany: boolean): number {
+  const bezpieczny = Number.isFinite(ms) ? ms : DEFAULT_STREAM_INTERVAL_MS;
+  return Math.max(minimalnyInterwalMs(hostowany), Math.min(bezpieczny, MAX_INTERWAL_MS));
+}
+
+/** Ile sekund wstrzymac odpytywanie po 429: z Retry-After (5-300 s), domyslnie 60 s. */
+export function sekundyWstrzymaniaPo429(retryAfter: string | null | undefined): number {
+  const sekundy = Number.parseInt(String(retryAfter ?? ''), 10);
+  if (!Number.isFinite(sekundy)) return 60;
+  return Math.max(5, Math.min(sekundy, 300));
+}
 
 type QuoteUpdateListener = (quotes: Record<string, LiveMarketQuote>) => void;
 type FavoritesListener = (favorites: string[]) => void;
@@ -113,6 +140,8 @@ class MarketDataEngine {
   private stateListeners: Set<StreamStateListener> = new Set();
   private intervalId: number | null = null;
   private streamingIntervalMs: number = DEFAULT_STREAM_INTERVAL_MS;
+  /** Do tego czasu (ms epoki) nie odpytujemy API po odpowiedzi 429. */
+  private wstrzymaneDo = 0;
   private isStreaming = true;
   private isFetching = false;
   private ostatnieZadanie = 0;
@@ -140,9 +169,12 @@ class MarketDataEngine {
       const savedInterval = localStorage.getItem('pit38_quotes_interval_ms');
       if (savedInterval) {
         const parsed = parseInt(savedInterval, 10);
-        if (!isNaN(parsed) && parsed >= 2000 && parsed <= 60000) {
-          this.streamingIntervalMs = parsed;
+        if (!isNaN(parsed) && parsed >= MIN_INTERWAL_LOKALNY_MS && parsed <= MAX_INTERWAL_MS) {
+          // Zapis z wersji lokalnej (np. 2 s) w hostingu jest podnoszony do progu.
+          this.streamingIntervalMs = przytnijInterwalMs(parsed, czyTrybHostowany());
         }
+      } else {
+        this.streamingIntervalMs = przytnijInterwalMs(DEFAULT_STREAM_INTERVAL_MS, czyTrybHostowany());
       }
     } catch {
       this.streamingIntervalMs = DEFAULT_STREAM_INTERVAL_MS;
@@ -292,7 +324,7 @@ class MarketDataEngine {
   }
 
   public setStreamingInterval(ms: number) {
-    const safeMs = Math.max(2000, Math.min(ms, 60000));
+    const safeMs = przytnijInterwalMs(ms, czyTrybHostowany());
     this.streamingIntervalMs = safeMs;
     try {
       localStorage.setItem('pit38_quotes_interval_ms', safeMs.toString());
@@ -355,6 +387,11 @@ class MarketDataEngine {
       if (allTickers.length === 0) {
         return this.getQuotes();
       }
+      // Po 429 (limit na adres IP w hostingu) odpytywanie stoi do konca Retry-After:
+      // dalsze pytania i tak dostalyby 429 i tylko przedluzalyby blokade.
+      if (Date.now() < this.wstrzymaneDo) {
+        return this.getQuotes();
+      }
 
       // Serwer odrzuca zapytanie z ponad 100 tickerami (400), wiec dluzsza lista
       // idzie paczkami. Nieudana paczka nie przerywa pozostalych.
@@ -375,6 +412,9 @@ class MarketDataEngine {
           if (response.ok) {
             const data = await response.json();
             if (data.success && data.quotes) Object.assign(zebrane, znormalizujNotowania(data.quotes));
+          } else if (response.status === 429) {
+            this.wstrzymajPo429(response.headers.get('Retry-After'));
+            break;
           }
         } catch {
           // Siec albo limit czasu tej paczki: zostaje poprzedni stan jej notowan.
@@ -436,10 +476,22 @@ class MarketDataEngine {
     return this.getFavorites();
   }
 
+  /** Wstrzymuje odpytywanie na czas z Retry-After (domyslnie 60 s). */
+  private wstrzymajPo429(retryAfter: string | null): void {
+    this.wstrzymaneDo = Date.now() + sekundyWstrzymaniaPo429(retryAfter) * 1000;
+  }
+
+  /** Do kiedy odpytywanie jest wstrzymane po 429 (0 = nie jest). */
+  public getWstrzymaneDo(): number {
+    return this.wstrzymaneDo;
+  }
+
   public async fetchSingleTicker(ticker: string, force: boolean = false): Promise<LiveMarketQuote | null> {
     const formatted = ticker.trim().toUpperCase();
+    if (Date.now() < this.wstrzymaneDo) return this.quotes[formatted] ?? null;
     try {
       const res = await apiFetch(`/api/quote/${encodeURIComponent(formatted)}${force ? '?force=true' : ''}`);
+      if (res.status === 429) this.wstrzymajPo429(res.headers.get('Retry-After'));
       if (res.ok) {
         const data = await res.json();
         const notowanie = data.success && data.quote ? znormalizujNotowanie(data.quote, formatted) : null;

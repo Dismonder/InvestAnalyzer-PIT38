@@ -22,6 +22,8 @@ test('brakujacy plik /assets daje 404, trasy SPA - index.html', async () => {
   fs.mkdirSync(path.join(wydanie, 'assets'), { recursive: true });
   fs.writeFileSync(path.join(wydanie, 'index.html'), '<!doctype html><div id="root"></div>');
   fs.writeFileSync(path.join(wydanie, 'assets', 'index-abc.js'), 'export {};');
+  // Paczka serwera lezy w tym samym katalogu wydania (npm run build), ale nie jest plikiem aplikacji.
+  fs.writeFileSync(path.join(wydanie, 'server.cjs'), 'module.exports = { sciezka: "C:/tajne" };');
   const serwer = http.createServer(createInvestAnalyzerServer({ workspaceRoot: root, runtimeRoot, serveStatic: true, staticDir: wydanie }));
   await new Promise<void>((resolve) => serwer.listen(0, '127.0.0.1', resolve));
   try {
@@ -37,6 +39,11 @@ test('brakujacy plik /assets daje 404, trasy SPA - index.html', async () => {
     const trasa = await fetch(`${baza}/portfel`);
     assert.equal(trasa.status, 200);
     assert.match(await trasa.text(), /<div id="root">/);
+
+    const paczkaSerwera = await fetch(`${baza}/server.cjs`);
+    assert.equal(paczkaSerwera.status, 404, 'kod serwera nie jest podawany przegladarce');
+    assert.doesNotMatch(await paczkaSerwera.text(), /tajne/);
+    assert.equal((await fetch(`${baza}/Server.CJS`)).status, 404, 'takze inna wielkoscia liter');
   } finally {
     await new Promise<void>((resolve) => serwer.close(() => resolve()));
     fs.rmSync(root, { recursive: true, force: true });

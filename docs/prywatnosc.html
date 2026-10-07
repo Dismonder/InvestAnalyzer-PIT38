@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Polityka prywatności InvestAnalyzer: brak cookies i kont, dane portfela tylko w pamięci urządzenia, logi techniczne Cloudflare, prawa użytkownika.">
+  <meta name="theme-color" content="#f4f7f5">
+  <meta name="robots" content="noindex">
+  <title>Prywatność i dane w urządzeniu — InvestAnalyzer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f7f5; --surface: #fff; --text: #142b29; --muted: #506661; --line: #cddbd5;
+      --accent: #116951; --accent-soft: #dbefe5; --code-bg: #132c29; --code-text: #e0f5ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #0b191a; --surface: #12262a; --text: #e6f1ee; --muted: #9fb7b1; --line: #27403f;
+        --accent: #5fd0a6; --accent-soft: #163c33; --code-bg: #071314; --code-text: #cfeee0;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    body { margin: 0; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--text); background: var(--bg); }
+    main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+    header { margin-bottom: 24px; }
+    .eyebrow { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+    h1 { margin: 0 0 8px; font-size: clamp(26px, 5vw, 36px); line-height: 1.15; letter-spacing: -.02em; }
+    h2 { margin: 36px 0 10px; font-size: 20px; line-height: 1.25; }
+    h3 { margin: 20px 0 6px; font-size: 16px; }
+    p, li { color: var(--text); }
+    p.lead { font-size: 18px; color: var(--muted); }
+    p.small, .small { font-size: 13px; color: var(--muted); }
+    a { color: var(--accent); }
+    ul { padding-left: 22px; }
+    li { margin: 4px 0; }
+    code { font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace; background: var(--accent-soft); padding: 1px 5px; border-radius: 5px; }
+    .box { margin: 16px 0; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .box strong { display: block; margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+    th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+    th { font-weight: 700; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+    nav.toc { margin: 20px 0 8px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); font-size: 14px; }
+    nav.toc ol { margin: 6px 0 0; padding-left: 20px; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+    footer a { margin-right: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">InvestAnalyzer</p>
+    <h1>Prywatność i dane w urządzeniu</h1>
+    <p class="lead">Krótko: nie ma kont, nie ma cookies, nie ma śledzenia. Dane portfela zostają w pamięci Twojej przeglądarki.
+      Serwer widzi tylko zapytania o notowania i kursy oraz zwykłe dane techniczne połączenia.</p>
+    <p class="small">Wersja z 7 października 2026 r. Dokument obejmuje aplikację online
+      <a href="https://investanalyzer-app.dismonder.workers.dev/">investanalyzer-app.dismonder.workers.dev</a>
+      i stronę projektu <a href="https://investanalyzer-strona.dismonder.workers.dev/">investanalyzer-strona.dismonder.workers.dev</a>.</p>
+  </header>
+
+  <nav class="toc" aria-label="Spis treści">
+    <strong>Spis treści</strong>
+    <ol>
+      <li><a href="#administrator">Kto odpowiada za serwisy</a></li>
+      <li><a href="#cookies">Cookies i inne identyfikatory</a></li>
+      <li><a href="#urzadzenie">Dane w pamięci Twojego urządzenia</a></li>
+      <li><a href="#serwer">Co trafia na serwer</a></li>
+      <li><a href="#dostawcy">Dostawcy notowań i kursów</a></li>
+      <li><a href="#prawa">Twoje prawa</a></li>
+      <li><a href="#bezpieczenstwo">Bezpieczeństwo</a></li>
+      <li><a href="#zmiany">Zmiany tego dokumentu</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="administrator">1. Kto odpowiada za serwisy</h2>
+  <p>Serwisy prowadzi autor projektu InvestAnalyzer, publikujący pod nazwą <strong>Dismonder</strong>
+    (<a href="https://github.com/Dismonder">github.com/Dismonder</a>). W rozumieniu RODO jest on administratorem danych,
+    które powstają przy korzystaniu z serwisów (zob. część 4). Kontakt w sprawach prywatności i bezpieczeństwa:
+    przez zgłoszenie w repozytorium GitHub (zakładka <em>Security → Report a vulnerability</em>) albo kanał podany w pliku <code>/.well-known/security.txt</code>.</p>
+  <p class="small">Wersja na Windows (aplikacja komputerowa) działa w całości na Twoim komputerze i nie łączy się z tymi
+    serwerami; notowania i kursy pobiera bezpośrednio od dostawców wymienionych w części 5.</p>
+
+  <h2 id="cookies">2. Cookies i inne identyfikatory</h2>
+  <div class="box">
+    <strong>Serwisy nie używają plików cookie.</strong>
+    Ani własnych, ani zewnętrznych. Nie ma logowania, rejestracji, analityki, reklam, pikseli śledzących ani
+    osadzonych zasobów z obcych domen (czcionek, skryptów, widżetów). Dlatego nie wyświetlamy baneru o zgodzie
+    na cookies — nie ma na co wyrażać zgody.
+  </div>
+  <p>Jedyne, co serwisy zapisują na Twoim urządzeniu, to dane samej aplikacji opisane w części 3. Taki zapis jest
+    niezbędny do świadczenia usługi, o którą prosisz (prowadzenie portfela w przeglądarce), i mieści się w wyjątku
+    z art. 399 ust. 3 ustawy — Prawo komunikacji elektronicznej (odpowiednik art. 5 ust. 3 dyrektywy 2002/58/WE),
+    więc nie wymaga odrębnej zgody. Masz nad nim pełną kontrolę: usuwasz go w aplikacji albo w ustawieniach przeglądarki.</p>
+  <p class="small">Platforma Cloudflare, na której działa wersja online, może wyjątkowo ustawić własne cookie techniczne
+    (np. <code>cf_clearance</code>), gdy uzna, że ruch wymaga sprawdzenia, czy nie pochodzi z automatu. Takie cookie jest
+    niezbędne do ochrony serwisu przed nadużyciami, nie zawiera danych o Tobie i nie służy śledzeniu; w zwykłym użyciu nie pojawia się wcale.</p>
+
+  <h2 id="urzadzenie">3. Dane w pamięci Twojego urządzenia</h2>
+  <p>Aplikacja online zapisuje dane wyłącznie w pamięci przeglądarki (<code>localStorage</code>, <code>sessionStorage</code>,
+    <code>IndexedDB</code> i pamięć podręczna service workera <code>Cache Storage</code>). Nic z tego nie jest wysyłane na serwer
+    ani do autora. Zapisywane są:</p>
+  <table>
+    <thead><tr><th>Co</th><th>Po co</th></tr></thead>
+    <tbody>
+      <tr><td>Transakcje, rachunki maklerskie, pozycje, alerty cenowe, ulubione instrumenty</td><td>To jest treść Twojego portfela — bez tego aplikacja nie ma czego pokazać.</td></tr>
+      <tr><td>Ustawienia widoków: motyw, filtry, zakresy wykresów, odstęp odświeżania notowań, ukryte podpowiedzi</td><td>Żeby aplikacja wyglądała tak, jak ją zostawiłeś.</td></tr>
+      <tr><td>Dane podatnika, jeśli je wpiszesz (imię, nazwisko, PESEL, urząd skarbowy, straty z lat ubiegłych)</td><td>Tylko do wypełnienia rozliczenia PIT-38. W wersji online rozliczenie nie jest liczone; pola służą wersji Windows.</td></tr>
+      <tr><td>Znacznik trybu hostowanego (po sprawdzeniu <code>/api/health</code>)</td><td>Żeby ukryć panele, które wymagają lokalnego serwera.</td></tr>
+      <tr><td>Pliki aplikacji (skrypty, style, ikony) w pamięci service workera</td><td>Start bez sieci i instalacja na ekranie głównym telefonu (PWA).</td></tr>
+    </tbody>
+  </table>
+  <div class="box">
+    <strong>Dane są zapisane w postaci jawnej w profilu przeglądarki.</strong>
+    Każdy, kto ma dostęp do Twojego urządzenia i profilu przeglądarki, może je odczytać. Używaj blokady ekranu, nie
+    wpisuj danych podatnika na współdzielonych komputerach, a na cudzym urządzeniu korzystaj z trybu prywatnego i po
+    pracy usuń dane. Blokada kodem TOTP (Ustawienia → Bezpieczeństwo) chroni wyłącznie ekran aplikacji w tej
+    przeglądarce — nie szyfruje zapisanych danych.
+  </div>
+  <h3>Jak usunąć dane</h3>
+  <ul>
+    <li>W aplikacji: <strong>Ustawienia → Dane</strong> (kopie, kwarantanna, czyszczenie) albo usuwanie pojedynczych transakcji i rachunków.</li>
+    <li>W przeglądarce: usuń dane witryny <code>investanalyzer-app.dismonder.workers.dev</code> (Chrome: kłódka w pasku adresu → „Dane witryny”; Safari: Ustawienia → Safari → Zaawansowane → Dane witryn).</li>
+    <li>Odinstalowanie aplikacji z ekranu głównego zwykle usuwa też jej pamięć, ale w niektórych przeglądarkach dane witryny zostają — sprawdź ustawienia przeglądarki.</li>
+  </ul>
+  <p>Strona projektu zapisuje w <code>localStorage</code> wyłącznie wybrany motyw (jasny/ciemny) i nic więcej.</p>
+
+  <h2 id="serwer">4. Co trafia na serwer</h2>
+  <p>Aplikacja online jest hostowana na platformie Cloudflare Workers. Serwer robi dwie rzeczy: podaje pliki aplikacji
+    i odpowiada na zapytania o notowania, historię kursów, kursy NBP i wyszukiwanie instrumentów. Do serwera trafiają:</p>
+  <ul>
+    <li><strong>Treść zapytań</strong>: symbole instrumentów (np. <code>CDR</code>, <code>NBIS.US</code>), zakres i interwał wykresu,
+      kod waluty i data kursu, wpisany fragment nazwy w wyszukiwarce. Nie trafiają: liczby posiadanych walorów, ceny
+      zakupu, nazwy rachunków, dane podatnika ani żadne inne dane z Twojego portfela.</li>
+    <li><strong>Dane techniczne każdego połączenia HTTP</strong>: adres IP, data i godzina, żądany adres, nagłówki przeglądarki
+      (m.in. identyfikator przeglądarki i systemu, język).</li>
+  </ul>
+  <p>Dane techniczne przetwarza w imieniu administratora <strong>Cloudflare, Inc.</strong> (101 Townsend St, San Francisco,
+    USA; w UE: Cloudflare Portugal / EU) jako podmiot przetwarzający — na podstawie standardowych klauzul umownych i
+    programu Data Privacy Framework. Logi serwera (Workers Logs) obejmują próbkę ok. jednej czwartej połączeń, są przechowywane przez <strong>3 dni</strong> i służą
+    wyłącznie do diagnozowania awarii i ochrony przed nadużyciami (m.in. limit zapytań na adres IP). Nikt nie łączy ich z
+    Twoją tożsamością ani nie buduje na nich profilu. Zasady Cloudflare:
+    <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy</a>.</p>
+  <p><strong>Podstawa prawna</strong>: prawnie uzasadniony interes administratora (art. 6 ust. 1 lit. f RODO) polegający na
+    świadczeniu działającej i bezpiecznej usługi. Adres IP jest daną osobową w rozumieniu RODO, dlatego w ogóle o tym piszemy —
+    poza nim administrator nie przetwarza żadnych danych osobowych użytkowników serwisów.</p>
+
+  <h2 id="dostawcy">5. Dostawcy notowań i kursów</h2>
+  <p>Notowania pochodzą z Yahoo Finance (<code>query1.finance.yahoo.com</code>), kursy walut z API Narodowego Banku Polskiego
+    (<code>api.nbp.pl</code>). W wersji online pyta o nie <em>serwer</em>, nie Twoja przeglądarka: dostawcy widzą adres serwera
+    Cloudflare i symbol instrumentu, nie widzą Twojego adresu IP. Odpowiedzi są przez krótki czas trzymane w pamięci
+    podręcznej serwera (od 10 sekund dla notowań do godziny dla kursów NBP), żeby nie odpytywać dostawców o to samo.</p>
+  <p class="small">W wersji Windows aplikacja pyta dostawców bezpośrednio z Twojego komputera, więc tam dostawcy widzą Twój adres IP —
+    tak samo, jak gdybyś otworzył ich strony w przeglądarce.</p>
+
+  <h2 id="prawa">6. Twoje prawa</h2>
+  <p>Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu
+    wobec przetwarzania opartego na uzasadnionym interesie (art. 15–21 RODO). Ponieważ dane portfela są wyłącznie na Twoim
+    urządzeniu, realizujesz te prawa samodzielnie (część 3: usuwanie, a także eksport kopii w Ustawieniach → Dane). W sprawie
+    logów technicznych napisz do administratora (część 1); pamiętaj, że są one kasowane po 3 dniach i nie da się ich
+    przypisać do osoby bez dodatkowych informacji. Skargę możesz złożyć do Prezesa Urzędu Ochrony Danych Osobowych
+    (<a href="https://uodo.gov.pl/">uodo.gov.pl</a>).</p>
+
+  <h2 id="bezpieczenstwo">7. Bezpieczeństwo</h2>
+  <ul>
+    <li>Połączenie wyłącznie przez HTTPS (HSTS); polityka CSP dopuszcza tylko własne skrypty i połączenia, strona nie daje się osadzić w ramce.</li>
+    <li>Serwer nie przechowuje żadnej bazy danych ani kont — nie ma czego wykraść.</li>
+    <li>Zapytania o notowania są sprawdzane i limitowane na adres IP; serwer nie przyjmuje danych od użytkownika poza parametrami zapytań.</li>
+    <li>Kod aplikacji jest dostępny do wglądu w repozytorium <a href="https://github.com/Dismonder/InvestAnalyzer-PIT38">github.com/Dismonder/InvestAnalyzer-PIT38</a>.</li>
+    <li>Zgłoszenia luk: <code>/.well-known/security.txt</code>.</li>
+  </ul>
+
+  <h2 id="zmiany">8. Zmiany tego dokumentu</h2>
+  <p>Zmiany publikujemy pod tym samym adresem z nową datą w nagłówku. Istotne zmiany (np. dodanie nowego dostawcy danych)
+    zapisujemy też w dzienniku zmian projektu.</p>
+  <p class="small">Program nie stanowi porady podatkowej ani inwestycyjnej. Wynik rozliczenia wymaga weryfikacji z dokumentami
+    i obowiązującymi przepisami; odpowiedzialność za zeznanie ponosi podatnik.</p>
+
+  <footer>
+    <a href="/">Wróć do aplikacji / strony</a>
+    <a href="https://investanalyzer-strona.dismonder.workers.dev/">Strona projektu</a>
+    <a href="https://github.com/Dismonder/InvestAnalyzer-PIT38">Repozytorium</a>
+  </footer>
+</main>
+</body>
+</html>

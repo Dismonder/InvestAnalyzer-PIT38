@@ -8,8 +8,13 @@ import { readFileSync } from 'fs';
 
 const webRoot = path.dirname(fileURLToPath(import.meta.url));
 
-/** Pliki z public/ wchodzace do pamieci service workera obok paczek z wydania. */
-const PLIKI_POWLOKI = ['/', '/index.html', '/motyw.js', '/manifest.webmanifest', '/ikony/ikona.svg', '/ikony/ikona-192.png'];
+/**
+ * Pliki z public/ wchodzace do pamieci service workera obok paczek z wydania.
+ * Powloka tylko pod `/`: Workers Static Assets (auto-trailing-slash) odpowiada na
+ * `/index.html` przekierowaniem 307 na `/`, a przekierowana odpowiedz w pamieci nie
+ * nadaje sie na zapas nawigacji (przegladarka odrzuca ja bledem sieci).
+ */
+const PLIKI_POWLOKI = ['/', '/motyw.js', '/manifest.webmanifest', '/ikony/ikona.svg', '/ikony/ikona-192.png'];
 
 /**
  * Buduje /sw.js z szablonu sw.szablon.js: wstawia odcisk wydania (skrot nazw
@@ -38,10 +43,29 @@ function serviceWorkerPwa(): Plugin {
   };
 }
 
+/**
+ * Polityka prywatnosci ma jedno zrodlo (docs/prywatnosc.html) i trafia do wydania
+ * aplikacji jako /prywatnosc.html - ten sam plik publikuje strona projektu
+ * (narzedzia/skrypty/zbuduj-strone.mjs). Naglowki tej strony: public/_headers.
+ */
+function politykaPrywatnosci(): Plugin {
+  return {
+    name: 'investanalyzer-polityka-prywatnosci',
+    apply: 'build',
+    generateBundle() {
+      this.emitFile({
+        type: 'asset',
+        fileName: 'prywatnosc.html',
+        source: readFileSync(path.join(webRoot, '../../docs/prywatnosc.html'), 'utf8'),
+      });
+    },
+  };
+}
+
 export default defineConfig(() => {
   return {
     root: webRoot,
-    plugins: [react(), tailwindcss(), serviceWorkerPwa()],
+    plugins: [react(), tailwindcss(), serviceWorkerPwa(), politykaPrywatnosci()],
     resolve: {
       alias: {
         '@': path.resolve(webRoot, 'src'),
@@ -168,6 +192,13 @@ export default defineConfig(() => {
       // Wlaczone domyslnie; `DISABLE_HMR=true` wylacza. Port ustawia
       // server-dev.ts, ktory prowadzi serwer deweloperski.
       hmr: process.env.DISABLE_HMR !== 'true',
+      // Serwer deweloperski podaje pliki z repozytorium pod /@fs/: dane uzytkownika
+      // (wyciagi, wyniki silnika) i klucze nie moga byc dostepne z przegladarki,
+      // nawet przez localhost (obca karta w tej samej przegladarce tez widzi localhost).
+      fs: {
+        strict: true,
+        deny: ['.env', '.env.*', '*.{crt,pem,key}', '**/.git/**', '**/dane/**', '**/wydania/**', '**/kopie/**'],
+      },
       watch: {
         ignored: [
           '**/out/**',

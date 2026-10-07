@@ -4,6 +4,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { RejestratorNocny, swieceZProbek } from '../overnightRecorder';
 import { SYMBOL_MAP, kandydaciSymboluDostawcy } from '../../shared/symbolDostawcy';
+// Walidacja wejscia wspolna z Workerem hostingu: do dostawcy idzie tylko to, co ma ksztalt symbolu.
+import {
+  DOZWOLONE_INTERWALY,
+  DOZWOLONE_ZAKRESY,
+  normalizujListeTickerow,
+  normalizujTicker,
+  normalizujZapytanie,
+} from '../../shared/walidacjaNotowan';
 
 // Mapowanie symboli mieszka we wspolnym module (uzywa go tez desktop); reeksport dla starych importow.
 export { SYMBOL_MAP, kandydaciSymboluDostawcy };
@@ -379,7 +387,7 @@ export async function fetchHistoricalChart(ticker: string, range = '1d', interva
 
     try {
       const url = `https://api.binance.com/api/v3/klines?symbol=${pair}&interval=${binanceInterval}&limit=${limit}`;
-      const response = await fetch(url);
+      const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
       if (response.ok) {
         const klines: any[] = await response.json();
         const dataPoints = klines.map((k) => {
@@ -593,10 +601,11 @@ export async function fetchHistoricalChart(ticker: string, range = '1d', interva
 router.get('/quotes', async (req, res) => {
   const tickersQuery = typeof req.query.tickers === 'string' ? req.query.tickers : '';
   const forceRefresh = req.query.force === 'true' || req.query.fresh === '1';
-  const tickers = [...new Set(tickersQuery
-    .split(',')
-    .map(t => t.trim().toUpperCase())
-    .filter(Boolean))];
+  // Wpisy bez ksztaltu symbolu (sciezki, znaczniki, spacje) nie ida do dostawcy.
+  const { tickery: tickers, odrzucone } = normalizujListeTickerow(tickersQuery);
+  if (tickers.length === 0 && odrzucone > 0) {
+    return res.status(400).json({ success: false, error: 'Żaden z podanych symboli nie wygląda na symbol instrumentu.' });
+  }
   // GET nie ma kontroli Origin: obca strona moze go wywolac, wiec lista ma limit.
   if (tickers.length > MAX_TICKEROW_NA_ZADANIE) {
     return res.status(400).json({
@@ -676,7 +685,10 @@ router.get('/quotes', async (req, res) => {
 });
 
 router.get('/quote/:ticker', async (req, res) => {
-  const ticker = req.params.ticker.toUpperCase();
+  const ticker = normalizujTicker(req.params.ticker);
+  if (!ticker) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowy symbol instrumentu.' });
+  }
   const forceRefresh = req.query.force === 'true';
   const now = Date.now();
   const isCrypto = !!CRYPTO_MAP[ticker];
@@ -718,9 +730,18 @@ router.get('/quote/:ticker', async (req, res) => {
 
 // Historical Chart Data Endpoint
 router.get('/history/:ticker', async (req, res) => {
-  const ticker = req.params.ticker.toUpperCase();
+  const ticker = normalizujTicker(req.params.ticker);
   const range = (req.query.range as string) || '1mo';
   const interval = (req.query.interval as string) || '1d';
+  if (!ticker) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowy symbol instrumentu.' });
+  }
+  if (!DOZWOLONE_ZAKRESY.has(range)) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowy zakres historii.' });
+  }
+  if (!DOZWOLONE_INTERWALY.has(interval)) {
+    return res.status(400).json({ success: false, error: 'Nieprawidłowy interwał historii.' });
+  }
 
   try {
     const chartData = await fetchHistoricalChart(ticker, range, interval);
@@ -763,7 +784,7 @@ router.get('/supported-assets', (req, res) => {
 
 // Global Live Search for Tickers across All Markets & Brokers
 router.get('/search-tickers', async (req, res) => {
-  const q = ((req.query.q as string) || '').trim();
+  const q = normalizujZapytanie(typeof req.query.q === 'string' ? req.query.q : '');
   if (!q) {
     return res.json({ success: true, results: [] });
   }
