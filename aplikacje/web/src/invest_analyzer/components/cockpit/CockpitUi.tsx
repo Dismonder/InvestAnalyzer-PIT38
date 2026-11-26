@@ -55,7 +55,7 @@ export function CockpitStatusHero({
     <motion.section data-motion="cockpit-status-hero" className={joinClasses("rounded-2xl border p-5 shadow-sm md:p-6", toneClasses[tone])} {...uiMotion.fadeUp()}>
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1.5fr)_minmax(280px,0.8fr)] xl:items-start">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] opacity-70">{eyebrow}</p>
+          <p className="text-xs font-semibold tracking-[0.18em] opacity-70">{eyebrow}</p>
           <h2 className="mt-2 text-2xl font-bold tracking-tight md:text-3xl">{title}</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 opacity-85">{summary}</p>
           {metrics.length > 0 && <MetricStrip metrics={metrics} className="mt-5" compact />}
@@ -84,7 +84,7 @@ export function RecommendedActionCard({
   const uiMotion = useUiMotion();
   return (
     <motion.div data-motion="recommended-action-card" className="rounded-xl bg-white/85 p-4 text-slate-900 shadow-sm ring-1 ring-black/5 dark:bg-gray-950/35 dark:text-white dark:ring-white/10" {...uiMotion.fadeUp(0.06)}>
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">Najważniejsza akcja</p>
+      <p className="text-xs font-semibold tracking-[0.16em] text-slate-500 dark:text-slate-400">Najważniejsza akcja</p>
       <h3 className="mt-2 text-base font-bold">{title}</h3>
       <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{description}</p>
       {(ctaLabel || secondaryAction) && (
@@ -130,7 +130,7 @@ export function MetricStrip({ metrics, compact = false, className }: MetricStrip
             metric.tone ? toneClasses[metric.tone] : "border-white/70 dark:border-white/10",
           )}
         >
-          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] opacity-65">{metric.label}</p>
+          <p className="text-[0.6875rem] font-semibold tracking-[0.14em] opacity-65">{metric.label}</p>
           <p className="mt-1 text-lg font-bold">{metric.value}</p>
           {metric.helper ? <p className="mt-1 text-xs opacity-70">{metric.helper}</p> : null}
         </motion.div>
@@ -167,7 +167,7 @@ export function ProgressStepRail({ steps }: { steps: ProgressStep[] }) {
           <>
             <span className={joinClasses("inline-flex h-2.5 w-2.5 rounded-full ring-2 ring-white dark:ring-gray-900", pillToneClasses[stepTone(step.status)])} />
             <span className="font-semibold">{step.label}</span>
-            {step.count ? <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-[11px] font-bold text-slate-700 ring-1 ring-slate-200 dark:bg-gray-900 dark:text-slate-200 dark:ring-gray-700">{step.count}</span> : null}
+            {step.count ? <span className="ml-auto rounded-full bg-white px-2 py-0.5 text-[0.6875rem] font-bold text-slate-700 ring-1 ring-slate-200 dark:bg-gray-900 dark:text-slate-200 dark:ring-gray-700">{step.count}</span> : null}
           </>
         );
         const className = "flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 dark:border-gray-700 dark:bg-gray-800 dark:text-slate-100 dark:hover:border-blue-800 dark:hover:bg-blue-950/30";
@@ -303,7 +303,7 @@ export function InsightDrawer({
     >
       <div className="flex items-start justify-between gap-4 border-b border-slate-100 p-5 dark:border-gray-800">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-300">Panel szczegółów</p>
+          <p className="text-xs font-semibold tracking-[0.18em] text-blue-600 dark:text-blue-300">Panel szczegółów</p>
           <h2 className="mt-1 text-xl font-bold text-slate-950 dark:text-white">{title}</h2>
           {subtitle ? <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p> : null}
         </div>

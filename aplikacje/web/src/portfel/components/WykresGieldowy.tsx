@@ -136,7 +136,7 @@ export const WykresGieldowy: React.FC<WykresGieldowyProps> = ({ punkty, typ, wid
       <div
         ref={legenda}
         data-testid="wykres-szczegoly"
-        className="pointer-events-none absolute left-2 top-1 z-10 flex flex-wrap items-center gap-x-3 gap-y-0.5 rounded-md bg-white/70 px-2 py-1 font-mono text-[11px] text-slate-700 backdrop-blur-sm dark:bg-slate-900/70 dark:text-slate-200"
+        className="pointer-events-none absolute left-2 top-1 z-10 flex flex-wrap items-center gap-x-3 gap-y-0.5 rounded-md bg-white/70 px-2 py-1 font-mono text-[0.6875rem] text-slate-700 backdrop-blur-sm dark:bg-slate-900/70 dark:text-slate-200"
       />
       <div ref={kontener} style={{ height: wysokosc }} className="w-full" data-testid="wykres-gieldowy" />
     </div>

@@ -320,7 +320,7 @@ export default function App() {
   useEffect(() => {
     uszkodzoneWpisyMagazynu.forEach(({ klucz, powod }) =>
       pushNotificationService.sendPushNotification(
-        '⚠️ Uszkodzony zapis w przeglądarce',
+        'Uszkodzony zapis w przeglądarce',
         `Nie udało się odczytać "${klucz}" (${powod}). Te dane NIE weszły do rozliczenia. ` +
           `Kopia została odłożona pod kluczem "${klucz}:uszkodzony".`,
         'WARNING'
@@ -330,7 +330,7 @@ export default function App() {
 
   useEffect(() => obserwujBledyZapisu(() => {
     pushNotificationService.sendPushNotification(
-      '⚠️ Dane NIE zostały zapisane',
+      'Dane NIE zostały zapisane',
       'Magazyn przeglądarki odmówił zapisu. Zmiany mogą zniknąć po odświeżeniu. Zwolnij miejsce i wyeksportuj kopię zapasową.',
       'WARNING',
     );
@@ -591,7 +591,7 @@ export default function App() {
         if (shouldExecute) {
           hasChanged = true;
           pushNotificationService.sendPushNotification(
-            `⚡ Próg zlecenia osiągnięty (${order.ticker})`,
+            `Próg zlecenia osiągnięty (${order.ticker})`,
             execMessage,
             'WARNING'
           );
@@ -620,7 +620,7 @@ export default function App() {
   const handleToggleFavorite = (ticker: string) => {
     const isNowFav = marketDataService.toggleFavorite(ticker);
     pushNotificationService.sendPushNotification(
-      isNowFav ? '⭐ Dodano do Ulubionych' : 'Usunięto z Ulubionych',
+      isNowFav ? '⭐ Dodano do ulubionych' : 'Usunięto z ulubionych',
       `${ticker.toUpperCase()} ${isNowFav ? 'będzie teraz wyświetlany' : 'nie będzie już wyświetlany'} na górnym pasku notowań.`,
       'INFO'
     );
@@ -635,7 +635,7 @@ export default function App() {
     await marketDataService.fetchRealQuotes(undefined, true);
     setIsRefreshingQuotes(false);
     pushNotificationService.sendPushNotification(
-      '📊 Zaktualizowano Notowania',
+      'Zaktualizowano notowania',
       'Pobrano świeże, rzeczywiste kursy giełdowe i kryptowalutowe bezpośrednio z giełd.',
       'SUCCESS'
     );
@@ -692,7 +692,7 @@ export default function App() {
 
         if (pojedyncza) {
           pushNotificationService.sendPushNotification(
-            `✅ Synchronizacja API: ${acc.name}`,
+            `Synchronizacja API: ${acc.name}`,
             `Pobrano ${result.syncedTransactions.length} ${odmienLiczebnik(result.syncedTransactions.length, 'pozycję', 'pozycje', 'pozycji')} z API brokera ${acc.brokerType}.`,
             'SUCCESS'
           );
@@ -705,7 +705,7 @@ export default function App() {
         );
       } else if (pojedyncza && !result.success) {
         pushNotificationService.sendPushNotification(
-          `❌ Błąd API: ${acc.name}`,
+          `Błąd API: ${acc.name}`,
           result.message || result.error || 'Serwer brokera odrzucił żądanie synchronizacji.',
           'ALERT'
         );
@@ -716,7 +716,7 @@ export default function App() {
       // musi sie o nich dowiedziec, a nie tylko log serwera.
       (result.ostrzezenia ?? []).forEach((tresc) =>
         pushNotificationService.sendPushNotification(
-          `⚠️ Niepełny odczyt: ${acc.name}`,
+          `Niepełny odczyt: ${acc.name}`,
           tresc,
           'WARNING'
         )
@@ -735,13 +735,13 @@ export default function App() {
           // jak "komplet" - zdarzenia z tej sekcji nie trafia do rozliczenia.
           if (komplet.brakujaceSekcje.length > 0) {
             pushNotificationService.sendPushNotification(
-              `⚠️ Niekompletne dane z Freedom24`,
+              `Niekompletne dane z Freedom24`,
               `Zapisano ${komplet.transakcje} ${odmienLiczebnik(komplet.transakcje, 'transakcję', 'transakcje', 'transakcji')} i ${komplet.przeplywy} ${odmienLiczebnik(komplet.przeplywy, 'operację pieniężną', 'operacje pieniężne', 'operacji pieniężnych')}, ale nie udało się pobrać sekcji raportu: ${komplet.brakujaceSekcje.join(', ')}. Zdarzenia z tych sekcji mogą nie trafić do rozliczenia — ponów pobranie.`,
               'WARNING'
             );
           } else {
             pushNotificationService.sendPushNotification(
-              `📥 Komplet danych z Freedom24`,
+              `Komplet danych z Freedom24`,
               `Zapisano ${komplet.transakcje} ${odmienLiczebnik(komplet.transakcje, 'transakcję', 'transakcje', 'transakcji')} i ${komplet.przeplywy} ${odmienLiczebnik(komplet.przeplywy, 'operację pieniężną', 'operacje pieniężne', 'operacji pieniężnych')} do rozliczenia.${komplet.ostrzezenia.length > 0 ? ` Uwagi: ${komplet.ostrzezenia.join('; ')}` : ''}`,
               'SUCCESS'
             );
@@ -754,7 +754,7 @@ export default function App() {
           rodzaj = rodzajPoBleduKompletu(rodzaj);
           komunikatBleduKompletu = bladKompletu instanceof Error ? bladKompletu.message : 'Nie udało się pobrać pełnych danych.';
           pushNotificationService.sendPushNotification(
-            `⚠️ Komplet danych z Freedom24`,
+            `Komplet danych z Freedom24`,
             komunikatBleduKompletu,
             'ALERT'
           );
@@ -782,7 +782,7 @@ export default function App() {
       );
       if (pojedyncza) {
         pushNotificationService.sendPushNotification(
-          `❌ Błąd API: ${acc.name}`,
+          `Błąd API: ${acc.name}`,
           `Nie udało się ukończyć synchronizacji: ${err.message}`,
           'ALERT'
         );
@@ -826,7 +826,7 @@ export default function App() {
       );
     } else {
       pushNotificationService.sendPushNotification(
-        '✅ Zbiorcza Synchronizacja API Zakończona',
+        'Zbiorcza synchronizacja API zakończona',
         `Zsynchronizowano konta maklerskie. Zaktualizowano ${totalImported} ${odmienLiczebnik(totalImported, 'pozycję', 'pozycje', 'pozycji')}.`,
         'SUCCESS'
       );
@@ -861,7 +861,7 @@ export default function App() {
       return [tx, ...prev];
     });
     pushNotificationService.sendPushNotification(
-      'Zapisano Transakcję',
+      'Zapisano transakcję',
       `Dodano/zaktualizowano transakcję dla ${tx.ticker} (${tx.type})`,
       'INFO'
     );
@@ -875,7 +875,7 @@ export default function App() {
     setTransactions([]);
     localStorage.removeItem('pit38_transactions');
     pushNotificationService.sendPushNotification(
-      'Wyczyszczono Historię',
+      'Wyczyszczono historię',
       'Wszystkie transakcje zostały usunięte z lokalnej bazy danych.',
       'INFO'
     );
@@ -892,7 +892,7 @@ export default function App() {
     // zapisal z pamieci tego, co wlasnie usunieto.
     void wyczyscDaneAplikacji().then((wynik) => {
       pushNotificationService.sendPushNotification(
-        'Wyczyszczono Wszystkie Dane',
+        'Wyczyszczono wszystkie dane',
         wynik.indexedDb === 'blad'
           ? 'Usunięto dane aplikacji z tej przeglądarki; część magazynu (IndexedDB) nie dała się wyczyścić - usuń dane witryny w ustawieniach przeglądarki.'
           : 'Usunięto z tej przeglądarki wszystkie dane aplikacji: rachunki, transakcje, alerty, dane podatnika i ustawienia rozliczenia.',
@@ -912,7 +912,7 @@ export default function App() {
         ...prev,
         ...missingAccountIds.map((accId) => ({
           id: accId,
-          name: 'Rachunek Maklerski (' + accId + ')',
+          name: 'Rachunek maklerski (' + accId + ')',
           brokerType: 'CUSTOM' as const,
           currency: 'PLN' as CurrencyCode,
           color: '#3B82F6',
@@ -934,7 +934,7 @@ export default function App() {
       return [...unique.filter((transaction) => !prevIds.has(transaction.id)), ...prev];
     });
     pushNotificationService.sendPushNotification(
-      'Zaimportowano Transakcje',
+      'Zaimportowano transakcje',
       `Dodano ${unique.length} ${odmienLiczebnik(unique.length, 'transakcję', 'transakcje', 'transakcji')}; pominięto ${duplicateCount} ${odmienLiczebnik(duplicateCount, 'duplikat', 'duplikaty', 'duplikatów')}.`,
       duplicateCount > 0 ? 'WARNING' : 'SUCCESS'
     );
@@ -1030,7 +1030,7 @@ export default function App() {
     };
     setAlerts((prev) => [alertItem, ...prev]);
     pushNotificationService.sendPushNotification(
-      'Ustawiono Alert Cenowy',
+      'Ustawiono alert cenowy',
       `Monitorowanie kursu ${alertItem.ticker} zostało aktywowane.`,
       'INFO'
     );
@@ -1045,7 +1045,7 @@ export default function App() {
       prev.map((a) => (a.id === updatedAlert.id ? updatePriceAlert(a, updatedAlert) : a))
     );
     pushNotificationService.sendPushNotification(
-      'Zaktualizowano Alert Cenowy',
+      'Zaktualizowano alert cenowy',
       `Parametry alertu dla ${updatedAlert.ticker} zostały pomyślnie zaktualizowane.`,
       'INFO'
     );
@@ -1089,19 +1089,19 @@ export default function App() {
 
     if (res.ambiguous) {
       pushNotificationService.sendPushNotification(
-        `⚠️ Sprawdź stan zlecenia ${account.brokerType}`,
+        `Sprawdź stan zlecenia ${account.brokerType}`,
         res.message,
         'ALERT'
       );
     } else if (res.success) {
       pushNotificationService.sendPushNotification(
-        `🛡️ Uzbrojono Zlecenie Ochronne w API Brokera (${account.brokerType})`,
+        `Uzbrojono zlecenie ochronne w API brokera (${account.brokerType})`,
         res.message,
         'SUCCESS'
       );
     } else {
       pushNotificationService.sendPushNotification(
-        `❌ Błąd Zlecenia Brokera (${account.brokerType})`,
+        `Błąd zlecenia brokera (${account.brokerType})`,
         res.message || 'Nie udało się zarejestrować zlecenia w systemie brokera.',
         'ALERT'
       );
@@ -1125,7 +1125,7 @@ export default function App() {
               ...o,
               status: res.success ? ('CANCELLED' as const) : o.status,
               message: res.success
-                ? `Anulowano w API Brokera: ${new Date().toLocaleTimeString('pl-PL')}`
+                ? `Anulowano w API brokera: ${new Date().toLocaleTimeString('pl-PL')}`
                 : res.message || 'Broker nie potwierdził anulowania — zlecenie może nadal być aktywne.',
             }
           : o
@@ -1134,13 +1134,13 @@ export default function App() {
 
     if (res.success) {
       pushNotificationService.sendPushNotification(
-        'Anulowano Zlecenie Ochronne',
+        'Anulowano zlecenie ochronne',
         `Broker potwierdził wycofanie zlecenia ${orderId}.`,
         'INFO'
       );
     } else {
       pushNotificationService.sendPushNotification(
-        '❌ Nie anulowano zlecenia',
+        'Nie anulowano zlecenia',
         res.message || `Broker nie potwierdził wycofania zlecenia ${orderId}. Sprawdź je w aplikacji brokera.`,
         'ALERT'
       );
@@ -1192,7 +1192,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-full bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200 flex flex-col font-sans">
+    <div className="h-full lg:pl-56 bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200 flex flex-col font-sans">
       {/* 2FA Locked Screen Barrier */}
       {twoFactor.isEnabled && twoFactor.isLocked && (
         <SessionLockScreen
@@ -1206,7 +1206,7 @@ export default function App() {
       {/* Warsztat silnika: import plikow brokerskich, kontrola jakosci, raport roczny
           i kopie decyzji. Ma wlasna nawigacje i wlasne przewijanie, wiec dostaje cale okno. */}
       {activeTab === 'engine' ? (
-        <div className="flex-1 min-h-0 pb-20 sm:pb-24">
+        <div className="flex-1 min-h-0 pb-20 sm:pb-24 lg:pb-0">
           <ErrorBoundary key="engine">
           <Suspense fallback={<LadowanieWidoku language={language} />}>
             <InvestAnalyzerApp />
@@ -1215,7 +1215,7 @@ export default function App() {
         </div>
       ) : (
       <main key={activeTab} className="flex-1 min-h-0 overflow-y-auto custom-scrollbar">
-        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 pb-36 sm:pb-44 space-y-4 sm:space-y-6">
+        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 pb-36 sm:pb-44 lg:pb-8 space-y-4 sm:space-y-6">
         {/* Blad jednej zakladki nie zaslania aplikacji; zmiana zakladki zeruje granice. */}
         <ErrorBoundary key={activeTab}>
         <Suspense fallback={<LadowanieWidoku language={language} />}>
@@ -1261,7 +1261,7 @@ export default function App() {
         {engineError && !isCalculating && !czyOdmowaHostingu(engineError) && (
           <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-300">
             <div className="font-bold">Silnik podatkowy nie przeliczył rozliczenia</div>
-            <div className="mt-1 font-mono text-[11px] break-words opacity-90">{engineError}</div>
+            <div className="mt-1 font-mono text-[0.6875rem] break-words opacity-90">{engineError}</div>
             <button
               type="button"
               onClick={() => setWymuszeniePrzeliczenia((n) => n + 1)}
@@ -1305,7 +1305,7 @@ export default function App() {
         {/* Hosting (telefon): pozycje z rachunku w przegladarce, nie z silnika - inny opis, bez przycisku silnika. */}
         {/* Tylko tam, gdzie pozycje maja znaczenie (portfel, PIT-38, rejestr) - na telefonie kazda karta u gory kosztuje ekran. */}
         {!isCalculating && transakcjeSilnika !== null && trybHostowany && ['portfolio', 'tax', 'transactions'].includes(activeTab) && (
-          <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[11px] sm:text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+          <div className="flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[0.6875rem] sm:text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
             <div className="min-w-0 leading-snug">
               <span className="font-semibold text-slate-900 dark:text-white">Źródło: rachunek w przeglądarce</span>
               {' · '}FIFO z {transakcjeSilnika.length} {odmienLiczebnik(transakcjeSilnika.length, 'transakcji', 'transakcji', 'transakcji')}, kursy NBP T-1
@@ -1562,10 +1562,10 @@ export default function App() {
           <footer className="w-full border-t border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 py-6 mb-24 text-center text-xs text-slate-500 dark:text-slate-400">
             <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
               <div>
-                Kalkulator Podatku Giełdowego PIT-38 • Zgodny z ustawą o podatku dochodowym od osób fizycznych
+                Kalkulator podatku giełdowego PIT-38 • Zgodny z ustawą o podatku dochodowym od osób fizycznych
               </div>
-              <div className="font-mono text-[11px] text-slate-400">
-                Kursy NBP T-1 • Realne Notowania Giełdowe • Silnik FIFO w Pythonie
+              <div className="font-mono text-[0.6875rem] text-slate-400">
+                Kursy NBP T-1 • Realne notowania giełdowe • Silnik FIFO w Pythonie
               </div>
             </div>
           </footer>

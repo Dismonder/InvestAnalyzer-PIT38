@@ -31,7 +31,7 @@ export async function przywrocZKopiaBezpieczenstwa<TSnapshot, TResult>(
     pominiete = pominieteKluczeKopii(kopia);
   } catch (blad) {
     const szczegol = blad instanceof Error ? blad.message : String(blad);
-    throw new Error(`Nie udało się zapisać kopii bieżącego stanu — przywracanie przerwane, nic nie zmieniono. (${szczegol})`);
+    throw new Error(`Nie udało się zapisać kopii bieżącego stanu — przywracanie przerwane, nic nie zmieniono. (${szczegol})`, { cause: blad });
   }
   // Kopia bezpieczenstwa bez czesci danych nie zabezpiecza przed nadpisaniem: przywrocenie przerwane.
   if (pominiete.length > 0) {

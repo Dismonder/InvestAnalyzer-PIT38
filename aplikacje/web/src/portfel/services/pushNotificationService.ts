@@ -161,7 +161,7 @@ class PushNotificationService {
       const { updatedAlert } = evaluatePriceAlert(alert, quotes, now);
       if (!updatedAlert) return;
 
-      this.sendPushNotification(`🔔 Alert Cenowy: ${alert.ticker}`, updatedAlert.message ?? '', 'ALERT');
+      this.sendPushNotification(`Alert Cenowy: ${alert.ticker}`, updatedAlert.message ?? '', 'ALERT');
       onAlertTriggered(updatedAlert);
     });
   }

@@ -402,14 +402,14 @@ export function WorkspaceCenter({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">Centrum pracy</p>
+            <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">Centrum pracy</p>
             <h1 className="mt-1 text-2xl font-bold text-gray-950 dark:text-white">InvestAnalyzer {selectedYear}</h1>
             <p className="mt-2 max-w-3xl text-sm text-gray-600 dark:text-gray-400">
               Jedno miejsce do przejścia od importu lokalnych plików do historii, korekt, raportu PIT-38 i pakietu podatkowego.
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm dark:border-gray-700 dark:bg-gray-900">
-            <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Status raportu</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Status raportu</p>
             <p className="mt-1 font-semibold text-gray-900 dark:text-white">
               {TAX_REPORT_ORGANIZATION_LABELS[reportOrganizationStatus.status]}
             </p>
@@ -419,7 +419,7 @@ export function WorkspaceCenter({
         <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-6">
           {readiness.metrics.map((metric) => (
             <div key={metric.label} className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900/70">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{metric.label}</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{metric.label}</p>
               <p className="mt-2 text-base font-bold text-gray-950 dark:text-white">{metric.value}</p>
               {metric.detail && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{metric.detail}</p>}
             </div>
@@ -437,7 +437,7 @@ export function WorkspaceCenter({
         }`}>
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide opacity-75">Stan rozliczenia</p>
+              <p className="text-xs font-semibold opacity-75">Stan rozliczenia</p>
               <h2 className="mt-1 text-lg font-bold">{readiness.settlementStatus.label}</h2>
               <p className="mt-1 text-sm opacity-90">{readiness.settlementStatus.message}</p>
             </div>
@@ -563,7 +563,7 @@ export function WorkspaceCenter({
       <section className={`rounded-2xl border p-6 shadow-sm ${autoCheckVerdictClasses(autoCheckGuide.verdict)}`}>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide opacity-75">Samocheck PIT</p>
+            <p className="text-sm font-semibold opacity-75">Samocheck PIT</p>
             <h2 className="mt-1 text-2xl font-bold">{autoCheckGuide.headline}</h2>
             <p className="mt-2 max-w-3xl text-sm opacity-90">{autoCheckGuide.summary}</p>
           </div>
@@ -599,15 +599,15 @@ export function WorkspaceCenter({
           <div className="mt-5 rounded-xl bg-white/80 p-4 shadow-sm ring-1 ring-black/5 dark:bg-gray-950/30 dark:ring-white/10">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Najważniejsza akcja</p>
+                <p className="text-xs font-semibold opacity-70">Najważniejsza akcja</p>
                 <h3 className="mt-1 text-lg font-bold">{autoCheckGuide.recommendedItem.title}</h3>
                 <div className="mt-3 grid gap-3 md:grid-cols-2">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Co to znaczy</p>
+                    <p className="text-xs font-semibold opacity-70">Co to znaczy</p>
                     <p className="mt-1 text-sm opacity-90">{autoCheckGuide.recommendedItem.whatItMeans}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Co zrobić</p>
+                    <p className="text-xs font-semibold opacity-70">Co zrobić</p>
                     <p className="mt-1 text-sm opacity-90">{autoCheckGuide.recommendedItem.howToFix}</p>
                   </div>
                 </div>
@@ -689,7 +689,7 @@ export function WorkspaceCenter({
         <section className="rounded-2xl border border-blue-200 bg-white p-6 shadow-sm dark:border-blue-500/20 dark:bg-gray-800">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
+              <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                 Kontrola plików brokera
               </p>
               <h2 className="mt-1 text-xl font-bold text-gray-950 dark:text-white">
@@ -711,7 +711,7 @@ export function WorkspaceCenter({
 
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900/70">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Źródła brokera</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Źródła brokera</p>
               <p className="mt-2 text-lg font-bold text-gray-950 dark:text-white">
                 {/* Liczba plikow w przegladarce nie jest liczba zrodel widzianych
                     przez silnik - `?? files.length` podstawialo jedno za drugie. */}
@@ -724,14 +724,14 @@ export function WorkspaceCenter({
               </p>
             </div>
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-500/20 dark:bg-emerald-500/10">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">W canonical input</p>
+              <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">W canonical input</p>
               <p className="mt-2 text-lg font-bold text-emerald-950 dark:text-emerald-100">
                 {licznikSilnika(controlTowerSummary.canonical_source_count)} źródeł
               </p>
               <p className="mt-1 text-xs text-emerald-700 dark:text-emerald-300">źródła użyte do strumienia danych</p>
             </div>
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/20 dark:bg-amber-500/10">
-              <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">Braki i konflikty</p>
+              <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">Braki i konflikty</p>
               <p className="mt-2 text-lg font-bold text-amber-950 dark:text-amber-100">
                 {/* "0 brakow i konfliktow" bez raportu silnika czytalo sie jak
                     wynik sprawdzenia, a znaczylo brak sprawdzenia. */}
@@ -746,7 +746,7 @@ export function WorkspaceCenter({
               </p>
             </div>
             <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 dark:border-indigo-500/20 dark:bg-indigo-500/10">
-              <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">No Overpay Guard</p>
+              <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">No Overpay Guard</p>
               <p className="mt-2 text-lg font-bold text-indigo-950 dark:text-indigo-100">
                 {licznikSilnika(noOverpaySummary.candidateCostCount ?? controlTowerSummary.candidate_cost_count)} kandydatów
               </p>
@@ -759,7 +759,7 @@ export function WorkspaceCenter({
           {coverageMatrix.length > 0 && (
             <div className="mt-6">
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-300">
+                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300">
                   Macierz kompletności danych
                 </h3>
                 <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -809,7 +809,7 @@ export function WorkspaceCenter({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
+            <p className="text-sm font-semibold text-slate-600 dark:text-slate-300">
               Zamknięcie roku PIT
             </p>
             <h2 className="mt-1 text-xl font-bold text-gray-950 dark:text-white">{taxYearClosureStatus.label}</h2>
@@ -818,7 +818,7 @@ export function WorkspaceCenter({
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm dark:border-gray-700 dark:bg-gray-900">
-            <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Tryb pracy</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Tryb pracy</p>
             <p className="mt-1 font-semibold text-gray-900 dark:text-white">
               {taxYearClosureStatus.isReadOnly ? 'Tryb tylko do odczytu' : 'Rok nie jest już zamrożony'}
             </p>
@@ -866,7 +866,7 @@ export function WorkspaceCenter({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-300">
+            <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-300">
               Panel dowodów PIT
             </p>
             <h2 className="mt-1 text-xl font-bold text-gray-950 dark:text-white">
@@ -883,7 +883,7 @@ export function WorkspaceCenter({
             )}
           </div>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm dark:border-emerald-500/20 dark:bg-emerald-500/10">
-            <p className="text-xs uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Postęp dowodów</p>
+            <p className="text-xs text-emerald-700 dark:text-emerald-300">Postęp dowodów</p>
             <p className="mt-1 font-semibold text-emerald-950 dark:text-emerald-100">
               {defenseWorkbench.progress.confirmedEvidenceItems}/{defenseWorkbench.progress.totalEvidenceItems} dowodów potwierdzonych
             </p>
@@ -905,22 +905,22 @@ export function WorkspaceCenter({
         </div>
         <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm dark:border-gray-700 dark:bg-gray-900/70">
-            <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Wysokie ryzyko</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Wysokie ryzyko</p>
             <p className="mt-1 font-semibold text-gray-900 dark:text-white">{defenseWorkbench.progress.highRiskItems}</p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm dark:border-gray-700 dark:bg-gray-900/70">
-            <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Brak linku</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Brak linku</p>
             <p className="mt-1 font-semibold text-gray-900 dark:text-white">{defenseWorkbench.progress.missingLinkItems}</p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm dark:border-gray-700 dark:bg-gray-900/70">
-            <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Brak notatki</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Brak notatki</p>
             <p className="mt-1 font-semibold text-gray-900 dark:text-white">{defenseWorkbench.progress.missingUserNoteItems}</p>
           </div>
         </div>
 
         {selectedDefenseTrace && (
           <div className="mt-5 rounded-xl border border-blue-200 bg-blue-50 p-4 text-sm dark:border-blue-900 dark:bg-blue-900/20">
-            <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">Ścieżka kwoty</p>
+            <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">Ścieżka kwoty</p>
             <p className="mt-1 font-semibold text-gray-950 dark:text-white">{selectedDefenseTrace.label}</p>
             <p className="mt-1 text-gray-600 dark:text-gray-300">{selectedDefenseTrace.explanation_pl}</p>
             <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
@@ -1013,7 +1013,7 @@ export function WorkspaceCenter({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
+            <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
               Asystent PIT przed złożeniem
             </p>
             <h2 className="mt-1 text-xl font-bold text-gray-950 dark:text-white">
@@ -1044,7 +1044,7 @@ export function WorkspaceCenter({
         </div>
         {pitReadiness?.recommendedAction ? (
           <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/20 dark:bg-amber-500/10">
-            <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">Rekomendowany krok</p>
+            <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">Rekomendowany krok</p>
             <p className="mt-1 font-semibold text-amber-950 dark:text-amber-100">{pitReadiness.recommendedAction.label}</p>
             <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">{pitReadiness.recommendedAction.userAction}</p>
           </div>
@@ -1058,7 +1058,7 @@ export function WorkspaceCenter({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-rose-600 dark:text-rose-300">
+            <p className="text-sm font-semibold text-rose-600 dark:text-rose-300">
               Konsola naprawy PIT
             </p>
             <h2 className="mt-1 text-xl font-bold text-gray-950 dark:text-white">
@@ -1069,7 +1069,7 @@ export function WorkspaceCenter({
             </p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm dark:border-gray-700 dark:bg-gray-900">
-            <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Pozycje aktywne</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Pozycje aktywne</p>
             <p className="mt-1 font-semibold text-gray-900 dark:text-white">{repairConsole.items.length}</p>
           </div>
         </div>
@@ -1127,7 +1127,7 @@ export function WorkspaceCenter({
             animate={{ opacity: 1, y: 0 }}
             className="rounded-2xl border border-blue-200 bg-blue-50 p-5 shadow-sm dark:border-blue-500/20 dark:bg-blue-500/10 md:col-span-2 xl:col-span-3"
           >
-            <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">Co zrobić teraz</p>
+            <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">Co zrobić teraz</p>
             <div className="mt-2 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h3 className="text-lg font-bold text-blue-950 dark:text-blue-100">{readiness.recommendedAction.label}</h3>
@@ -1195,7 +1195,7 @@ export function WorkspaceCenter({
                     onClick={() => onNavigate(primaryAttentionItem.targetView)}
                     className="w-full rounded-xl border border-amber-200 bg-amber-50 p-3 text-left transition-colors hover:bg-amber-100 dark:border-amber-500/20 dark:bg-amber-500/10 dark:hover:bg-amber-500/20"
                   >
-                    <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+                    <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">
                       Najważniejsza akcja
                     </p>
                     <p className="mt-1 text-sm font-semibold text-amber-900 dark:text-amber-200">{primaryAttentionItem.label}</p>

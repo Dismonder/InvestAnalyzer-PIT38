@@ -122,11 +122,11 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
   };
 
   return (
-    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label={editingTransaction ? 'Edytuj Transakcję' : t.addTransaction} className="outline-none fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label={editingTransaction ? 'Edytuj transakcję' : t.addTransaction} className="outline-none fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
       <div className="w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-6 space-y-4 animate-in fade-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
           <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-            {editingTransaction ? 'Edytuj Transakcję' : t.addTransaction}
+            {editingTransaction ? 'Edytuj transakcję' : t.addTransaction}
           </h2>
           <button
             aria-label="Zamknij"
@@ -141,8 +141,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
           {/* Account and Category */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Rachunek Maklerski</label>
-              <select aria-label="Rachunek Maklerski"
+              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Rachunek maklerski</label>
+              <select aria-label="Rachunek maklerski"
                 value={accountId}
                 onChange={(e) => setAccountId(e.target.value)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
@@ -160,14 +160,14 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Kategoria Aktywa</label>
-              <select aria-label="Kategoria Aktywa"
+              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Kategoria aktywa</label>
+              <select aria-label="Kategoria aktywa"
                 value={category}
                 onChange={(e) => setCategory(e.target.value as AssetCategory)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
               >
-                <option value="STOCK_FOREIGN">Akcje Zagraniczne (USA/EU)</option>
-                <option value="STOCK_PL">Akcje Polskie (GPW)</option>
+                <option value="STOCK_FOREIGN">Akcje zagraniczne (USA/EU)</option>
+                <option value="STOCK_PL">Akcje polskie (GPW)</option>
                 <option value="ETF">Fundusze ETF</option>
                 <option value="CRYPTO">Kryptowaluty</option>
                 <option value="BOND">Obligacje</option>
@@ -178,8 +178,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
           {/* Operation Type and Date */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Typ Transakcji</label>
-              <select aria-label="Typ Transakcji"
+              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Typ transakcji</label>
+              <select aria-label="Typ transakcji"
                 value={type}
                 onChange={(e) => setType(e.target.value as TransactionType)}
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
@@ -192,8 +192,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Data Transakcji</label>
-              <input aria-label="Data Transakcji"
+              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Data transakcji</label>
+              <input aria-label="Data transakcji"
                 type="date"
                 required
                 max={dzisiajLokalnie()}
@@ -207,8 +207,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
           {/* Ticker and Name */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Symbol / Ticker</label>
-              <input aria-label="Symbol / Ticker"
+              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Symbol / ticker</label>
+              <input aria-label="Symbol / ticker"
                 type="text"
                 required
                 placeholder="np. NVDA, AAPL, CDR, BTC"
@@ -219,8 +219,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Nazwa Spółki / Aktywa</label>
-              <input aria-label="Nazwa Spółki / Aktywa"
+              <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Nazwa spółki / aktywa</label>
+              <input aria-label="Nazwa spółki / aktywa"
                 type="text"
                 placeholder="np. NVIDIA Corp."
                 value={name}
@@ -234,10 +234,10 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                {type === 'DIVIDEND' ? 'Liczba Akcji' : 'Ilość Sztuk'}
+                {type === 'DIVIDEND' ? 'Liczba akcji' : 'Ilość sztuk'}
               </label>
               <input
-                aria-label={type === 'DIVIDEND' ? 'Liczba Akcji' : 'Ilość Sztuk'}
+                aria-label={type === 'DIVIDEND' ? 'Liczba akcji' : 'Ilość sztuk'}
                 type="number"
                 step="any"
                 required
@@ -249,7 +249,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
 
             <div>
               <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                {/* Silnik dostaje ilosc x kwote: "Kwota Dywidendy" zachecala do wpisania sumy,
+                {/* Silnik dostaje ilosc x kwote: "Kwota dywidendy" zachecala do wpisania sumy,
                     ktora mnozona przez liczbe akcji zawyzala dywidende wielokrotnie. */}
                 {type === 'DIVIDEND' ? 'Dywidenda brutto na 1 akcję' : 'Cena za Sztukę'}
               </label>
@@ -315,15 +315,15 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
                 placeholder="puste = podatek ze stawki"
                 className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none"
               />
-              <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              <p className="mt-1 text-[0.6875rem] text-slate-500 dark:text-slate-400">
                 Kwota faktycznie pobrana (z wyciągu) ma pierwszeństwo przed stawką. Zmiana stawki czyści to pole.
               </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Prowizja Maklerska</label>
-                <input aria-label="Prowizja Maklerska"
+                <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Prowizja maklerska</label>
+                <input aria-label="Prowizja maklerska"
                   type="number"
                   step="any"
                   value={commission}
@@ -333,8 +333,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Waluta Prowizji</label>
-                <select aria-label="Waluta Prowizji"
+                <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Waluta prowizji</label>
+                <select aria-label="Waluta prowizji"
                   value={commissionCurrency}
                   onChange={(e) => {
                     setCommissionCurrency(e.target.value as CurrencyCode);
@@ -377,7 +377,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
             <div className="text-right font-mono font-bold text-slate-900 dark:text-white">
               <span>{formatLiczba((parseFloat(quantity) || 0) * (parseFloat(pricePerUnit) || 0))} {currency}</span>
               {currency !== 'PLN' && nbpRatePreview && (
-                <span className="text-slate-400 font-normal block text-[10px]">
+                <span className="text-slate-400 font-normal block text-[0.6875rem]">
                   ≈ {formatLiczba((parseFloat(quantity) || 0) * (parseFloat(pricePerUnit) || 0) * nbpRatePreview)} PLN
                 </span>
               )}
@@ -386,8 +386,8 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Notatki / Komentarz (opcjonalne)</label>
-            <input aria-label="Notatki / Komentarz (opcjonalne)"
+            <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">Notatki / komentarz (opcjonalne)</label>
+            <input aria-label="Notatki / komentarz (opcjonalne)"
               type="text"
               placeholder="np. Zlecenie limit, zakup partii 1"
               value={notes}
@@ -414,7 +414,7 @@ export const AddTransactionModal: React.FC<AddTransactionModalProps> = ({
               type="submit"
               className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-xs cursor-pointer"
             >
-              {editingTransaction ? 'Zapisz Zmiany' : 'Dodaj do Rejestru'}
+              {editingTransaction ? 'Zapisz zmiany' : 'Dodaj do rejestru'}
             </button>
           </div>
         </form>

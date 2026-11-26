@@ -465,7 +465,7 @@ export function InvestSettingsPanel({
         onClick={() => setIsOpen(true)}
         whileHover={uiMotion.hoverSpin}
         whileTap={uiMotion.tapPress}
-        className="fixed bottom-24 left-4 p-3 bg-indigo-600 text-white dark:bg-indigo-500 rounded-full shadow-lg hover:rotate-90 transition-transform duration-300 z-50 flex items-center justify-center group"
+        className="fixed bottom-24 left-4 lg:bottom-6 lg:left-60 p-3 bg-indigo-600 text-white dark:bg-indigo-500 rounded-full shadow-lg hover:rotate-90 transition-transform duration-300 z-50 flex items-center justify-center group"
         title={t('settings.title')}
       >
         <Settings className="w-6 h-6" />
@@ -500,7 +500,7 @@ export function InvestSettingsPanel({
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  className={`min-w-fit flex-1 px-4 py-3 text-sm font-semibold transition-all relative flex items-center justify-center gap-1.5 ${
+                  className={`min-w-fit flex-1 px-4 py-3 text-sm font-semibold transition relative flex items-center justify-center gap-1.5 ${
                     activeTab === tab.id
                       ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/50 dark:bg-indigo-500/10'
                       : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'
@@ -509,7 +509,7 @@ export function InvestSettingsPanel({
                 >
                   {tab.label}
                   {typeof tab.count === 'number' && tab.count > 0 && (
-                    <span className={`text-[10px] py-0.5 px-2 rounded-full ${
+                    <span className={`text-[0.6875rem] py-0.5 px-2 rounded-full ${
                       activeTab === tab.id
                         ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300'
                         : tab.id === 'logs'
@@ -536,13 +536,13 @@ export function InvestSettingsPanel({
                     <div className="flex bg-gray-100 dark:bg-gray-900/50 p-1 rounded-lg">
                       <button
                         onClick={() => setTheme('light')}
-                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition-all ${theme === 'light' ? 'bg-white dark:bg-gray-800 shadow text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
+                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition ${theme === 'light' ? 'bg-white dark:bg-gray-800 shadow text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
                       >
                         <Sun className="w-4 h-4 mr-2" /> Jasny
                       </button>
                       <button
                         onClick={() => setTheme('dark')}
-                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition-all ${theme === 'dark' ? 'bg-gray-800 shadow text-indigo-400' : 'text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'}`}
+                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition ${theme === 'dark' ? 'bg-gray-800 shadow text-indigo-400' : 'text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'}`}
                       >
                         <Moon className="w-4 h-4 mr-2" /> Ciemny
                       </button>
@@ -626,7 +626,7 @@ export function InvestSettingsPanel({
 
                     {showAdvancedPlans && (
                       <div className="space-y-3">
-                        <label className="block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400">
                           Ustawienia &gt; Zaawansowane &gt; Plan liczenia
                         </label>
                         <select aria-label="Ustawienia &gt; Zaawansowane &gt; Plan liczenia"
@@ -698,7 +698,7 @@ export function InvestSettingsPanel({
                         {fundingFeeEntries.map((entry, index) => (
                           <div key={entry.id} className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 space-y-3 bg-gray-50 dark:bg-gray-900/40">
                             <div className="flex items-center justify-between gap-3">
-                              <p className="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                              <p className="text-xs font-bold text-gray-500 dark:text-gray-400">
                                 Wpis #{index + 1}
                               </p>
                               <button
@@ -748,7 +748,7 @@ export function InvestSettingsPanel({
                       onClick={onReload} 
                       className="w-full flex items-center justify-center gap-2 py-2.5 px-3 border border-gray-200 dark:border-gray-700 bg-gray-50 text-gray-700 dark:bg-gray-900/50 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-sm font-medium transition-colors"
                     >
-                      <RefreshCw size={16} /> Przeładuj GUI / Tabela
+                      <RefreshCw size={16} /> Przeładuj GUI / tabela
                     </button>
                   </div>
                 </div>
@@ -777,17 +777,17 @@ export function InvestSettingsPanel({
                   )}
                   <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                     <div className="rounded-xl border border-blue-100 bg-blue-50 p-4 text-blue-950 shadow-sm dark:border-blue-900/50 dark:bg-blue-950/20 dark:text-blue-100">
-                      <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Lokalna baza importu</p>
+                      <p className="text-xs font-semibold opacity-70">Lokalna baza importu</p>
                       <p className="mt-2 text-2xl font-bold">{files.length}</p>
                       <p className="mt-1 text-sm opacity-80">Pliki faktycznie wczytane do lokalnej bazy UI.</p>
                     </div>
                     <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-emerald-950 shadow-sm dark:border-emerald-900/50 dark:bg-emerald-950/20 dark:text-emerald-100">
-                      <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Aktywne źródła PIT</p>
+                      <p className="text-xs font-semibold opacity-70">Aktywne źródła PIT</p>
                       <p className="mt-2 text-2xl font-bold">{activeTaxSourceRows.length}</p>
                       <p className="mt-1 text-sm opacity-80">Pliki użyte przez silnik do obliczeń podatku.</p>
                     </div>
                     <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-emerald-950 shadow-sm dark:border-emerald-900/50 dark:bg-emerald-950/20 dark:text-emerald-100">
-                      <p className="text-xs font-semibold uppercase tracking-wide opacity-70">Pełny inwentarz źródeł silnika</p>
+                      <p className="text-xs font-semibold opacity-70">Pełny inwentarz źródeł silnika</p>
                       <p className="mt-2 text-2xl font-bold">{sourceInventoryRows.length}</p>
                       <p className="mt-1 text-sm opacity-80">{supportingSourceRows.length} pomocniczych: dowody, NBP, reconciliation i fallbacki.</p>
                     </div>
@@ -819,7 +819,7 @@ export function InvestSettingsPanel({
                         onClearData();
                         setIsOpen(false);
                       }}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-sm transition-all shadow-md hover:shadow-lg focus:ring-4 focus:ring-red-500/20"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-sm transition shadow-md hover:shadow-lg focus:ring-4 focus:ring-red-500/20"
                     >
                       <Trash2 className="w-4 h-4" /> Wyczyść i resetuj aplikację
                     </button>
@@ -901,7 +901,7 @@ export function InvestSettingsPanel({
                         </div>
                       ) : (
                         files.map((file, idx) => (
-                          <div key={idx} className={`bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm text-sm transition-all hover:border-gray-300 dark:hover:border-gray-600 ${file.isEnabled === false ? 'opacity-50' : ''}`}>
+                          <div key={idx} className={`bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm text-sm transition hover:border-gray-300 dark:hover:border-gray-600 ${file.isEnabled === false ? 'opacity-50' : ''}`}>
                             <div className="flex items-start justify-between mb-3">
                               <div className="font-semibold text-gray-800 dark:text-gray-200 truncate pr-2 flex-1" title={file.name}>{file.name}</div>
                               <div className="flex items-center gap-2 shrink-0 bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded-md border border-gray-100 dark:border-gray-800">
@@ -912,7 +912,7 @@ export function InvestSettingsPanel({
                                     onChange={(e) => onToggleFile && onToggleFile(file.name, e.target.checked)} 
                                     className="sr-only peer" 
                                   />
-                                  <div className="w-7 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                                  <div className="w-7 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition dark:border-gray-600 peer-checked:bg-indigo-600"></div>
                                 </label>
                                 {file.status === 'success' && <CheckCircle size={14} className="text-green-500" />}
                                 {file.status === 'warning' && <AlertTriangle size={14} className="text-yellow-500" />}
@@ -1032,14 +1032,14 @@ export function InvestSettingsPanel({
                         [t('desktop.cloud'), t('desktop.no')],
                       ].map(([label, value]) => (
                         <div key={label} className="rounded-lg border border-gray-100 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900/50">
-                          <div className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{label}</div>
+                          <div className="text-xs font-semibold text-gray-500 dark:text-gray-400">{label}</div>
                           <div className="mt-1 break-all font-semibold text-gray-900 dark:text-gray-100">{value}</div>
                         </div>
                       ))}
                     </div>
 
                     <div className="space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-3 text-xs dark:border-gray-700 dark:bg-gray-900/50">
-                      <div className="font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('desktop.folders')}</div>
+                      <div className="font-bold text-gray-500 dark:text-gray-400">{t('desktop.folders')}</div>
                       {[
                         [t('desktop.storageDir'), appPaths?.storageDir],
                         [t('desktop.artifactsDir'), appPaths?.artifactsDir],
@@ -1054,7 +1054,7 @@ export function InvestSettingsPanel({
                     </div>
 
                     <div className="rounded-lg border border-amber-100 bg-amber-50 p-3 text-xs text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-100">
-                      <div className="font-bold uppercase tracking-wide">{t('desktop.storageMigration')}</div>
+                      <div className="font-bold">{t('desktop.storageMigration')}</div>
                       <div className="mt-2">
                         {legacyStorageError || (legacyStorageStatus?.detected
                           ? t('desktop.legacyStorageDetected', {
@@ -1178,13 +1178,13 @@ export function InvestSettingsPanel({
                     <div className="flex bg-gray-100 dark:bg-gray-900/50 p-1 rounded-lg">
                       <button
                         onClick={() => setTheme('light')}
-                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition-all ${theme === 'light' ? 'bg-white dark:bg-gray-800 shadow text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
+                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition ${theme === 'light' ? 'bg-white dark:bg-gray-800 shadow text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
                       >
                         <Sun className="w-4 h-4 mr-2" /> {t('settings.light')}
                       </button>
                       <button
                         onClick={() => setTheme('dark')}
-                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition-all ${theme === 'dark' ? 'bg-gray-800 shadow text-indigo-400' : 'text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'}`}
+                        className={`flex-1 flex justify-center items-center py-2 text-sm font-medium rounded-md transition ${theme === 'dark' ? 'bg-gray-800 shadow text-indigo-400' : 'text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200'}`}
                       >
                         <Moon className="w-4 h-4 mr-2" /> {t('settings.dark')}
                       </button>
@@ -1232,7 +1232,7 @@ export function InvestSettingsPanel({
                       </span>
                     </label>
                     <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Endpoint
                         <input
                           value={ollamaConfigDraft.baseUrl || ''}
@@ -1241,7 +1241,7 @@ export function InvestSettingsPanel({
                           placeholder="http://127.0.0.1:11434"
                         />
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Model
                         <input
                           value={ollamaConfigDraft.model || ''}
@@ -1250,7 +1250,7 @@ export function InvestSettingsPanel({
                           placeholder="qwen3:14b"
                         />
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         GPU
                         <select
                           value={ollamaConfigDraft.gpuMode || 'gpu'}
@@ -1265,7 +1265,7 @@ export function InvestSettingsPanel({
                           <option value="auto">Auto Ollama</option>
                         </select>
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Backend GPU
                         <select
                           value={ollamaConfigDraft.gpuBackend || 'vulkan'}
@@ -1278,7 +1278,7 @@ export function InvestSettingsPanel({
                           <option value="auto">Auto Ollama</option>
                         </select>
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Warstwy GPU
                         <input
                           type="number"
@@ -1290,11 +1290,11 @@ export function InvestSettingsPanel({
                           className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm normal-case tracking-normal text-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
                           placeholder="-1"
                         />
-                        <span className="mt-1 block text-[11px] normal-case tracking-normal text-gray-400">
+                        <span className="mt-1 block text-[0.6875rem] normal-case tracking-normal text-gray-400">
                           -1 = wszystkie możliwe warstwy na GPU. CPU fallback jest wyłączony w UI.
                         </span>
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Limit GPU
                         <input
                           type="number"
@@ -1308,11 +1308,11 @@ export function InvestSettingsPanel({
                           className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm normal-case tracking-normal text-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
                           placeholder="85"
                         />
-                        <span className="mt-1 block text-[11px] normal-case tracking-normal text-gray-400">
+                        <span className="mt-1 block text-[0.6875rem] normal-case tracking-normal text-gray-400">
                           Miękki limit: ogranicza batch i równoległość; Ollama nie daje twardego limitu procentowego.
                         </span>
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Batch
                         <input
                           type="number"
@@ -1326,7 +1326,7 @@ export function InvestSettingsPanel({
                           placeholder="128"
                         />
                       </label>
-                      <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                      <label className="text-xs font-semibold text-gray-500 dark:text-gray-400">
                         Równoległość
                         <input
                           type="number"
@@ -1340,12 +1340,12 @@ export function InvestSettingsPanel({
                           className="mt-1 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm normal-case tracking-normal text-gray-900 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100"
                           placeholder="1"
                         />
-                        <span className="mt-1 block text-[11px] normal-case tracking-normal text-gray-400">
+                        <span className="mt-1 block text-[0.6875rem] normal-case tracking-normal text-gray-400">
                           Domyślnie 1, żeby nie dobijać GPU/VRAM przy importach.
                         </span>
                       </label>
                     </div>
-                    <label className="mt-3 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    <label className="mt-3 block text-xs font-semibold text-gray-500 dark:text-gray-400">
                       Ścieżka do ollama.exe
                       <input
                         value={ollamaConfigDraft.exePath || ''}
@@ -1359,7 +1359,7 @@ export function InvestSettingsPanel({
                         ? 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/20 dark:text-emerald-200'
                         : 'border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900/60 dark:bg-amber-950/20 dark:text-amber-100'
                     }`}>
-                      <div className="font-bold uppercase tracking-wide">
+                      <div className="font-bold">
                         {isStartingOllama
                           ? 'Ollama: uruchamianie'
                           : ollamaStatus?.gpuConfirmed ? 'Ollama GPU potwierdzona' : 'Ollama GPU niepotwierdzona'}
@@ -1398,7 +1398,7 @@ export function InvestSettingsPanel({
                       {ollamaStatus?.logEvidence && ollamaStatus.logEvidence.length > 0 && (
                         <details className="mt-2">
                           <summary className="cursor-pointer font-semibold">Dowody z logów GPU/CPU</summary>
-                          <pre className="mt-1 max-h-36 overflow-auto whitespace-pre-wrap rounded bg-black/5 p-2 text-[11px] dark:bg-white/5">
+                          <pre className="mt-1 max-h-36 overflow-auto whitespace-pre-wrap rounded bg-black/5 p-2 text-[0.6875rem] dark:bg-white/5">
                             {ollamaStatus.logEvidence.join('\n')}
                           </pre>
                         </details>
@@ -1471,7 +1471,7 @@ export function InvestSettingsPanel({
                       onClick={onReload} 
                       className="w-full flex items-center justify-center gap-2 py-2.5 px-3 border border-gray-200 dark:border-gray-700 bg-gray-50 text-gray-700 dark:bg-gray-900/50 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg text-sm font-medium transition-colors"
                     >
-                      <RefreshCw size={16} /> Przeładuj GUI / Tabela
+                      <RefreshCw size={16} /> Przeładuj GUI / tabela
                     </button>
                   </div>
                 </div>
@@ -1481,7 +1481,7 @@ export function InvestSettingsPanel({
                   <div className="space-y-4 w-full">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 border-b border-gray-100 dark:border-gray-800 pb-4 mb-2">
                       <h3 className="text-sm font-bold tracking-wider text-gray-800 dark:text-gray-200 m-0">
-                        Dziennik Zdarzeń Systemowych
+                        Dziennik zdarzeń systemowych
                       </h3>
                       <button
                         onClick={() => {
@@ -1533,20 +1533,20 @@ export function InvestSettingsPanel({
                     ) : (
                       <div className="space-y-3 font-mono">
                         {filteredLogs.map((log) => (
-                          <div key={log.id} className={`p-3 rounded-xl text-sm transition-all shadow-sm border ${
+                          <div key={log.id} className={`p-3 rounded-xl text-sm transition shadow-sm border ${
                             log.displayLevel === 'error' ? 'bg-red-50 border-red-200 dark:bg-red-900/10 dark:border-red-800/50' : 
                             log.displayLevel === 'warn' ? 'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/10 dark:border-yellow-800/50' : 
                             'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700'
                           }`}>
                             <div className="flex justify-between items-center mb-2">
-                              <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                              <span className={`inline-flex items-center px-1.5 py-0.5 rounded text-[0.6875rem] font-bold ${
                                 log.displayLevel === 'error' ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400' :
                                 log.displayLevel === 'warn' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400' :
                                 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
                               }`}>
                                 {formatLogStageLabel(log.stage)}
                               </span>
-                              <span className="text-[10px] opacity-70 tracking-tighter">
+                              <span className="text-[0.6875rem] opacity-70 tracking-tighter">
                                 {new Date(log.timestamp).toLocaleTimeString('pl-PL', { hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit' })}
                               </span>
                             </div>
@@ -1558,13 +1558,13 @@ export function InvestSettingsPanel({
                             }`}>
                               {log.displayMessage}
                             </div>
-                            <div className="text-[10px] font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                            <div className="text-[0.6875rem] font-bold text-gray-500 dark:text-gray-400">
                               {userFacingLogKindLabel(log.userFacingKind)}
                             </div>
                             
                             {log.details && (
                               <div className="mt-2 bg-black/5 dark:bg-black/40 rounded-lg p-2 overflow-x-auto border border-black/5 dark:border-black/50">
-                                <pre className="text-[10px] leading-relaxed text-gray-600 dark:text-gray-400 whitespace-pre-wrap break-all">
+                                <pre className="text-[0.6875rem] leading-relaxed text-gray-600 dark:text-gray-400 whitespace-pre-wrap break-all">
                                   {typeof log.details === 'object' ? JSON.stringify(log.details, null, 2) : String(log.details)}
                                 </pre>
                               </div>

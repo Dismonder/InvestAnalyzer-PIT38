@@ -5,7 +5,16 @@ import { formatCurrency, formatLiczba } from '../../services/nbpService';
 import { odmienLiczebnik } from '../../services/odmianaLiczebnika';
 import { Card } from '../../../components/ui/Card';
 
-export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, categoryAllocationData, brokerAllocationData, currencyAllocationData, brokerDependencyMatrix, brokerHHI, allocationView, setAllocationView, hoveredAssetIndex, setHoveredAssetIndex, hoveredBrokerIndex, setHoveredBrokerIndex, hoveredCurrencyIndex, setHoveredCurrencyIndex, selectedCorrelationBroker, setSelectedCorrelationBroker, selectedCategory, setSelectedCategory, selectedBroker, setSelectedBroker, onNavigateToTab }: any) {
+// Jeden akcent na wykres: najwieksza czesc niebieska, pozostale w szarosciach.
+const SZAROSCI = ['#475569', '#64748b', '#94a3b8', '#cbd5e1'];
+function jedenAkcent(dane: any[]): any[] {
+  return dane.map((czesc: any, i: number) => ({ ...czesc, color: i === 0 ? '#2563eb' : SZAROSCI[Math.min(i - 1, SZAROSCI.length - 1)] }));
+}
+
+export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, categoryAllocationData: categoryAllocationDataWej, brokerAllocationData: brokerAllocationDataWej, currencyAllocationData: currencyAllocationDataWej, brokerDependencyMatrix, brokerHHI, allocationView, setAllocationView, hoveredAssetIndex, setHoveredAssetIndex, hoveredBrokerIndex, setHoveredBrokerIndex, hoveredCurrencyIndex, setHoveredCurrencyIndex, selectedCorrelationBroker, setSelectedCorrelationBroker, selectedCategory, setSelectedCategory, selectedBroker, setSelectedBroker, onNavigateToTab }: any) {
+  const categoryAllocationData = jedenAkcent(categoryAllocationDataWej);
+  const brokerAllocationData = jedenAkcent(brokerAllocationDataWej);
+  const currencyAllocationData = jedenAkcent(currencyAllocationDataWej);
   return (
     <>
       {/* Comprehensive Allocation Charts & Portfolio Structure Module */}
@@ -18,7 +27,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                 <PieChartIcon className="w-4 h-4" />
               </span>
               <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                Struktura Portfela i Alokacja Kapitału
+                Struktura portfela i alokacja kapitału
               </h3>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -31,27 +40,27 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
           <div className="flex items-center flex-nowrap sm:flex-wrap overflow-x-auto sm:overflow-visible max-w-full scrollbar-none gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-800 self-start sm:self-auto text-xs xl:flex-nowrap xl:shrink-0">
             <button
               onClick={() => setAllocationView('DUAL')}
-              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
                 allocationView === 'DUAL'
                   ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-semibold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
-              Widok Łączony
+              Widok łączony
             </button>
             <button
               onClick={() => setAllocationView('ASSETS')}
-              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
                 allocationView === 'ASSETS'
                   ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-semibold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
-              Klasy Aktywów
+              Klasy aktywów
             </button>
             <button
               onClick={() => setAllocationView('BROKERS')}
-              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
                 allocationView === 'BROKERS'
                   ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-semibold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -61,7 +70,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
             </button>
             <button
               onClick={() => setAllocationView('CURRENCIES')}
-              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+              className={`shrink-0 whitespace-nowrap px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
                 allocationView === 'CURRENCIES'
                   ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs font-semibold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
@@ -71,15 +80,15 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
             </button>
             <button
               onClick={() => setAllocationView('DEPENDENCIES')}
-              className={`shrink-0 whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer ${
+              className={`shrink-0 whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-medium transition cursor-pointer ${
                 allocationView === 'DEPENDENCIES'
                   ? 'bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-xs font-semibold'
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
               <Network className="w-3.5 h-3.5" />
-              <span>Zależności & Ryzyko</span>
-              <span className="text-[10px] px-1 rounded-sm bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 font-mono font-bold">
+              <span>Zależności & ryzyko</span>
+              <span className="text-[0.6875rem] font-mono text-slate-400">
                 PRO
               </span>
             </button>
@@ -90,25 +99,25 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
         {enrichedPositions.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 text-xs">
             <div>
-              <span className="text-[11px] text-slate-400 block font-medium">Główna klasa aktywów</span>
+              <span className="text-[0.6875rem] text-slate-400 block font-medium">Główna klasa aktywów</span>
               <strong className="text-slate-800 dark:text-slate-200 font-semibold truncate block mt-0.5">
                 {categoryAllocationData[0] ? `${categoryAllocationData[0].name} (${formatLiczba(Number(categoryAllocationData[0].percentage), 1)}%)` : '—'}
               </strong>
             </div>
             <div>
-              <span className="text-[11px] text-slate-400 block font-medium">Główny broker</span>
+              <span className="text-[0.6875rem] text-slate-400 block font-medium">Główny broker</span>
               <strong className="text-slate-800 dark:text-slate-200 font-semibold truncate block mt-0.5">
                 {brokerAllocationData[0] ? `${brokerAllocationData[0].name} (${formatLiczba(Number(brokerAllocationData[0].percentage), 1)}%)` : '—'}
               </strong>
             </div>
             <div>
-              <span className="text-[11px] text-slate-400 block font-medium">Dywersyfikacja</span>
+              <span className="text-[0.6875rem] text-slate-400 block font-medium">Dywersyfikacja</span>
               <strong className="text-emerald-600 dark:text-emerald-400 font-semibold block mt-0.5">
-                {categoryAllocationData.length >= 3 ? 'Wysoka (Zrównoważona)' : categoryAllocationData.length === 2 ? 'Średnia' : 'Skoncentrowana'}
+                {categoryAllocationData.length >= 3 ? 'Wysoka (zrównoważona)' : categoryAllocationData.length === 2 ? 'Średnia' : 'Skoncentrowana'}
               </strong>
             </div>
             <div>
-              <span className="text-[11px] text-slate-400 block font-medium">Liczba instrumentów</span>
+              <span className="text-[0.6875rem] text-slate-400 block font-medium">Liczba instrumentów</span>
               <strong className="text-slate-800 dark:text-slate-200 font-semibold block mt-0.5">
               {enrichedPositions.length} {odmienLiczebnik(enrichedPositions.length, 'pozycja', 'pozycje', 'pozycji')} / {brokerAllocationData.length} {odmienLiczebnik(brokerAllocationData.length, 'rachunek', 'rachunki', 'rachunków')}
               </strong>
@@ -126,7 +135,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
         >
           {/* 1. Asset Class Allocation Donut Chart */}
           {(allocationView === 'DUAL' || allocationView === 'ASSETS') && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between">
+            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2">
@@ -134,7 +143,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                       <PieChartIcon className="w-3.5 h-3.5" />
                     </span>
                     <h4 className="font-bold text-sm text-slate-900 dark:text-white">
-                      Klasy Aktywów (Akcje, Obligacje, Krypto, ETF)
+                      Klasy aktywów (akcje, obligacje, krypto, ETF)
                     </h4>
                   </div>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap shrink-0">
@@ -144,7 +153,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
 
                 <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-6 mt-4">
                   {/* Donut Chart Canvas */}
-                  <div className="sm:col-span-5 h-56 w-full flex items-center justify-center relative">
+                  {categoryAllocationData.length > 1 && categoryAllocationData.length <= 5 && (<div className="sm:col-span-5 h-56 w-full flex items-center justify-center relative">
                     {categoryAllocationData.length > 0 ? (
                       <>
                         <ResponsiveContainer width="100%" height="100%">
@@ -167,7 +176,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                                   fill={entry.color}
                                   stroke={hoveredAssetIndex === index ? '#FFFFFF' : 'transparent'}
                                   strokeWidth={hoveredAssetIndex === index ? 2 : 0}
-                                  className="transition-all duration-200 cursor-pointer"
+                                  className="transition duration-200 cursor-pointer"
                                 />
                               ))}
                             </Pie>
@@ -178,25 +187,25 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-center">
                           {hoveredAssetIndex !== null && categoryAllocationData[hoveredAssetIndex] ? (
                             <div className="flex flex-col items-center justify-center max-w-[105px] px-1 text-center">
-                              <span className="text-[9px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider truncate w-full">
+                              <span className="text-[0.6875rem] font-bold text-slate-500 dark:text-slate-400 truncate w-full">
                                 {categoryAllocationData[hoveredAssetIndex].name}
                               </span>
                               <span className="text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight my-0.5">
                                 {formatLiczba(Number(categoryAllocationData[hoveredAssetIndex].percentage), 1)}%
                               </span>
-                              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono truncate w-full">
+                              <span className="text-[0.6875rem] text-slate-500 dark:text-slate-400 font-mono truncate w-full">
                                 {formatCurrency(categoryAllocationData[hoveredAssetIndex].value, 'PLN')}
                               </span>
                             </div>
                           ) : (
                             <div className="flex flex-col items-center justify-center max-w-[105px] px-1 text-center">
-                              <span className="text-[9px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
+                              <span className="text-[0.6875rem] font-bold text-slate-500 dark:text-slate-400">
                                 Portfel
                               </span>
                               <span className="text-xs sm:text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight my-0.5 truncate w-full">
                                 {formatCurrency(totalValuePLN, 'PLN')}
                               </span>
-                              <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                              <span className="text-[0.6875rem] text-emerald-600 dark:text-emerald-400 font-semibold">
                                 100%
                               </span>
                             </div>
@@ -209,10 +218,10 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                         <p className="text-xs text-slate-400">Brak otwartych pozycji</p>
                       </div>
                     )}
-                  </div>
+                  </div>)}
 
                   {/* Interactive Legend with Percentage Progress Bars */}
-                  <div className="sm:col-span-7 space-y-2">
+                  <div className={`${categoryAllocationData.length < 2 || categoryAllocationData.length > 5 ? 'sm:col-span-12' : 'sm:col-span-7'} space-y-2`}>
                     {categoryAllocationData.map((item, idx) => {
                       const isHovered = hoveredAssetIndex === idx;
                       const isFilterActive = selectedCategory === item.rawCategory;
@@ -224,7 +233,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                           onClick={() => {
                             setSelectedCategory(isFilterActive ? 'ALL' : item.rawCategory);
                           }}
-                          className={`p-2.5 rounded-xl transition-all cursor-pointer border ${
+                          className={`p-2.5 rounded-xl transition cursor-pointer border ${
                             isHovered || isFilterActive
                               ? 'bg-blue-50/80 dark:bg-blue-950/40 border-blue-200/90 dark:border-blue-800/60 shadow-xs'
                               : 'bg-slate-50/80 dark:bg-slate-800/40 border-slate-200/60 dark:border-slate-800/50 hover:bg-slate-100/80 dark:hover:bg-slate-800/70'
@@ -240,7 +249,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                               <span className="font-semibold text-slate-800 dark:text-slate-200 truncate">
                                 {item.name}
                               </span>
-                              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono shrink-0">
+                              <span className="text-[0.6875rem] text-slate-500 dark:text-slate-400 font-mono shrink-0">
                                 ({item.count} poz.)
                               </span>
                             </div>
@@ -248,7 +257,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                               <span className="font-bold text-slate-900 dark:text-white">
                                 {formatLiczba(Number(item.percentage), 1)}%
                               </span>
-                              <span className="text-slate-500 dark:text-slate-400 text-[11px]">
+                              <span className="text-slate-500 dark:text-slate-400 text-[0.6875rem]">
                                 {formatCurrency(item.value, 'PLN')}
                               </span>
                             </div>
@@ -257,7 +266,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                           {/* Progress Bar */}
                           <div className="w-full h-1.5 rounded-full bg-slate-200/80 dark:bg-slate-700/60 overflow-hidden">
                             <div
-                              className="h-full rounded-full transition-all duration-300"
+                              className="h-full rounded-full transition duration-300"
                               style={{
                                 width: `${item.percentage}%`,
                                 backgroundColor: item.color,
@@ -275,7 +284,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
 
           {/* 2. Broker Accounts Allocation Donut Chart */}
           {(allocationView === 'DUAL' || allocationView === 'BROKERS') && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between">
+            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2">
@@ -283,7 +292,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                       <Briefcase className="w-3.5 h-3.5" />
                     </span>
                     <h4 className="font-bold text-sm text-slate-900 dark:text-white">
-                      Udział Poszczególnych Brokerów w Aktywach
+                      Udział poszczególnych brokerów w aktywach
                     </h4>
                   </div>
                   <button
@@ -297,7 +306,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
 
                 <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-6 mt-4">
                   {/* Donut Chart Canvas */}
-                  <div className="sm:col-span-5 h-56 w-full flex items-center justify-center relative">
+                  {brokerAllocationData.length > 1 && brokerAllocationData.length <= 5 && (<div className="sm:col-span-5 h-56 w-full flex items-center justify-center relative">
                     {brokerAllocationData.length > 0 ? (
                       <>
                         <ResponsiveContainer width="100%" height="100%">
@@ -320,7 +329,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                                   fill={entry.color}
                                   stroke={hoveredBrokerIndex === index ? '#FFFFFF' : 'transparent'}
                                   strokeWidth={hoveredBrokerIndex === index ? 2 : 0}
-                                  className="transition-all duration-200 cursor-pointer"
+                                  className="transition duration-200 cursor-pointer"
                                 />
                               ))}
                             </Pie>
@@ -331,25 +340,25 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-center">
                           {hoveredBrokerIndex !== null && brokerAllocationData[hoveredBrokerIndex] ? (
                             <div className="flex flex-col items-center justify-center max-w-[105px] px-1 text-center">
-                              <span className="text-[9px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider truncate w-full">
+                              <span className="text-[0.6875rem] font-bold text-slate-500 dark:text-slate-400 truncate w-full">
                                 {brokerAllocationData[hoveredBrokerIndex].name}
                               </span>
                               <span className="text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight my-0.5">
                                 {formatLiczba(Number(brokerAllocationData[hoveredBrokerIndex].percentage), 1)}%
                               </span>
-                              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono truncate w-full">
+                              <span className="text-[0.6875rem] text-slate-500 dark:text-slate-400 font-mono truncate w-full">
                                 {formatCurrency(brokerAllocationData[hoveredBrokerIndex].value, 'PLN')}
                               </span>
                             </div>
                           ) : (
                             <div className="flex flex-col items-center justify-center max-w-[105px] px-1 text-center">
-                              <span className="text-[9px] uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider">
-                                Wszyscy Brokerzy
+                              <span className="text-[0.6875rem] font-bold text-slate-500 dark:text-slate-400">
+                                Wszyscy brokerzy
                               </span>
                               <span className="text-xs sm:text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight my-0.5 truncate w-full">
                                 {formatCurrency(totalValuePLN, 'PLN')}
                               </span>
-                              <span className="text-[9px] text-indigo-600 dark:text-indigo-400 font-semibold">
+                              <span className="text-[0.6875rem] text-indigo-600 dark:text-indigo-400 font-semibold">
                                 {accounts.length} kont
                               </span>
                             </div>
@@ -362,10 +371,10 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                         <p className="text-xs text-slate-400">Brak powiązanych kont maklerskich</p>
                       </div>
                     )}
-                  </div>
+                  </div>)}
 
                   {/* Interactive Legend with Percentage Progress Bars */}
-                  <div className="sm:col-span-7 space-y-2">
+                  <div className={`${brokerAllocationData.length < 2 || brokerAllocationData.length > 5 ? 'sm:col-span-12' : 'sm:col-span-7'} space-y-2`}>
                     {brokerAllocationData.map((item, idx) => {
                       const isHovered = hoveredBrokerIndex === idx;
                       const isFilterActive = selectedBroker === item.accountId;
@@ -379,7 +388,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                               setSelectedBroker(isFilterActive ? 'ALL' : item.accountId);
                             }
                           }}
-                          className={`p-2.5 rounded-xl transition-all cursor-pointer border hover:scale-[1.01] ${
+                          className={`p-2.5 rounded-xl transition cursor-pointer border ${
                             isHovered || isFilterActive
                               ? 'bg-indigo-50/80 dark:bg-indigo-950/40 border-indigo-200/90 dark:border-indigo-800/60 shadow-xs'
                               : 'bg-slate-50/80 dark:bg-slate-800/40 border-slate-200/60 dark:border-slate-800/50 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 hover:shadow-xs'
@@ -395,7 +404,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                               <span className="font-semibold text-slate-800 dark:text-slate-200 truncate">
                                 {item.name}
                               </span>
-                              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono shrink-0">
+                              <span className="text-[0.6875rem] text-slate-500 dark:text-slate-400 font-mono shrink-0">
                                 ({item.count} poz.)
                               </span>
                             </div>
@@ -403,7 +412,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                               <span className="font-bold text-slate-900 dark:text-white">
                                 {formatLiczba(Number(item.percentage), 1)}%
                               </span>
-                              <span className="text-slate-500 dark:text-slate-400 text-[11px]">
+                              <span className="text-slate-500 dark:text-slate-400 text-[0.6875rem]">
                                 {formatCurrency(item.value, 'PLN')}
                               </span>
                             </div>
@@ -412,7 +421,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                           {/* Progress Bar */}
                           <div className="w-full h-1.5 rounded-full bg-slate-200/80 dark:bg-slate-700/60 overflow-hidden">
                             <div
-                              className="h-full rounded-full transition-all duration-300"
+                              className="h-full rounded-full transition duration-300"
                               style={{
                                 width: `${item.percentage}%`,
                                 backgroundColor: item.color,
@@ -430,7 +439,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
 
           {/* 3. Currency Exposure Donut Chart */}
           {allocationView === 'CURRENCIES' && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 flex flex-col justify-between">
+            <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition duration-300 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-2">
@@ -438,7 +447,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                       <Coins className="w-3.5 h-3.5" />
                     </span>
                     <h4 className="font-bold text-sm text-slate-900 dark:text-white">
-                      Ekspozycja Walutowa Portfela (PLN, USD, EUR)
+                      Ekspozycja walutowa portfela (PLN, USD, EUR)
                     </h4>
                   </div>
                   <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
@@ -447,7 +456,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-6 mt-4">
-                  <div className="sm:col-span-5 h-56 w-full flex items-center justify-center relative">
+                  {currencyAllocationData.length > 1 && currencyAllocationData.length <= 5 && (<div className="sm:col-span-5 h-56 w-full flex items-center justify-center relative">
                     {currencyAllocationData.length > 0 ? (
                       <>
                         <ResponsiveContainer width="100%" height="100%">
@@ -470,7 +479,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                                   fill={entry.color}
                                   stroke={hoveredCurrencyIndex === index ? '#FFFFFF' : 'transparent'}
                                   strokeWidth={hoveredCurrencyIndex === index ? 2 : 0}
-                                  className="transition-all duration-200 cursor-pointer"
+                                  className="transition duration-200 cursor-pointer"
                                 />
                               ))}
                             </Pie>
@@ -480,7 +489,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-center">
                           {hoveredCurrencyIndex !== null && currencyAllocationData[hoveredCurrencyIndex] ? (
                             <div className="flex flex-col items-center justify-center max-w-[105px] px-1 text-center">
-                              <span className="text-[9px] uppercase font-bold text-slate-400 tracking-wider truncate w-full">
+                              <span className="text-[0.6875rem] font-bold text-slate-400 truncate w-full">
                                 {currencyAllocationData[hoveredCurrencyIndex].name}
                               </span>
                               <span className="text-sm font-bold font-mono text-slate-900 dark:text-white leading-tight my-0.5">
@@ -489,8 +498,8 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                             </div>
                           ) : (
                             <div className="flex flex-col items-center justify-center max-w-[105px] px-1 text-center">
-                              <span className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">
-                                Waluty Bazowe
+                              <span className="text-[0.6875rem] font-bold text-slate-400">
+                                Waluty bazowe
                               </span>
                               <span className="text-xs font-bold font-mono text-slate-900 dark:text-white leading-tight my-0.5">
                                 {currencyAllocationData.length} {odmienLiczebnik(currencyAllocationData.length, 'waluta', 'waluty', 'walut')}
@@ -502,15 +511,15 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                     ) : (
                       <p className="text-xs text-slate-400">Brak pozycji</p>
                     )}
-                  </div>
+                  </div>)}
 
-                  <div className="sm:col-span-7 space-y-2.5">
+                  <div className={`${currencyAllocationData.length < 2 || currencyAllocationData.length > 5 ? 'sm:col-span-12' : 'sm:col-span-7'} space-y-2.5`}>
                     {currencyAllocationData.map((item, idx) => (
                       <div
                         key={item.name}
                         onMouseEnter={() => setHoveredCurrencyIndex(idx)}
                         onMouseLeave={() => setHoveredCurrencyIndex(null)}
-                        className="p-2 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/60 hover:scale-[1.01] transition-all duration-200 hover:shadow-xs"
+                        className="p-2 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/60 transition duration-200 hover:shadow-xs"
                       >
                         <div className="flex items-center justify-between text-xs mb-1 gap-2">
                           <div className="flex items-center gap-2 min-w-0 flex-1 overflow-hidden">
@@ -518,18 +527,18 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                             <span className="font-bold text-slate-800 dark:text-slate-200 truncate">
                               {item.name}
                             </span>
-                            <span className="text-[10px] text-slate-400 shrink-0">
+                            <span className="text-[0.6875rem] text-slate-400 shrink-0">
                               ({item.count} {odmienLiczebnik(item.count, 'pozycja', 'pozycje', 'pozycji')})
                             </span>
                           </div>
                           <div className="flex items-center gap-2 font-mono shrink-0 text-right">
                             <span className="font-bold text-slate-900 dark:text-white">{formatLiczba(Number(item.percentage), 1)}%</span>
-                            <span className="text-slate-400 text-[11px]">({formatCurrency(item.value, 'PLN')})</span>
+                            <span className="text-slate-400 text-[0.6875rem]">({formatCurrency(item.value, 'PLN')})</span>
                           </div>
                         </div>
                         <div className="w-full h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                           <div
-                            className="h-full rounded-full transition-all duration-300"
+                            className="h-full rounded-full transition duration-300"
                             style={{ width: `${item.percentage}%`, backgroundColor: item.color }}
                           />
                         </div>
@@ -552,9 +561,9 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                       <Network className="w-4 h-4" />
                     </span>
                     <h4 className="font-bold text-base text-slate-900 dark:text-white">
-                      Macierz Zależności Aktywów i Ekspozycji Brokerskich
+                      Macierz zależności aktywów i ekspozycji brokerskich
                     </h4>
-                    <span className="text-[10px] px-2 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold font-mono">
+                    <span className="text-[0.6875rem] px-2 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold font-mono">
                       INSTITUTIONAL GRADE
                     </span>
                   </div>
@@ -568,10 +577,10 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                   <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs flex items-center gap-2.5">
                     <Scale className="w-4 h-4 text-indigo-500" />
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-medium">Wskaźnik Koncentracji HHI</span>
+                      <span className="text-[0.6875rem] text-slate-400 block font-medium">Wskaźnik koncentracji HHI</span>
                       <div className="font-mono font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         <span>{formatLiczba(brokerHHI, 0)} pkt</span>
-                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                        <span className={`text-[0.6875rem] px-1.5 py-0.2 rounded-full font-bold ${
                           brokerHHI < 2500
                             ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400'
                             : brokerHHI < 5000
@@ -591,7 +600,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                           rachunkow wpisanych recznie - razem z portfelami krypto
                           i kontami z pliku CSV, ktorych zaden z tych nadzorow
                           nie obejmuje. Aplikacja nie sprawdza zadnego rejestru. */}
-                      <span className="text-[10px] text-slate-400 block font-medium">
+                      <span className="text-[0.6875rem] text-slate-400 block font-medium">
                         Rachunki wpisane w aplikacji
                       </span>
                       <div className="font-mono font-bold text-slate-900 dark:text-white">
@@ -611,7 +620,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                 <button
                   type="button"
                   onClick={() => setSelectedCorrelationBroker(null)}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition cursor-pointer border ${
                     selectedCorrelationBroker === null
                       ? 'bg-indigo-600 text-white border-indigo-600 shadow-2xs'
                       : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100'
@@ -626,7 +635,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                       key={acc.id}
                       type="button"
                       onClick={() => setSelectedCorrelationBroker(isSelected ? null : acc.id)}
-                      className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
+                      className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition cursor-pointer border ${
                         isSelected
                           ? 'bg-indigo-600 text-white border-indigo-600 shadow-2xs'
                           : 'bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
@@ -634,7 +643,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                     >
                       <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: acc.color }} />
                       <span>{acc.name}</span>
-                      <span className="text-[10px] font-mono opacity-80">({acc.brokerType})</span>
+                      <span className="text-[0.6875rem] font-mono opacity-80">({acc.brokerType})</span>
                     </button>
                   );
                 })}
@@ -652,7 +661,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                     return (
                       <div
                         key={item.ticker}
-                        className="p-4 rounded-xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-200 space-y-3"
+                        className="p-4 rounded-xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600 transition duration-200 space-y-3"
                       >
                         {/* Ticker & Share Header */}
                         <div className="flex items-start justify-between gap-2">
@@ -662,17 +671,17 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                                 {item.ticker}
                               </span>
                               {isMultiBroker ? (
-                                <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.2 rounded font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                                <span className="inline-flex items-center gap-1 text-[0.6875rem] px-1.5 py-0.2 rounded font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
                                   <Split className="w-2.5 h-2.5" />
                                   Multi-Broker ({item.brokerBreakdown.length})
                                 </span>
                               ) : (
-                                <span className="text-[10px] px-1.5 py-0.2 rounded font-medium bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-                                  Pojedynczy Broker
+                                <span className="text-[0.6875rem] px-1.5 py-0.2 rounded font-medium bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                                  Pojedynczy broker
                                 </span>
                               )}
                             </div>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[180px] mt-0.5">
+                            <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 truncate max-w-[180px] mt-0.5">
                               {item.name}
                             </p>
                           </div>
@@ -680,7 +689,7 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                             <div className="font-bold text-xs text-slate-900 dark:text-white">
                               {formatCurrency(item.totalValuePLN, 'PLN')}
                             </div>
-                            <div className="text-[10px] text-slate-400">
+                            <div className="text-[0.6875rem] text-slate-400">
                               {item.totalQty.toLocaleString('pl-PL', { maximumFractionDigits: 6 })} {item.currency}
                             </div>
                           </div>
@@ -693,12 +702,12 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                               <div
                                 key={bIdx}
                                 style={{ width: `${b.shareOfAssetPct}%`, backgroundColor: b.color }}
-                                className="h-full first:rounded-l-full last:rounded-r-full transition-all duration-300"
+                                className="h-full first:rounded-l-full last:rounded-r-full transition duration-300"
                                 title={`${b.accountName}: ${formatLiczba(b.shareOfAssetPct, 1)}% (${formatCurrency(b.valuePLN, 'PLN')})`}
                               />
                             ))}
                           </div>
-                          <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                          <div className="flex items-center justify-between text-[0.6875rem] text-slate-400 font-mono">
                             <span>Alokacja depozytu</span>
                             <span>{item.brokerBreakdown.length} kont</span>
                           </div>
@@ -716,20 +725,20 @@ export function AllocationCharts({ enrichedPositions, totalValuePLN, accounts, c
                                 <div className="flex items-center gap-2 min-w-0 flex-1">
                                   <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: b.color }} />
                                   <div className="truncate">
-                                    <span className="font-semibold text-slate-800 dark:text-slate-200 block truncate text-[11px]">
+                                    <span className="font-semibold text-slate-800 dark:text-slate-200 block truncate text-[0.6875rem]">
                                       {b.accountName}
                                     </span>
-                                    <span className="text-[10px] text-slate-400 font-mono">
+                                    <span className="text-[0.6875rem] text-slate-400 font-mono">
                                       {b.qty.toLocaleString('pl-PL', { maximumFractionDigits: 6 })} szt. ({b.shareOfAssetPct.toFixed(0)}%)
                                     </span>
                                   </div>
                                 </div>
 
                                 <div className="text-right font-mono shrink-0">
-                                  <span className="font-bold text-slate-900 dark:text-white text-[11px] block">
+                                  <span className="font-bold text-slate-900 dark:text-white text-[0.6875rem] block">
                                     {formatCurrency(b.valuePLN, 'PLN')}
                                   </span>
-                                  <span className={`text-[10px] font-semibold ${isProfit ? 'text-emerald-500' : 'text-rose-500'}`}>
+                                  <span className={`text-[0.6875rem] font-semibold ${isProfit ? 'text-emerald-500' : 'text-rose-500'}`}>
                                     {isProfit ? '+' : ''}{formatCurrency(b.unrealizedPLN, 'PLN')}
                                   </span>
                                 </div>

@@ -131,7 +131,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
       isLocked: false,
     });
 
-    setSuccessMsg('✅ Dwuetapowa weryfikacja 2FA została pomyślnie aktywowana!');
+    setSuccessMsg('Dwuetapowa weryfikacja 2FA została pomyślnie aktywowana!');
     setVerifyCode('');
   };
 
@@ -166,7 +166,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
           {twoFactor.isEnabled && (
             <button
               onClick={onLockSession}
-              className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 transition-all cursor-pointer"
+              className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 transition cursor-pointer"
             >
               <Lock className="w-4 h-4" />
               <span>{t.lockSession}</span>
@@ -220,7 +220,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
                 // Pusty `src` kazal przegladarce pobrac cala strone jeszcze raz
                 // i konczyl sie ostrzezeniem w konsoli. Gdy kodu nie ma, lepiej
                 // wprost powiedziec, co zrobic.
-                <div className="w-36 h-36 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center p-3 text-center text-[11px] text-slate-500 dark:text-slate-400">
+                <div className="w-36 h-36 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center p-3 text-center text-[0.6875rem] text-slate-500 dark:text-slate-400">
                   Kod QR pojawi się po wygenerowaniu nowego klucza — wyłącz i włącz 2FA ponownie.
                 </div>
               )}
@@ -240,7 +240,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
                   {copiedKey ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[0.6875rem] text-slate-400">
                 Wpisz ten kod ręcznie, jeśli nie możesz zeskanować kodu aparatem.
               </p>
             </div>
@@ -285,7 +285,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-xs transition-all cursor-pointer"
+                className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-xs transition cursor-pointer"
               >
                 {t.enable2FA}
               </button>
@@ -296,7 +296,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
                 <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
                   <div className="font-bold">Ochrona dwuetapowa jest aktywna</div>
-                  <div className="text-[11px] text-emerald-700 dark:text-emerald-300 mt-0.5">
+                  <div className="text-[0.6875rem] text-emerald-700 dark:text-emerald-300 mt-0.5">
                     Kod TOTP blokuje ekran aplikacji w tej przeglądarce. Dane (transakcje, rachunki, dane podatnika)
                     pozostają zapisane w pamięci przeglądarki w postaci jawnej - blokada nie jest szyfrowaniem. Na
                     współdzielonym urządzeniu po pracy usuń dane aplikacji.
@@ -323,7 +323,7 @@ export const TwoFactorAuthModal: React.FC<TwoFactorAuthModalProps> = ({
 
               <button
                 onClick={handleDisable2FA}
-                className="w-full py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-600 hover:bg-rose-100 font-semibold transition-all cursor-pointer"
+                className="w-full py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-600 hover:bg-rose-100 font-semibold transition cursor-pointer"
               >
                 {t.disable2FA}
               </button>

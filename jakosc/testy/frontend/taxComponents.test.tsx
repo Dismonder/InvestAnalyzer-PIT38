@@ -41,7 +41,7 @@ test('karty podatkowe zachowują grosze i pokazują brak wyniku jako kreskę', (
   assert.match(markup, /123,45 PLN/);
   assert.match(markup, /112,35 PLN/);
   assert.match(markup, /Kopiuj poz. 26/);
-  assert.match(markup, /Łączny Podatek PIT-38/);
+  assert.match(markup, /Łączny podatek PIT-38/);
   assert.match(markup, /—/);
 });
 
@@ -59,7 +59,7 @@ test('rok bez wyniku silnika nie wygląda jak strata: karta wyniku jest neutraln
   const strata = renderToStaticMarkup(<TaxKpiCards currentSummary={{ ...summary, incomePLN: 0, lossPLN: 50 } as TaxYearSummary}
     transactionCount={1} kwota={kwota} copiedField={null} handleCopy={handleCopy} onOpenLossCalc={() => undefined} />);
   assert.match(strata, /Strata \(poz\. 29\)/);
-  assert.match(strata, /Kopiuj Stratę/);
+  assert.match(strata, /Kopiuj stratę/);
   // Policzony rok bez zbyć (same dywidendy) też nie jest stratą.
   const zero = renderToStaticMarkup(<TaxKpiCards currentSummary={{ ...summary, incomePLN: 0, lossPLN: 0 } as TaxYearSummary}
     transactionCount={0} kwota={kwota} copiedField={null} handleCopy={handleCopy} onOpenLossCalc={() => undefined} />);
@@ -175,10 +175,10 @@ function renderujPulpit(gotowe: boolean | null | undefined) {
   }
 }
 
-test('kopiowanie pól deklaracji i nagłówek "Gotowe do Skopiowania" zależą od gotowości rozliczenia', () => {
+test('kopiowanie pól deklaracji i nagłówek "Gotowe do skopiowania" zależą od gotowości rozliczenia', () => {
   for (const niegotowe of [false, null, undefined]) {
     const markup = renderujPulpit(niegotowe);
-    assert.doesNotMatch(markup, /Gotowe do Skopiowania/);
+    assert.doesNotMatch(markup, /Gotowe do skopiowania/);
     // Każdy przycisk Kopiuj jest wyłączony i ma powód w title.
     const przyciski = markup.match(/<button[^>]*>(?:(?!<\/button>).)*?Kopiuj[^<]*<\/span>/g) ?? [];
     assert.ok(przyciski.length >= 6, `przyciski Kopiuj: ${przyciski.length}`);
@@ -188,6 +188,6 @@ test('kopiowanie pól deklaracji i nagłówek "Gotowe do Skopiowania" zależą o
     }
   }
   const gotowe = renderujPulpit(true);
-  assert.match(gotowe, /Gotowe do Skopiowania/);
+  assert.match(gotowe, /Gotowe do skopiowania/);
   assert.doesNotMatch(gotowe, /<button[^>]*disabled=""[^>]*>(?:(?!<\/button>).)*?Kopiuj poz\. 33/);
 });

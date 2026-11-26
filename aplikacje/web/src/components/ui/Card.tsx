@@ -11,10 +11,10 @@ import { clsx } from 'clsx';
  *
  * Warianty odpowiadają wzorcom z PortfolioDashboard i TaxDashboard:
  * - default     → bg-white dark:bg-slate-900, border, shadow-sm
- * - interactive → jak default + hover:shadow-lg, hover:scale-[1.015]
+ * - interactive → jak default + hover:shadow-lg
  * - sub         → bg-slate-50 dark:bg-slate-800/60, mniejszy padding (panel wewnętrzny)
  * - hero        → bg-slate-900 ciemny baner z białym tekstem
- * - gradient    → bg-gradient-to-br from-blue-900 via-indigo-900 (kafel podatku)
+ * - gradient    → bg-slate-900 (kafel podatku; nazwa wariantu historyczna)
  * ------------------------------------------------------------------------- */
 
 export type CardVariant = 'default' | 'interactive' | 'sub' | 'hero' | 'gradient';
@@ -31,14 +31,14 @@ const variantClasses: Record<CardVariant, string> = {
   interactive:
     'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm rounded-2xl ' +
     'hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 ' +
-    'hover:scale-[1.015] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group',
+    'transition duration-300 relative overflow-hidden group',
   sub:
     'bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 rounded-xl',
   hero:
-    'relative overflow-hidden rounded-xl bg-slate-900 text-white border border-slate-800 shadow-lg transition-all',
+    'relative overflow-hidden rounded-xl bg-slate-900 text-white border border-slate-800 shadow-lg transition',
   gradient:
-    'bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white ' +
-    'shadow-md border border-blue-700/80 rounded-2xl',
+    'bg-slate-900 text-white ' +
+    'shadow-md border border-slate-800 rounded-2xl',
 };
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(

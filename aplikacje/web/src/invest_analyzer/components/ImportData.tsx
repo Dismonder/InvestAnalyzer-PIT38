@@ -575,11 +575,11 @@ export function ImportData({
           title: 'Źródła / szczegóły',
           content: (
             <dl className="space-y-2 text-xs">
-              <div><dt className="font-semibold uppercase tracking-wide text-gray-500">Ścieżka</dt><dd className="break-all">{details.source.pathLabel}</dd></div>
-              {isExpertMode && <div><dt className="font-semibold uppercase tracking-wide text-gray-500">Hash</dt><dd className="break-all">{details.source.hashShort || 'brak'}</dd></div>}
-              <div><dt className="font-semibold uppercase tracking-wide text-gray-500">Sekcje</dt><dd>{details.source.sectionsLabel}</dd></div>
+              <div><dt className="font-semibold text-gray-500">Ścieżka</dt><dd className="break-all">{details.source.pathLabel}</dd></div>
+              {isExpertMode && <div><dt className="font-semibold text-gray-500">Hash</dt><dd className="break-all">{details.source.hashShort || 'brak'}</dd></div>}
+              <div><dt className="font-semibold text-gray-500">Sekcje</dt><dd>{details.source.sectionsLabel}</dd></div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500">Liczniki</dt>
+                <dt className="font-semibold text-gray-500">Liczniki</dt>
                 <dd>{Object.entries(details.source.recordCounts || {}).map(([key, value]) => `${key}: ${value}`).join(', ') || 'brak liczników'}</dd>
               </div>
             </dl>
@@ -1068,12 +1068,12 @@ export function ImportData({
 
       <motion.section
         data-motion="import-ai-wizard"
-        className="overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-emerald-50 p-5 shadow-sm dark:border-blue-900/50 dark:from-blue-950/30 dark:via-gray-900 dark:to-emerald-950/20"
+        className="overflow-hidden rounded-2xl border border-blue-100 bg-blue-50 p-5 shadow-sm dark:border-blue-900/50 dark:bg-blue-950/30"
         {...uiMotion.fadeUp(0.02)}
       >
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700 dark:text-blue-300">
+            <p className="text-xs font-semibold tracking-[0.2em] text-blue-700 dark:text-blue-300">
               Transaction Intelligence Layer
             </p>
             <h2 className="mt-2 text-2xl font-bold text-gray-950 dark:text-white">
@@ -1167,7 +1167,7 @@ export function ImportData({
               </div>
             ) : (
               <div className="flex flex-col items-center">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-500/20">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg">
                   <Upload size={32} />
                 </div>
                 <p className="text-lg font-semibold text-gray-950 dark:text-white">
@@ -1183,7 +1183,7 @@ export function ImportData({
           <div className="rounded-2xl bg-white p-4 ring-1 ring-blue-100 dark:bg-gray-900 dark:ring-blue-900/60">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
+                <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">
                   Ollama AI Normalizer
                 </p>
                 <h3 className="mt-1 text-base font-bold text-gray-950 dark:text-white">
@@ -1193,7 +1193,7 @@ export function ImportData({
                   {importIntelligenceView.aiRunStatus.lastRunLabel}
                 </p>
               </div>
-              <span className={`rounded-full px-2 py-1 text-[11px] font-bold ${
+              <span className={`rounded-full px-2 py-1 text-[0.6875rem] font-bold ${
                 ollamaStatus?.gpuConfirmed
                   ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-200 dark:ring-emerald-900/60'
                   : 'bg-amber-50 text-amber-700 ring-1 ring-amber-100 dark:bg-amber-950/30 dark:text-amber-200 dark:ring-amber-900/60'
@@ -1290,13 +1290,13 @@ export function ImportData({
         className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
         {...uiMotion.fadeUp(0.03)}
       >
-        <div className="border-b border-slate-100 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-5 text-white dark:border-gray-800">
+        <div className="border-b border-slate-100 bg-slate-950 p-5 text-white dark:border-gray-800">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">
+              <p className="text-xs font-semibold tracking-[0.22em] text-emerald-200">
                 Transaction Intelligence Dashboard
               </p>
-              <h2 className="mt-2 text-2xl font-bold">Centrum Weryfikacji Danych</h2>
+              <h2 className="mt-2 text-2xl font-bold">Centrum weryfikacji danych</h2>
               <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-200">
                 Widok pokazuje jeden strumień <span className="font-semibold text-white">canonical_tax_input.json</span>. Adapter silnika wybiera z niego wyłącznie kompletne rekordy BUY/SELL, a reszta zostaje zachowana jako diagnostyka i raw payload.
               </p>
@@ -1304,7 +1304,7 @@ export function ImportData({
             <div className="min-w-[220px] rounded-2xl bg-white/10 p-4 ring-1 ring-white/15">
               <div className="flex items-end justify-between gap-4">
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-300">Health Score</p>
+                  <p className="text-xs text-slate-300">Health Score</p>
                   <p className="mt-1 text-4xl font-black text-white">{canonicalHealthScore}%</p>
                 </div>
                 <ShieldCheck className="h-10 w-10 text-emerald-300" />
@@ -1343,7 +1343,7 @@ export function ImportData({
                       : 'border-white/15 bg-white/10 text-white hover:bg-white/15'
                   }`}
                 >
-                  <p className={`text-xs font-bold uppercase tracking-wide ${
+                  <p className={`text-xs font-bold ${
                     canonicalRecordFilter === group.id ? 'text-slate-500' : 'text-slate-300'
                   }`}>
                     {group.shortLabel}
@@ -1421,7 +1421,7 @@ export function ImportData({
                       <p className="truncate text-sm font-bold">{event.operationLabel} · {event.tickerLabel}</p>
                       <p className="mt-1 truncate text-xs opacity-70">{event.sourceFile}</p>
                     </div>
-                    <span className="shrink-0 rounded-full bg-white/70 px-2 py-0.5 text-[11px] font-bold text-gray-700 ring-1 ring-black/5 dark:bg-gray-950/60 dark:text-gray-200 dark:ring-white/10">
+                    <span className="shrink-0 rounded-full bg-white/70 px-2 py-0.5 text-[0.6875rem] font-bold text-gray-700 ring-1 ring-black/5 dark:bg-gray-950/60 dark:text-gray-200 dark:ring-white/10">
                       {event.groupLabel}
                     </span>
                   </div>
@@ -1451,13 +1451,13 @@ export function ImportData({
               <div className="rounded-2xl bg-white p-4 ring-1 ring-slate-200 dark:bg-gray-900 dark:ring-gray-700">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Inspektor szczegółów</p>
+                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400">Inspektor szczegółów</p>
                     <h3 className="mt-1 text-base font-black text-gray-950 dark:text-white">
                       {selectedCanonicalEvent ? `${selectedCanonicalEvent.operationLabel} · ${selectedCanonicalEvent.tickerLabel}` : 'Wybierz rekord'}
                     </h3>
                   </div>
                   {selectedCanonicalEvent && (
-                    <span className={`rounded-full px-2 py-1 text-[11px] font-bold ${
+                    <span className={`rounded-full px-2 py-1 text-[0.6875rem] font-bold ${
                       selectedCanonicalEvent.groupTone === 'green'
                         ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-200 dark:ring-emerald-900/60'
                         : selectedCanonicalEvent.groupTone === 'yellow'
@@ -1475,21 +1475,21 @@ export function ImportData({
                   <div className="mt-4 space-y-3 text-sm">
                     <dl className="grid grid-cols-1 gap-2 text-xs sm:grid-cols-2 xl:grid-cols-1">
                       <div className="rounded-xl bg-slate-50 p-3 dark:bg-gray-800">
-                        <dt className="font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Plik źródłowy</dt>
+                        <dt className="font-bold text-slate-500 dark:text-slate-400">Plik źródłowy</dt>
                         <dd className="mt-1 break-all text-gray-900 dark:text-white">{selectedCanonicalEvent.sourceFile}</dd>
                         {selectedCanonicalEvent.sourceRef && (
                           <dd className="mt-1 break-all text-gray-500 dark:text-gray-400">{selectedCanonicalEvent.sourceRef}</dd>
                         )}
                       </div>
                       <div className="rounded-xl bg-slate-50 p-3 dark:bg-gray-800">
-                        <dt className="font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Data i typ</dt>
+                        <dt className="font-bold text-slate-500 dark:text-slate-400">Data i typ</dt>
                         <dd className="mt-1 text-gray-900 dark:text-white">{selectedCanonicalEvent.dateLabel}</dd>
                         <dd className="mt-1 text-gray-500 dark:text-gray-400">{selectedCanonicalEvent.eventKind} · {selectedCanonicalEvent.eventId}</dd>
                       </div>
                     </dl>
 
                     <div className="rounded-xl bg-amber-50 p-3 ring-1 ring-amber-100 dark:bg-amber-950/20 dark:ring-amber-900/60">
-                      <p className="text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-200">Błędy walidacji</p>
+                      <p className="text-xs font-bold text-amber-700 dark:text-amber-200">Błędy walidacji</p>
                       {selectedCanonicalEvent.validationErrors.length > 0 ? (
                         <ul className="mt-2 space-y-1 text-xs text-amber-900 dark:text-amber-100">
                           {selectedCanonicalEvent.validationErrors.map((validationError) => (
@@ -1507,8 +1507,8 @@ export function ImportData({
                     </div>
 
                     <div className="rounded-xl bg-slate-950 p-3 text-slate-100">
-                      <p className="text-xs font-bold uppercase tracking-wide text-slate-400">raw_payload</p>
-                      <pre className="mt-2 max-h-[360px] overflow-auto whitespace-pre-wrap break-words text-[11px] leading-relaxed">
+                      <p className="text-xs font-bold text-slate-400">raw_payload</p>
+                      <pre className="mt-2 max-h-[360px] overflow-auto whitespace-pre-wrap break-words text-[0.6875rem] leading-relaxed">
                         {selectedCanonicalEvent.rawPayloadText}
                       </pre>
                     </div>
@@ -1523,10 +1523,10 @@ export function ImportData({
               <div className="rounded-2xl bg-white p-4 ring-1 ring-blue-100 dark:bg-gray-900 dark:ring-blue-900/60">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">Panel Kontrolny AI</p>
+                    <p className="text-xs font-bold text-blue-700 dark:text-blue-300">Panel kontrolny AI</p>
                     <h3 className="mt-1 text-base font-black text-gray-950 dark:text-white">Ollama GPU</h3>
                   </div>
-                  <span className={`rounded-full px-2 py-1 text-[11px] font-bold ${
+                  <span className={`rounded-full px-2 py-1 text-[0.6875rem] font-bold ${
                     ollamaStatus?.gpuConfirmed
                       ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-200 dark:ring-emerald-900/60'
                       : 'bg-amber-50 text-amber-700 ring-1 ring-amber-100 dark:bg-amber-950/30 dark:text-amber-200 dark:ring-amber-900/60'
@@ -1562,8 +1562,8 @@ export function ImportData({
                   </p>
                 )}
                 <div className="mt-4 rounded-xl bg-slate-950 p-3 text-slate-100">
-                  <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Konsola Ollama</p>
-                  <pre className="mt-2 max-h-44 overflow-auto whitespace-pre-wrap break-words text-[11px] leading-relaxed">
+                  <p className="text-xs font-bold text-slate-400">Konsola Ollama</p>
+                  <pre className="mt-2 max-h-44 overflow-auto whitespace-pre-wrap break-words text-[0.6875rem] leading-relaxed">
                     {ollamaConsoleLines.join('\n')}
                   </pre>
                 </div>
@@ -1588,7 +1588,7 @@ export function ImportData({
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
+              <p className="text-xs font-semibold tracking-[0.2em] text-emerald-700 dark:text-emerald-300">
                 Source Registry
               </p>
               <h2 className="mt-1 text-xl font-black text-emerald-950 dark:text-emerald-100">
@@ -1624,7 +1624,7 @@ export function ImportData({
                       {source.roleLabel} · {source.detectedType}
                     </p>
                   </div>
-                  <span className={`shrink-0 rounded-full px-2 py-1 text-[11px] font-bold ${
+                  <span className={`shrink-0 rounded-full px-2 py-1 text-[0.6875rem] font-bold ${
                     source.needsReviewCount > 0 || source.warningCount > 0
                       ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-100 dark:bg-amber-950/30 dark:text-amber-200 dark:ring-amber-900/60'
                       : 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-200 dark:ring-emerald-900/60'
@@ -1692,21 +1692,21 @@ export function ImportData({
               <h4 className="font-semibold text-gray-950 dark:text-white">Źródła / szczegóły</h4>
               <dl className="mt-2 space-y-2 text-xs text-gray-600 dark:text-gray-300">
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Ścieżka</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Ścieżka</dt>
                   <dd className="break-all">{insightSourceDetails.source.pathLabel}</dd>
                 </div>
                 {isExpertMode && (
                   <div>
-                    <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Hash</dt>
+                    <dt className="font-semibold text-gray-500 dark:text-gray-400">Hash</dt>
                     <dd className="break-all">{insightSourceDetails.source.hashShort || 'brak'}</dd>
                   </div>
                 )}
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Sekcje</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Sekcje</dt>
                   <dd>{insightSourceDetails.source.sectionsLabel}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Liczniki</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Liczniki</dt>
                   <dd>
                     {Object.entries(insightSourceDetails.source.recordCounts || {})
                       .map(([key, value]) => `${key}: ${value}`)

@@ -59,6 +59,7 @@ import {
   Radio,
   ExternalLink,
   Lock,
+  X,
 } from 'lucide-react';
 
 interface PriceAlertsModalProps {
@@ -314,7 +315,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
     setPushStatus(granted ? 'granted' : 'denied');
     if (granted) {
       pushNotificationService.sendPushNotification(
-        '🔔 Powiadomienia Push Włączone!',
+        'Powiadomienia Push włączone!',
         'Będziesz otrzymywać natychmiastowe alerty o zmianach cen akcji i kryptowalut.',
         'SUCCESS'
       );
@@ -323,7 +324,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
   const handleTestNotification = () => {
     pushNotificationService.sendPushNotification(
-      '🧪 Test Alertu Cenowego',
+      'Test alertu cenowego',
       'System powiadomień działa prawidłowo. Otrzymasz alert, gdy kurs przekroczy zadany poziom.',
       'INFO'
     );
@@ -788,12 +789,12 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
     <div id="price-alerts-container" className="space-y-5">
       {/* Top Banner - Compact & Narrow */}
       {/* Przyciski zawijaja sie i schodza pod tytul: w oknie 640-700 px sztywna grupa wypychala
-          "Nowy Alert" poza ekran, a tytul sciskala do jednego slowa w wierszu. */}
+          "Nowy alert" poza ekran, a tytul sciskala do jednego slowa w wierszu. */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white dark:bg-slate-900 px-4 py-3 sm:px-5 sm:py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-xs">
         <div className="min-w-0">
           <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Bell className="w-5 h-5 text-blue-600 shrink-0" />
-            <span>Alerty Cenowe i Progi Ochronne</span>
+            <span>Alerty cenowe i progi ochronne</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
             Alerty cenowe w aplikacji oraz — osobno — prawdziwe zlecenia Stop-Loss / Take-Profit na rachunku brokera.
@@ -804,7 +805,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
           {pushStatus !== 'granted' ? (
             <button
               onClick={handleRequestPush}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 shadow-xs transition-all duration-150 cursor-pointer active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 shadow-xs transition duration-150 cursor-pointer active:scale-[0.98]"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
@@ -824,19 +825,19 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
           <button
             onClick={handleTestNotification}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 transition cursor-pointer"
             title="Wyślij testowe powiadomienie z dźwiękiem"
           >
             <Volume2 className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
-            <span className="hidden sm:inline">Test Dźwięku</span>
+            <span className="hidden sm:inline">Test dźwięku</span>
           </button>
 
           <button
             onClick={handleOpenAddModal}
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition-all cursor-pointer active:scale-[0.98]"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition cursor-pointer active:scale-[0.98]"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>Nowy Alert</span>
+            <span>Nowy alert</span>
           </button>
         </div>
       </div>
@@ -865,7 +866,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
           }`}
         >
           <Server className="w-3.5 h-3.5 text-emerald-300" />
-          <span>Uzbrojone w API Brokera ({armedOrders.length})</span>
+          <span>Uzbrojone w API brokera ({armedOrders.length})</span>
         </button>
         )}
 
@@ -878,7 +879,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
           }`}
         >
           <Bell className="w-3.5 h-3.5" />
-          <span>Alerty Aplikacji ({alerts.length})</span>
+          <span>Alerty aplikacji ({alerts.length})</span>
         </button>
       </div>
 
@@ -890,9 +891,9 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 text-xs text-slate-500 dark:text-slate-400 px-1">
             <span className="font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
               <Server className="w-4 h-4" />
-              <span>Aktywne Zlecenia Ochronne w API Brokerów (Real-Time Protection Engine)</span>
+              <span>Aktywne zlecenia ochronne w API brokerów (Real-Time Protection Engine)</span>
             </span>
-            <span className="text-[11px] font-mono text-slate-400">
+            <span className="text-[0.6875rem] font-mono text-slate-400">
               Egzekucja bezpośrednio na serwerach giełdowych
             </span>
           </div>
@@ -911,7 +912,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               return (
                 <div
                   key={order.id}
-                  className={`min-w-0 p-4 rounded-xl border transition-all flex flex-col justify-between space-y-3 ${
+                  className={`min-w-0 p-4 rounded-xl border transition flex flex-col justify-between space-y-3 ${
                     isExecuted
                       ? 'bg-emerald-50/60 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-800'
                       : isCancelled
@@ -929,13 +930,13 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         >
                           {order.ticker}
                         </button>
-                        <span className="shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                        <span className="shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-[0.6875rem] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                           {order.brokerType} API
                         </span>
                       </div>
 
                       {isArmed && (
-                        <span className="shrink-0 whitespace-nowrap inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">
+                        <span className="shrink-0 whitespace-nowrap inline-flex items-center gap-1 px-2 py-0.5 rounded text-[0.6875rem] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">
                           <span className="relative flex h-1.5 w-1.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
@@ -944,12 +945,12 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         </span>
                       )}
                       {isExecuted && (
-                        <span className="shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">
+                        <span className="shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-[0.6875rem] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">
                           PRÓG OSIĄGNIĘTY
                         </span>
                       )}
                       {isCancelled && (
-                        <span className="shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-400">
+                        <span className="shrink-0 whitespace-nowrap px-2 py-0.5 rounded text-[0.6875rem] font-bold bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-400">
                           ANULOWANE
                         </span>
                       )}
@@ -964,7 +965,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         </span>
                       </div>
                       <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                        <span>Ilość (Wolumen):</span>
+                        <span>Ilość (wolumen):</span>
                         <span className="font-semibold">{order.quantity} szt.</span>
                       </div>
                       {order.stopPrice && (
@@ -983,7 +984,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
                     {/* Live Quote & Real-Time Distance Tracking */}
                     {quote && isArmed && (
-                      <div className="p-2 rounded-lg bg-blue-50/50 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-900/40 text-[11px] font-mono space-y-1">
+                      <div className="p-2 rounded-lg bg-blue-50/50 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-900/40 text-[0.6875rem] font-mono space-y-1">
                         <div className="flex justify-between text-slate-700 dark:text-slate-300">
                           <span>Kurs na żywo:</span>
                           <span className="font-bold">{formatLiczba(quote.price)} {quote.currency}</span>
@@ -1004,7 +1005,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                     )}
 
                     {/* Server Message or Order ID */}
-                    <div className="text-[10px] text-slate-400 truncate flex items-center justify-between">
+                    <div className="text-[0.6875rem] text-slate-400 truncate flex items-center justify-between">
                       <span>ID: {order.orderId || order.id}</span>
                       <span>{new Date(order.createdAt).toLocaleTimeString('pl-PL')}</span>
                     </div>
@@ -1026,7 +1027,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         ) : (
                           <>
                             <XCircle className="w-3.5 h-3.5" />
-                            <span>Anuluj Zlecenie w API Brokera</span>
+                            <span>Anuluj zlecenie w API brokera</span>
                           </>
                         )}
                       </button>
@@ -1046,16 +1047,16 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
         <div className="space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 text-xs text-slate-500 dark:text-slate-400 px-1">
             <span className="font-semibold text-slate-700 dark:text-slate-200">
-              Alerty Aplikacji & Monitorowanie Kursów ({alerts.length})
+              Alerty aplikacji & monitorowanie kursów ({alerts.length})
             </span>
-            <span className="text-[11px]">
+            <span className="text-[0.6875rem]">
               Wygasłe alerty automatycznie przestają generować powiadomienia
             </span>
           </div>
 
           {alerts.length === 0 ? (
             <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 text-sm text-slate-500">
-              Brak zdefiniowanych alertów. Kliknij <b>Nowy Alert</b> lub skorzystaj z poniższego modułu Stop-Loss & Take-Profit.
+              Brak zdefiniowanych alertów. Kliknij <b>Nowy alert</b> lub skorzystaj z poniższego modułu Stop-Loss & Take-Profit.
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
@@ -1068,7 +1069,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 return (
                   <div
                     key={alert.id}
-                    className={`min-w-0 p-4 rounded-xl border transition-all flex flex-col justify-between space-y-3 ${
+                    className={`min-w-0 p-4 rounded-xl border transition flex flex-col justify-between space-y-3 ${
                       expired
                         ? 'bg-slate-50/80 dark:bg-slate-900/40 border-slate-200 dark:border-slate-800 opacity-65 grayscale-[25%]'
                         : alert.isTriggered
@@ -1094,19 +1095,19 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
                           {/* Alert Type Badge */}
                           {alert.alertType === 'STOP_LOSS' && (
-                            <span className="shrink-0 whitespace-nowrap text-[10px] font-semibold px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 flex items-center gap-1">
+                            <span className="shrink-0 whitespace-nowrap text-[0.6875rem] font-semibold px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 flex items-center gap-1">
                               <ShieldAlert className="w-3 h-3 text-rose-600" />
                               <span>Stop-Loss</span>
                             </span>
                           )}
                           {alert.alertType === 'TAKE_PROFIT' && (
-                            <span className="shrink-0 whitespace-nowrap text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+                            <span className="shrink-0 whitespace-nowrap text-[0.6875rem] font-semibold px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
                               <Target className="w-3 h-3 text-emerald-600" />
                               <span>Take-Profit</span>
                             </span>
                           )}
                           {(!alert.alertType || alert.alertType === 'PRICE') && (
-                            <span className="shrink-0 whitespace-nowrap text-[10px] font-medium px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                            <span className="shrink-0 whitespace-nowrap text-[0.6875rem] font-medium px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                               Cenowy
                             </span>
                           )}
@@ -1133,7 +1134,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
                       {/* Current Market Price Reference */}
                       {quote && (
-                        <div className="mt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                        <div className="mt-1 text-[0.6875rem] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2">
                           <span>Aktualny kurs: <b className="text-slate-800 dark:text-slate-200">{formatLiczba(quote.price)} {quote.currency}</b></span>
                           <span className={(zmianaLubNull(quote.changePercent24h) ?? 0) >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}>
                             ({formatujProcentZmiany(quote.changePercent24h)})
@@ -1141,7 +1142,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         </div>
                       )}
                       {currencyMismatch && (
-                        <div role="status" className="mt-1 text-[11px] font-medium text-amber-700 dark:text-amber-300">
+                        <div role="status" className="mt-1 text-[0.6875rem] font-medium text-amber-700 dark:text-amber-300">
                           Waluta notowania inna niż waluta alertu ({quote.currency} / {alert.currency}); alert nie zostanie wyzwolony.
                         </div>
                       )}
@@ -1177,7 +1178,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
                         {/* Triggered Status Message */}
                         {alert.isTriggered && alert.triggeredAt && (
-                          <div className="p-2 rounded-lg bg-amber-100/70 dark:bg-amber-900/40 text-amber-900 dark:text-amber-200 text-[11px] font-medium flex items-center gap-1.5 mt-2 border border-amber-200 dark:border-amber-800">
+                          <div className="p-2 rounded-lg bg-amber-100/70 dark:bg-amber-900/40 text-amber-900 dark:text-amber-200 text-[0.6875rem] font-medium flex items-center gap-1.5 mt-2 border border-amber-200 dark:border-amber-800">
                             <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-amber-600" />
                             <span>{alert.message || `Wyzwolono: ${new Date(alert.triggeredAt).toLocaleTimeString('pl-PL')}`}</span>
                           </div>
@@ -1188,7 +1189,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                     {/* Card Bottom: Validity / Expiry Bar & Toggle / Renew Button */}
                     <div className="space-y-2 pt-2.5 border-t border-slate-100 dark:border-slate-800 text-xs">
                       {/* Expiration Indicator */}
-                      <div className="flex items-center justify-between gap-1 text-[11px]">
+                      <div className="flex items-center justify-between gap-1 text-[0.6875rem]">
                         <div className="flex items-center gap-1.5">
                           <Clock className={`w-3.5 h-3.5 ${
                             expired
@@ -1210,11 +1211,11 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
                         {/* Status Tag */}
                         {expired ? (
-                          <span className="px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 text-[10px] font-bold">
+                          <span className="px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-300 text-[0.6875rem] font-bold">
                             Wygasł
                           </span>
                         ) : (
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[0.6875rem] text-slate-400">
                             Od: {new Date(alert.createdAt).toLocaleDateString('pl-PL')}
                           </span>
                         )}
@@ -1232,12 +1233,12 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                           </button>
                         ) : (
                           <>
-                            <span className="text-[10px] text-slate-400">
+                            <span className="text-[0.6875rem] text-slate-400">
                               {alert.isActive ? 'Monitorowanie aktywne' : 'Wstrzymany'}
                             </span>
                             <button
                               onClick={() => onToggleAlert(alert.id)}
-                              className={`px-2.5 py-1 rounded-lg font-semibold text-[11px] cursor-pointer transition-colors ${
+                              className={`px-2.5 py-1 rounded-lg font-semibold text-[0.6875rem] cursor-pointer transition-colors ${
                                 alert.isActive
                                   ? 'bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800'
                                   : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-600'
@@ -1295,7 +1296,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 {accounts.length === 0 && <option value="">Brak podłączonych rachunków</option>}
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id}>
-                    {acc.name} ({acc.brokerType}) {acc.isApiConnected ? '🟢 API' : '⚪ CSV'}
+                    {acc.name} ({acc.brokerType}) {acc.isApiConnected ? 'API' : 'CSV'}
                   </option>
                 ))}
               </select>
@@ -1374,19 +1375,19 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
                 Aktywne zlecenia na rachunku Freedom24{zleceniaBrokera ? ` (${zleceniaBrokera.length})` : ''}
               </span>
-              <button type="button" onClick={() => void odswiezZlecenia()} disabled={ladowanieZlecen} className="text-[11px] font-semibold text-blue-600 dark:text-blue-400 disabled:opacity-50 cursor-pointer">
+              <button type="button" onClick={() => void odswiezZlecenia()} disabled={ladowanieZlecen} className="text-[0.6875rem] font-semibold text-blue-600 dark:text-blue-400 disabled:opacity-50 cursor-pointer">
                 {ladowanieZlecen ? 'Odczyt…' : 'Odśwież'}
               </button>
             </div>
             {bladZlecen ? (
-              <p className="mt-2 text-[11px] text-amber-700 dark:text-amber-300">{bladZlecen}</p>
+              <p className="mt-2 text-[0.6875rem] text-amber-700 dark:text-amber-300">{bladZlecen}</p>
             ) : zleceniaBrokera === null ? (
-              <p className="mt-2 text-[11px] text-slate-500">Odczyt zleceń z brokera…</p>
+              <p className="mt-2 text-[0.6875rem] text-slate-500">Odczyt zleceń z brokera…</p>
             ) : zleceniaBrokera.length === 0 ? (
-              <p className="mt-2 text-[11px] text-slate-500">Broker nie pokazuje żadnych aktywnych zleceń.</p>
+              <p className="mt-2 text-[0.6875rem] text-slate-500">Broker nie pokazuje żadnych aktywnych zleceń.</p>
             ) : (
               <div className="mt-2 overflow-x-auto">
-                <table className="w-full text-[11px]">
+                <table className="w-full text-[0.6875rem]">
                   <thead className="text-slate-500">
                     <tr className="text-left">
                       <th className="py-1 pr-3 font-medium">Walor</th>
@@ -1436,10 +1437,10 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                   <Layers className="w-3.5 h-3.5" />
                 </span>
                 <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
-                  Aktywne Pozycje w Twoim Portfelu ({openPositions.length}) — Wybierz walor do uzbrojenia ochrony
+                  Aktywne pozycje w Twoim portfelu ({openPositions.length}) — Wybierz walor do uzbrojenia ochrony
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-slate-400">
+              <span className="text-[0.6875rem] font-mono text-slate-400">
                 Kliknij wiersz, aby załadować parametry do kalkulatora
               </span>
             </div>
@@ -1448,13 +1449,13 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               <table className="w-full text-left text-xs font-sans">
                 <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 font-semibold border-b border-slate-200 dark:border-slate-800">
                   <tr>
-                    <th className="py-2 px-3">Walor (Ticker)</th>
-                    <th className="py-2 px-3">Rachunek Maklerski</th>
-                    <th className="py-2 px-3 text-right">Ilość w Portfelu</th>
-                    <th className="py-2 px-3 text-right">Śr. Cena Zakupu</th>
+                    <th className="py-2 px-3">Walor (ticker)</th>
+                    <th className="py-2 px-3">Rachunek maklerski</th>
+                    <th className="py-2 px-3 text-right">Ilość w portfelu</th>
+                    <th className="py-2 px-3 text-right">Śr. Cena zakupu</th>
                     <th className="py-2 px-3 text-right">Kurs Live</th>
-                    <th className="py-2 px-3 text-right">Zysk / Strata (P&L)</th>
-                    <th className="py-2 px-3 text-center">Status Ochrony SL/TP</th>
+                    <th className="py-2 px-3 text-right">Zysk / strata (P&L)</th>
+                    <th className="py-2 px-3 text-center">Status ochrony SL/TP</th>
                     <th className="py-2 px-3 text-center">Akcja</th>
                   </tr>
                 </thead>
@@ -1500,7 +1501,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                           setCustomSlPrice('');
                           setCustomTpPrice('');
                         }, { wiersz: true })}
-                        className={`transition-all duration-150 cursor-pointer ${
+                        className={`transition duration-150 cursor-pointer ${
                           isSelected
                             ? 'bg-blue-50/90 dark:bg-blue-950/60 font-medium'
                             : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'
@@ -1511,7 +1512,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                             <span className="font-bold font-mono text-slate-900 dark:text-white">
                               {pos.ticker}
                             </span>
-                            <span className="text-[10px] text-slate-500 truncate max-w-[120px]">
+                            <span className="text-[0.6875rem] text-slate-500 truncate max-w-[120px]">
                               {pos.name}
                             </span>
                           </div>
@@ -1528,7 +1529,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                             <span className="font-semibold text-slate-800 dark:text-slate-200 truncate max-w-[130px]">
                               {acc ? acc.name : 'Główny'}
                             </span>
-                            <span className="text-[10px] font-mono opacity-70">
+                            <span className="text-[0.6875rem] font-mono opacity-70">
                               ({acc?.brokerType || 'CUSTOM'})
                             </span>
                           </div>
@@ -1550,20 +1551,20 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                               </div>
                               {change24h !== null ? (
                                 <span
-                                  className={`text-[10px] font-semibold ${
+                                  className={`text-[0.6875rem] font-semibold ${
                                     change24h >= 0 ? 'text-emerald-500' : 'text-rose-500'
                                   }`}
                                 >
                                   {change24h >= 0 ? '+' : ''}{formatLiczba(change24h)}%
                                 </span>
                               ) : (
-                                <span className="text-[10px] font-semibold text-slate-400">zmiana: —</span>
+                                <span className="text-[0.6875rem] font-semibold text-slate-400">zmiana: —</span>
                               )}
                             </>
                           ) : (
                             <>
                               <div className="font-semibold text-slate-400">—</div>
-                              <span className="text-[10px] font-semibold text-slate-400">brak notowania</span>
+                              <span className="text-[0.6875rem] font-semibold text-slate-400">brak notowania</span>
                             </>
                           )}
                         </td>
@@ -1591,17 +1592,17 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
                         <td className="py-2.5 px-3 text-center">
                           {activeOrder ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[0.6875rem] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
                               <ShieldCheck className="w-3 h-3 text-emerald-600" />
                               <span>API: SL {activeOrder.stopPrice == null ? '—' : formatLiczba(activeOrder.stopPrice)}</span>
                             </span>
                           ) : hasAlert ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[0.6875rem] font-bold bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300">
                               <Bell className="w-3 h-3 text-blue-600" />
-                              <span>Alert Cenowy</span>
+                              <span>Alert cenowy</span>
                             </span>
                           ) : (
-                            <span className="text-[10px] text-slate-400">
+                            <span className="text-[0.6875rem] text-slate-400">
                               Brak ochrony
                             </span>
                           )}
@@ -1618,7 +1619,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                               setCustomSlPrice('');
                               setCustomTpPrice('');
                             }}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition cursor-pointer ${
                               isSelected
                                 ? 'bg-blue-600 text-white shadow-2xs'
                                 : 'bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/60'
@@ -1645,8 +1646,8 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 <ShieldAlert className="w-4 h-4" />
                 <span>Poziom Stop-Loss (SL)</span>
               </div>
-              <span className="text-[11px] font-mono text-rose-700 dark:text-rose-400 font-semibold">
-                Ochrona Kapitału
+              <span className="text-[0.6875rem] font-mono text-rose-700 dark:text-rose-400 font-semibold">
+                Ochrona kapitału
               </span>
             </div>
 
@@ -1662,7 +1663,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         setSlPercent(pct);
                         setCustomSlPrice('');
                       }}
-                      className={`px-2 py-0.5 rounded text-[11px] font-mono font-semibold cursor-pointer transition-all ${
+                      className={`px-2 py-0.5 rounded text-[0.6875rem] font-mono font-semibold cursor-pointer transition ${
                         slPercent === pct && !customSlPrice
                           ? 'bg-rose-700 text-white shadow-xs'
                           : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-rose-100 dark:hover:bg-rose-900/40'
@@ -1676,7 +1677,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
               {/* Custom SL Price input */}
               <div className="pt-1">
-                <label className="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">
+                <label className="block text-[0.6875rem] font-medium text-slate-600 dark:text-slate-400 mb-1">
                   Własny kurs Stop-Loss ({walutaSlTp ?? '?'}):
                 </label>
                 <input
@@ -1697,14 +1698,14 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                     {kwotaLubBrak(calculatedSlPrice)} {walutaSlTp ?? ''}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-500">
+                <div className="flex items-center justify-between text-[0.6875rem] text-slate-500">
                   <span>Odległość od aktualnego kursu:</span>
                   <span className="font-mono text-rose-600 font-semibold">
                     {distanceToSlPct === null ? '—' : `${formatLiczba(-distanceToSlPct)}%`}
                   </span>
                 </div>
                 {activePosition && (
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 pt-0.5 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between text-[0.6875rem] text-slate-500 pt-0.5 border-t border-slate-100 dark:border-slate-800">
                     <span>Maksymalna strata pozycji:</span>
                     <span className="font-mono font-semibold text-rose-600">
                       {currentPrice === null || calculatedSlPrice === null
@@ -1724,8 +1725,8 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 <Target className="w-4 h-4" />
                 <span>Poziom Take-Profit (TP)</span>
               </div>
-              <span className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400 font-semibold">
-                Realizacja Zysku
+              <span className="text-[0.6875rem] font-mono text-emerald-700 dark:text-emerald-400 font-semibold">
+                Realizacja zysku
               </span>
             </div>
 
@@ -1741,7 +1742,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                         setTpPercent(pct);
                         setCustomTpPrice('');
                       }}
-                      className={`px-2 py-0.5 rounded text-[11px] font-mono font-semibold cursor-pointer transition-all ${
+                      className={`px-2 py-0.5 rounded text-[0.6875rem] font-mono font-semibold cursor-pointer transition ${
                         tpPercent === pct && !customTpPrice
                           ? 'bg-emerald-700 text-white shadow-xs'
                           : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-emerald-100 dark:hover:bg-emerald-900/40'
@@ -1755,7 +1756,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
               {/* Custom TP Price input */}
               <div className="pt-1">
-                <label className="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">
+                <label className="block text-[0.6875rem] font-medium text-slate-600 dark:text-slate-400 mb-1">
                   Własny kurs Take-Profit ({walutaSlTp ?? '?'}):
                 </label>
                 <input
@@ -1776,14 +1777,14 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                     {kwotaLubBrak(calculatedTpPrice)} {walutaSlTp ?? ''}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-500">
+                <div className="flex items-center justify-between text-[0.6875rem] text-slate-500">
                   <span>Odległość od aktualnego kursu:</span>
                   <span className="font-mono text-emerald-600 font-semibold">
                     {distanceToTpPct === null ? '—' : `${distanceToTpPct >= 0 ? '+' : ''}${formatLiczba(distanceToTpPct)}%`}
                   </span>
                 </div>
                 {activePosition && (
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 pt-0.5 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between text-[0.6875rem] text-slate-500 pt-0.5 border-t border-slate-100 dark:border-slate-800">
                     <span>Docelowy zysk pozycji:</span>
                     <span className="font-mono font-semibold text-emerald-600">
                       {currentPrice === null || calculatedTpPrice === null
@@ -1804,7 +1805,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                   <Scale className="w-4 h-4 text-blue-600" />
                   <span>Wskaźnik Risk / Reward (RRR)</span>
                 </div>
-                <span className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold ${
+                <span className={`px-2 py-0.5 rounded text-[0.6875rem] font-mono font-bold ${
                   rrrRatio !== null && rrrRatio >= 2
                     ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300'
                     : rrrRatio !== null && rrrRatio >= 1
@@ -1817,7 +1818,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
               {/* Visual Gauge Channel */}
               <div className="mt-2.5 space-y-1">
-                <div className="flex justify-between text-[10px] font-mono text-slate-500">
+                <div className="flex justify-between text-[0.6875rem] font-mono text-slate-500">
                   <span className="text-rose-700 dark:text-rose-400 font-semibold">SL: {kwotaLubBrak(calculatedSlPrice)}</span>
                   <span className="text-slate-800 dark:text-slate-200 font-bold">Akt: {kwotaLubBrak(currentPrice)}</span>
                   <span className="text-emerald-700 dark:text-emerald-400 font-semibold">TP: {kwotaLubBrak(calculatedTpPrice)}</span>
@@ -1838,7 +1839,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               {/* Quantity & Expiry Controls */}
               <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
                 <div>
-                  <label className="block text-[11px] text-slate-500 mb-1 font-medium">
+                  <label className="block text-[0.6875rem] text-slate-500 mb-1 font-medium">
                     Wolumen (sztuk):
                   </label>
                   <div className="flex items-center gap-1">
@@ -1855,7 +1856,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                       <button
                         type="button"
                         onClick={() => setOrderQuantity(activePosition.totalQuantity.toString())}
-                        className="px-1.5 py-1 text-[10px] font-semibold bg-slate-200 dark:bg-slate-700 rounded text-slate-700 dark:text-slate-300 hover:bg-slate-300 cursor-pointer"
+                        className="px-1.5 py-1 text-[0.6875rem] font-semibold bg-slate-200 dark:bg-slate-700 rounded text-slate-700 dark:text-slate-300 hover:bg-slate-300 cursor-pointer"
                         title="Ustaw pełną pozycję z portfela"
                       >
                         MAX
@@ -1865,13 +1866,13 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-slate-500 mb-1 font-medium">
+                  <label className="block text-[0.6875rem] text-slate-500 mb-1 font-medium">
                     Ważność zlecenia:
                   </label>
                   <select aria-label="Ważność zlecenia"
                     value={slTpExpiry}
                     onChange={(e) => setSlTpExpiry(e.target.value as ExpiryOption)}
-                    className="w-full px-2 py-1 text-[11px] rounded bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 cursor-pointer"
+                    className="w-full px-2 py-1 text-[0.6875rem] rounded bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 cursor-pointer"
                   >
                     <option value="7d">7 dni</option>
                     <option value="14d">14 dni</option>
@@ -1887,7 +1888,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
             {/* Launch Button */}
             <div className="pt-2">
                             {bladProgow && (
-                <div className="rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-[11px] font-semibold text-rose-800 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200">
+                <div className="rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-[0.6875rem] font-semibold text-rose-800 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200">
                   {bladProgow}
                 </div>
               )}
@@ -1895,7 +1896,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 type="button"
                 onClick={handleExecuteProtection}
                 disabled={isSubmittingOrder || !brokerPrzyjmujeZlecenia || bladProgow !== null || calculatedSlPrice === null || calculatedTpPrice === null}
-                className="w-full py-2 px-3 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-xs flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-[0.98] disabled:opacity-50"
+                className="w-full py-2 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-xs flex items-center justify-center gap-2 cursor-pointer transition active:scale-[0.98] disabled:opacity-50"
               >
                 {isSubmittingOrder ? (
                   <>
@@ -1910,7 +1911,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 ) : (
                   <>
                     <Bell className="w-4 h-4 text-white" />
-                    <span>Aktywuj Alerty SL / TP w Aplikacji</span>
+                    <span>Aktywuj alerty SL / TP w aplikacji</span>
                   </>
                 )}
               </button>
@@ -1928,12 +1929,12 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 {editingAlert ? (
                   <>
                     <Edit3 className="w-4 h-4 text-blue-600" />
-                    <span>Edytuj Alert Cenowy ({editingAlert.ticker})</span>
+                    <span>Edytuj alert cenowy ({editingAlert.ticker})</span>
                   </>
                 ) : (
                   <>
                     <Bell className="w-4 h-4 text-blue-600" />
-                    <span>Nowy Alert Cenowy</span>
+                    <span>Nowy alert cenowy</span>
                   </>
                 )}
               </h2>
@@ -1944,16 +1945,16 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                 }}
                 className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg leading-none cursor-pointer"
               >
-                ✕
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                  Wybierz Spółkę / Ticker
+                  Wybierz spółkę / ticker
                 </label>
-                <select aria-label="Wybierz Spółkę / Ticker"
+                <select aria-label="Wybierz spółkę / ticker"
                   value={ticker}
                   onChange={(e) => handleTickerChange(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
@@ -1969,7 +1970,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               {/* Typ Alertu */}
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                  Kategoria Alertu
+                  Kategoria alertu
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   <button
@@ -1978,7 +1979,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                       setAlertType('PRICE');
                       setCondition('ABOVE');
                     }}
-                    className={`py-1.5 px-2 rounded-lg text-[11px] font-semibold border transition-all cursor-pointer ${
+                    className={`py-1.5 px-2 rounded-lg text-[0.6875rem] font-semibold border transition cursor-pointer ${
                       alertType === 'PRICE'
                         ? 'bg-blue-50 dark:bg-blue-950/60 border-blue-500 text-blue-600 dark:text-blue-400'
                         : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
@@ -1992,7 +1993,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                       setAlertType('STOP_LOSS');
                       setCondition('BELOW');
                     }}
-                    className={`py-1.5 px-2 rounded-lg text-[11px] font-semibold border transition-all cursor-pointer ${
+                    className={`py-1.5 px-2 rounded-lg text-[0.6875rem] font-semibold border transition cursor-pointer ${
                       alertType === 'STOP_LOSS'
                         ? 'bg-rose-50 dark:bg-rose-950/60 border-rose-500 text-rose-600 dark:text-rose-400'
                         : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
@@ -2006,7 +2007,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                       setAlertType('TAKE_PROFIT');
                       setCondition('ABOVE');
                     }}
-                    className={`py-1.5 px-2 rounded-lg text-[11px] font-semibold border transition-all cursor-pointer ${
+                    className={`py-1.5 px-2 rounded-lg text-[0.6875rem] font-semibold border transition cursor-pointer ${
                       alertType === 'TAKE_PROFIT'
                         ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-emerald-600 dark:text-emerald-400'
                         : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
@@ -2019,9 +2020,9 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
 
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                  Warunek Wyzwolenia
+                  Warunek wyzwolenia
                 </label>
-                <select aria-label="Warunek Wyzwolenia"
+                <select aria-label="Warunek wyzwolenia"
                   value={condition}
                   onChange={(e) => setCondition(e.target.value as PriceAlert['condition'])}
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
@@ -2050,7 +2051,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               ) : (
                 <div>
                   <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                    Cena Docelowa ({quotes[ticker]?.currency || 'USD'})
+                    Cena docelowa ({quotes[ticker]?.currency || 'USD'})
                   </label>
                   <input
                     aria-label={`Cena docelowa (${quotes[ticker]?.currency || 'USD'})`}
@@ -2067,9 +2068,9 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
               {/* Okres Ważności */}
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                  Ważność Alertu (Czas Wygaśnięcia)
+                  Ważność alertu (czas wygaśnięcia)
                 </label>
-                <select aria-label="Ważność Alertu (Czas Wygaśnięcia)"
+                <select aria-label="Ważność alertu (czas wygaśnięcia)"
                   value={expiryOption}
                   onChange={(e) => setExpiryOption(e.target.value as ExpiryOption)}
                   className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none cursor-pointer"
@@ -2099,7 +2100,7 @@ export const PriceAlertsModal: React.FC<PriceAlertsModalProps> = ({
                   type="submit"
                   className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-xs cursor-pointer"
                 >
-                  {editingAlert ? 'Zapisz Zmiany' : 'Aktywuj Alert'}
+                  {editingAlert ? 'Zapisz zmiany' : 'Aktywuj alert'}
                 </button>
               </div>
             </form>

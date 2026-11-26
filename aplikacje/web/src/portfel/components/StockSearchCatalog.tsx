@@ -27,6 +27,7 @@ import {
   ChevronUp,
   Flame,
   Trash2,
+  X,
 } from 'lucide-react';
 import type { BrokerSupportedAsset } from '../data/brokerAssetsDatabase';
 import { marketDataService } from '../services/marketDataService';
@@ -52,7 +53,7 @@ const CATEGORY_TABS = [
   { id: 'STOCK_PL', label: 'GPW Warszawa', icon: Building2 },
   { id: 'ETF', label: 'Fundusze ETF', icon: Briefcase },
   { id: 'CRYPTO', label: 'Kryptowaluty', icon: Coins },
-  { id: 'BOND', label: 'Obligacje & Noty', icon: ShieldCheck },
+  { id: 'BOND', label: 'Obligacje & noty', icon: ShieldCheck },
   { id: 'FAVORITES', label: 'Obserwowane (Watchlist)', icon: Star },
 ];
 
@@ -269,7 +270,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
     return (
       <div
         key={asset.ticker}
-        className={`p-3.5 rounded-2xl border transition-all flex flex-col justify-between group ${
+        className={`p-3.5 rounded-2xl border transition flex flex-col justify-between group ${
           isFav
             ? 'bg-amber-50/40 dark:bg-amber-950/20 border-amber-300 dark:border-amber-700/80 shadow-xs'
             : 'bg-white dark:bg-slate-800/80 border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xs'
@@ -283,16 +284,16 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                 <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white font-mono tracking-tight">
                   {asset.ticker}
                 </span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium uppercase font-mono">
+                <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium font-mono">
                   {asset.exchange}
                 </span>
                 {asset.category === 'STOCK_PL' && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-bold border border-rose-200 dark:border-rose-800">
+                  <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-bold border border-rose-200 dark:border-rose-800">
                     GPW
                   </span>
                 )}
                 {asset.category === 'ETF' && (
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800">
+                  <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold border border-indigo-200 dark:border-indigo-800">
                     ETF
                   </span>
                 )}
@@ -312,7 +313,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                 recordRecentTicker(asset.ticker);
                 onToggleFavorite(asset.ticker);
               }}
-              className={`p-1.5 rounded-xl transition-all shrink-0 cursor-pointer ${
+              className={`p-1.5 rounded-xl transition shrink-0 cursor-pointer ${
                 isFav
                   ? 'text-amber-500 bg-amber-100 dark:bg-amber-900/50 shadow-xs'
                   : 'text-slate-400 dark:text-slate-500 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-700'
@@ -329,13 +330,13 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
               {asset.brokers.slice(0, 3).map((b) => (
                 <span
                   key={b}
-                  className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium"
+                  className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-medium"
                 >
                   {b}
                 </span>
               ))}
               {asset.brokers.length > 3 && (
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">
+                <span className="text-[0.6875rem] text-slate-400 dark:text-slate-500 font-medium">
                   +{asset.brokers.length - 3}
                 </span>
               )}
@@ -353,7 +354,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                   {formatLiczba(quote.price)} {quote.currency}
                 </div>
                 <div
-                  className={`text-[11px] font-semibold font-mono flex items-center gap-1 mt-0.5 ${
+                  className={`text-[0.6875rem] font-semibold font-mono flex items-center gap-1 mt-0.5 ${
                     isPos ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
                   }`}
                 >
@@ -439,7 +440,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Szukaj: nazwa, ticker lub giełda (np. Apple, CDR, Orlen, NVDA, SXR8)..."
-              className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium shadow-xs"
+              className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition font-medium shadow-xs"
             />
             {isSearchingLive ? (
               <RefreshCw className="w-3.5 h-3.5 text-blue-500 animate-spin absolute right-3 top-1/2 -translate-y-1/2" />
@@ -450,7 +451,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                 className="p-1 rounded-md text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs absolute right-2.5 top-1/2 -translate-y-1/2 cursor-pointer"
                 title="Wyczyść wyszukiwanie"
               >
-                ✕
+                <X className="w-3.5 h-3.5" />
               </button>
             ) : null}
           </div>
@@ -467,7 +468,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                     key={tab.id}
                     type="button"
                     onClick={() => setSelectedCategory(tab.id)}
-                    className={`px-2.5 py-1 rounded-lg font-semibold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 text-xs ${
+                    className={`px-2.5 py-1 rounded-lg font-semibold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5 text-xs ${
                       isActive
                         ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-xs'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -485,7 +486,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
             <button
               type="button"
               onClick={() => setShowFiltersDrawer(!showFiltersDrawer)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border shadow-xs ${
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer border shadow-xs ${
                 showFiltersDrawer || hasActiveBrokerFilter
                   ? 'bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300'
                   : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
@@ -495,12 +496,12 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
               <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
               <span className="hidden md:inline">Filtry</span>
               {hasActiveBrokerFilter && (
-                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-blue-600" />
               )}
             </button>
 
             {/* Count Badge */}
-            <span className="hidden xl:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-slate-600 dark:text-slate-300 font-mono shadow-xs">
+            <span className="hidden xl:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[0.6875rem] font-semibold text-slate-600 dark:text-slate-300 font-mono shadow-xs">
               {filteredAssets.length}
             </span>
           </div>
@@ -511,7 +512,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
           <div className="p-3 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 shadow-xs space-y-2.5 animate-fadeIn">
             {/* Broker filter pills */}
             <div className="flex items-center gap-1.5 flex-wrap text-xs">
-              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mr-1 shrink-0">
+              <span className="text-[0.6875rem] font-semibold text-slate-500 dark:text-slate-400 mr-1 shrink-0">
                 Broker:
               </span>
               {BROKER_FILTERS.map((b) => (
@@ -519,7 +520,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                   key={b.id}
                   type="button"
                   onClick={() => setSelectedBroker(b.id)}
-                  className={`px-2.5 py-0.5 rounded-md text-[11px] font-medium whitespace-nowrap transition-all cursor-pointer border ${
+                  className={`px-2.5 py-0.5 rounded-md text-[0.6875rem] font-medium whitespace-nowrap transition cursor-pointer border ${
                     selectedBroker === b.id
                       ? 'bg-blue-600 text-white border-blue-600 shadow-xs font-semibold'
                       : 'bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -532,7 +533,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
 
             {/* Quick tags pills */}
             <div className="flex items-center gap-1.5 flex-wrap text-xs pt-1.5 border-t border-slate-100 dark:border-slate-700/60">
-              <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mr-1 shrink-0">
+              <span className="text-[0.6875rem] font-semibold text-slate-500 dark:text-slate-400 mr-1 shrink-0">
                 Popularne:
               </span>
               {POPULAR_QUICK_TAGS.map((tag) => (
@@ -540,7 +541,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                   key={tag.label}
                   type="button"
                   onClick={() => setSearchTerm(tag.query)}
-                  className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all cursor-pointer"
+                  className="px-2 py-0.5 rounded-md text-[0.6875rem] font-medium bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition cursor-pointer"
                 >
                   {tag.label}
                 </button>
@@ -553,7 +554,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                     setSelectedBroker('ALL');
                     setSelectedCategory('ALL');
                   }}
-                  className="ml-auto text-[11px] font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
+                  className="ml-auto text-[0.6875rem] font-semibold text-rose-600 dark:text-rose-400 hover:underline cursor-pointer"
                 >
                   Wyczyść wszystkie filtry
                 </button>
@@ -565,7 +566,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
         {/* Feedback / Notification Banner */}
         {customTickerMsg && (
           <div
-            className={`text-xs px-3.5 py-2 rounded-xl flex items-center justify-between gap-2 shadow-xs transition-all ${
+            className={`text-xs px-3.5 py-2 rounded-xl flex items-center justify-between gap-2 shadow-xs transition ${
               customTickerMsg.isError
                 ? 'bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800'
                 : 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
@@ -580,7 +581,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
               onClick={() => setCustomTickerMsg(null)}
               className="text-xs opacity-70 hover:opacity-100 cursor-pointer font-bold"
             >
-              ✕
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
@@ -594,7 +595,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
             {/* Context Header for search / filtered mode */}
             <div className="flex items-center justify-between gap-2 mb-3.5">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <span className="text-xs font-bold text-slate-900 dark:text-white">
                   {isSearchActive
                     ? `Wyniki wyszukiwania dla "${searchTerm}"`
                     : selectedCategory === 'FAVORITES'
@@ -603,7 +604,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                     ? 'Pełny katalog instrumentów'
                     : 'Wybrana kategoria'}
                 </span>
-                <span className="text-[11px] font-semibold font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                <span className="text-[0.6875rem] font-semibold font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                   {filteredAssets.length}
                 </span>
               </div>
@@ -637,7 +638,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                   <button
                     type="button"
                     onClick={() => handleQuickAddCustom(searchTerm)}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white shadow-xs transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white shadow-xs transition cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Pobierz kurs dla &quot;{searchTerm.toUpperCase()}&quot;</span>
@@ -659,17 +660,17 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
                       Ostatnio oglądane
                     </h3>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 font-mono">
+                    <span className="text-[0.6875rem] font-semibold px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 font-mono">
                       {recentAssetItems.length}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={clearRecentTickers}
-                    className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                    className="flex items-center gap-1 text-[0.6875rem] text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition-colors cursor-pointer"
                     title="Wyczyść historię oglądanych"
                   >
                     <Trash2 className="w-3 h-3" />
@@ -687,10 +688,10 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                    Ulubione & Obserwowane
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                    Ulubione & obserwowane
                   </h3>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-mono">
+                  <span className="text-[0.6875rem] font-semibold px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-mono">
                     {favoriteAssetItems.length}
                   </span>
                 </div>
@@ -715,10 +716,10 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2">
                   <Flame className="w-4 h-4 text-rose-500" />
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                    Polecane & Popularne rynki
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
+                    Polecane & popularne rynki
                   </h3>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-mono">
+                  <span className="text-[0.6875rem] font-semibold px-2 py-0.5 rounded-md bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-mono">
                     Top {spotlightAssetItems.length}
                   </span>
                 </div>
@@ -739,7 +740,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                       Reszta katalogu ({filteredAssets.length} spółek, funduszy ETF i krypto) jest schowana
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400">
                     Wpisz nazwę lub ticker w wyszukiwarce powyżej, albo rozwiń pełny katalog poniższym przyciskiem.
                   </p>
                 </div>
@@ -747,7 +748,7 @@ export const StockSearchCatalog: React.FC<StockSearchCatalogProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowFullCatalog(true)}
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-xs transition-all cursor-pointer shrink-0"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-xs transition cursor-pointer shrink-0"
                 >
                   <ChevronDown className="w-3.5 h-3.5" />
                   <span>Pokaż pełną listę ({filteredAssets.length})</span>

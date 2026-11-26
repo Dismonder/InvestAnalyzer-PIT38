@@ -86,7 +86,7 @@ const plTranslations = {
   'engineStatus.calculationRun': 'Silnik PIT liczy wynik',
   'engineStatus.packageRun': 'Silnik PIT generuje pakiet',
   'engineStatus.stage': 'Etap: {stage}',
-  'report.title': 'Raport Roczny {year}',
+  'report.title': 'Raport roczny {year}',
   'report.noDataTitle': 'Brak danych',
   'report.noDataDescription': 'Zaimportuj dane, aby zobaczyć raport.',
   'report.showCalculation': 'Pokaż jak policzono',

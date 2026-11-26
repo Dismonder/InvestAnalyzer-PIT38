@@ -220,7 +220,7 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="np. JAN"
-                  className="w-full pl-8 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 uppercase font-medium"
+                  className="w-full pl-8 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 font-medium"
                 />
               </div>
             </div>
@@ -234,7 +234,7 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="np. KOWALSKI"
-                className="w-full px-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 uppercase font-medium"
+                className="w-full px-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 font-medium"
               />
             </div>
           </div>
@@ -254,7 +254,7 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
               />
               {peselNipStatus && (
                 <div
-                  className={`flex items-center gap-1 mt-1 text-[10px] font-medium ${
+                  className={`flex items-center gap-1 mt-1 text-[0.6875rem] font-medium ${
                     peselNipStatus.isValid
                       ? 'text-emerald-600 dark:text-emerald-400'
                       : 'text-amber-600 dark:text-amber-400'
@@ -272,12 +272,12 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
 
             <div>
               <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                Kod Urzędu Skarbowego
+                Kod urzędu skarbowego
               </label>
               <div className="relative">
                 <Building className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
-                  aria-label="Kod Urzędu Skarbowego"
+                  aria-label="Kod urzędu skarbowego"
                   type="text"
                   value={taxOfficeCode}
                   onChange={(e) => setTaxOfficeCode(e.target.value)}
@@ -288,7 +288,7 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
               </div>
               {statusUrzedu && (
                 <div
-                  className={`flex items-center gap-1 mt-1 text-[10px] font-medium ${
+                  className={`flex items-center gap-1 mt-1 text-[0.6875rem] font-medium ${
                     statusUrzedu.poprawny
                       ? 'text-emerald-600 dark:text-emerald-400'
                       : 'text-amber-600 dark:text-amber-400'
@@ -352,7 +352,7 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
           </div>
 
           <div className="p-3 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
-            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+            <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 leading-relaxed">
               Adres zamieszkania. Schemat e-Deklaracji wymaga województwa, powiatu, gminy,
               numeru domu, miejscowości i kodu pocztowego — bez nich plik nie przejdzie
               walidacji, mimo że wygląda na kompletny.
@@ -371,7 +371,7 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
           </div>
 
           {bladDanych && (
-            <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/90 dark:bg-rose-950/40 text-rose-800 dark:text-rose-200 text-[11px] leading-relaxed">
+            <div className="p-3 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/90 dark:bg-rose-950/40 text-rose-800 dark:text-rose-200 text-[0.6875rem] leading-relaxed">
               {bladDanych}
             </div>
           )}
@@ -387,10 +387,10 @@ export const TaxpayerConfigModal: React.FC<TaxpayerConfigModalProps> = ({
             </button>
             <button
               type="submit"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold shadow-xs transition cursor-pointer"
             >
               {isSaved ? <Check className="w-4 h-4" /> : <FileCode2 className="w-4 h-4" />}
-              <span>{isSaved ? 'Pobrano plik XML!' : 'Pobierz Plik XML'}</span>
+              <span>{isSaved ? 'Pobrano plik XML!' : 'Pobierz plik XML'}</span>
             </button>
           </div>
         </form>

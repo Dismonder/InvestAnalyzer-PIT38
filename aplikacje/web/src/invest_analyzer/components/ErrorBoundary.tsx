@@ -175,7 +175,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
       return (
         <div role="alert" data-testid="blad-modala" className="fixed top-4 inset-x-4 z-[60] mx-auto max-w-xl rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900 shadow-xl dark:border-amber-800 dark:bg-amber-950 dark:text-amber-100">
           <p className="font-semibold">Nie udało się otworzyć tego okna. Reszta aplikacji działa.</p>
-          <p className="mt-1 font-mono text-[11px] opacity-80">{error?.message || 'Nieznany błąd'}</p>
+          <p className="mt-1 font-mono text-[0.6875rem] opacity-80">{error?.message || 'Nieznany błąd'}</p>
           <div className="mt-3 flex gap-2">
             <button type="button" onClick={this.props.onDismiss} className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700">Zamknij okno</button>
             <button type="button" onClick={() => globalThis.window?.location.reload()} className="rounded-lg border border-amber-400 px-3 py-1.5 text-xs font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/40">Odśwież stronę</button>
@@ -202,7 +202,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="font-semibold">Ten widok napotkał błąd. Reszta aplikacji działa, a Twoje dane są nietknięte.</p>
-              <p className="mt-0.5 font-mono text-[11px] opacity-80">{error?.message || 'Nieznany błąd'}</p>
+              <p className="mt-0.5 font-mono text-[0.6875rem] opacity-80">{error?.message || 'Nieznany błąd'}</p>
             </div>
             <div className="flex gap-2">
               <button type="button" onClick={this.handleRetry} className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700">
@@ -213,7 +213,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
               </button>
             </div>
           </div>
-          <details className="mt-2 text-[11px]">
+          <details className="mt-2 text-[0.6875rem]">
             <summary className="cursor-pointer opacity-70">Więcej (tylko gdy błąd wraca po odświeżeniu)</summary>
             <p className="mt-1 opacity-80">
               Jeśli przyczyną jest uszkodzony zapis w pamięci przeglądarki, można usunąć same nieczytelne wpisy. Pełne

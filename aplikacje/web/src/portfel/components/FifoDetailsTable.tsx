@@ -54,7 +54,7 @@ export const FifoDetailsTable: React.FC<FifoDetailsTableProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
         <div>
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>Rejestr Rozliczeń FIFO - Rok {selectedYear}</span>
+            <span>Rejestr rozliczeń FIFO - Rok {selectedYear}</span>
             <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-semibold">
               {filteredGains.length} {odmienLiczebnik(filteredGains.length, 'transakcja', 'transakcje', 'transakcji')} zbycia
             </span>
@@ -91,7 +91,7 @@ export const FifoDetailsTable: React.FC<FifoDetailsTableProps> = ({
             return (
               <div
                 key={gain.id}
-                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 overflow-hidden transition-all"
+                className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 overflow-hidden transition"
               >
                 {/* Header Row */}
                 <div
@@ -114,7 +114,7 @@ export const FifoDetailsTable: React.FC<FifoDetailsTableProps> = ({
                     <div>
                       <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
                         <span>{gain.name}</span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                        <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
                           {acc?.name || 'Główne'}
                         </span>
                       </div>
@@ -135,21 +135,21 @@ export const FifoDetailsTable: React.FC<FifoDetailsTableProps> = ({
                   {/* Financial figures */}
                   <div className="flex items-center justify-between md:justify-end gap-6 text-xs">
                     <div>
-                      <div className="text-[10px] text-slate-400">Przychód (PLN)</div>
+                      <div className="text-[0.6875rem] text-slate-400">Przychód (PLN)</div>
                       <div className="font-mono font-semibold text-slate-800 dark:text-slate-200">
                         {formatCurrency(gain.revenuePLN)}
                       </div>
                     </div>
 
                     <div>
-                      <div className="text-[10px] text-slate-400">Koszt KUP (PLN)</div>
+                      <div className="text-[0.6875rem] text-slate-400">Koszt KUP (PLN)</div>
                       <div className="font-mono font-semibold text-slate-800 dark:text-slate-200">
                         {formatCurrency(gain.costPLN)}
                       </div>
                     </div>
 
                     <div className="text-right">
-                      <div className="text-[10px] text-slate-400">Zysk / Strata</div>
+                      <div className="text-[0.6875rem] text-slate-400">Zysk / strata</div>
                       <div
                         className={`font-mono font-bold text-sm ${
                           isProfit ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
@@ -184,13 +184,13 @@ export const FifoDetailsTable: React.FC<FifoDetailsTableProps> = ({
                         <table className="w-full text-xs">
                           <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 text-left">
                             <tr>
-                              <th className="p-2">Data Zakupu</th>
-                              <th className="p-2">Użyty Wolumen</th>
-                              <th className="p-2">Cena Zakupu</th>
+                              <th className="p-2">Data zakupu</th>
+                              <th className="p-2">Użyty wolumen</th>
+                              <th className="p-2">Cena zakupu</th>
                               <th className="p-2">Kurs NBP (T-1)</th>
-                              <th className="p-2 text-right">Koszt Akcji (PLN)</th>
+                              <th className="p-2 text-right">Koszt akcji (PLN)</th>
                               <th className="p-2 text-right">Prowizja (PLN)</th>
-                              <th className="p-2 text-right">Łączny Koszt KUP (PLN)</th>
+                              <th className="p-2 text-right">Łączny koszt KUP (PLN)</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100 dark:divide-slate-800">

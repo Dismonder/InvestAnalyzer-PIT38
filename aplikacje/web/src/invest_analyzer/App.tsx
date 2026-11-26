@@ -196,7 +196,7 @@ function EngineRunStatusBanner({
         </div>
         <div className="flex items-center gap-3">
           <div className="h-2 w-32 overflow-hidden rounded-full bg-blue-100 dark:bg-blue-900">
-            <div className="h-full rounded-full bg-blue-600 transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-full rounded-full bg-blue-600 transition" style={{ width: `${progress}%` }} />
           </div>
           <span className="w-10 text-right text-xs font-bold">{progress}%</span>
         </div>
@@ -877,11 +877,11 @@ export default function InvestAnalyzerApp({ onExit }: { onExit?: () => void }) {
 
         {/* Sidebar */}
         <div className={`
-          fixed inset-y-0 left-0 z-10 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transition-transform duration-300 ease-in-out
+          fixed inset-y-0 left-0 z-10 w-64 lg:w-60 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col transition-transform duration-300 ease-in-out
           md:relative md:translate-x-0
           ${isMobileMenuOpen ? 'translate-x-0 mt-[73px] md:mt-0' : '-translate-x-full'}
         `}>
-          <div className="p-6 hidden md:flex flex-col gap-4 border-b border-gray-100 dark:border-gray-900">
+          <div className="p-6 hidden md:flex lg:hidden flex-col gap-4 border-b border-gray-100 dark:border-gray-900">
             {onExit && (
               <button 
                 onClick={onExit}

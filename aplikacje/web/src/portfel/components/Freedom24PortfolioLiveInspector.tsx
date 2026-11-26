@@ -120,12 +120,12 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
-                Portfel & Saldo Walutowe na Żywo (getPositionJson)
+                Portfel & saldo walutowe na żywo (getPositionJson)
               </h3>
               {/* Plakietka mowila "Live WebSocket", choc gniazdo usunieto i dane
                   przychodza z odpytywania HTTP co 30 sekund
                   (freedom24LivePortfolioService.ts: ODSTEP_ODSWIEZANIA_MS). */}
-              <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700 font-mono">
+              <span className="inline-flex items-center gap-1 text-[0.6875rem] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700 font-mono">
                 Odświeżane co 30 s
               </span>
             </div>
@@ -138,7 +138,7 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowCpsModal(true)}
-            className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+            className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs"
             title="Otwórz historię dyspozycji CPS i pobieraj pliki PDF"
           >
             <FileText className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
       <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-950/20">
         <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-2.5 flex items-center gap-1.5">
           <Coins className="w-4 h-4 text-amber-500" />
-          <span>Dostępne Salda Walutowe (Rachunek Inwestycyjny):</span>
+          <span>Dostępne salda walutowe (rachunek inwestycyjny):</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -181,7 +181,7 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
                   : `kwota nieznana (${b.curr})`}
               </div>
               {(b.forecast_in > 0 || b.forecast_out > 0) && (
-                <div className="text-[9px] text-slate-400 mt-1 font-mono">
+                <div className="text-[0.6875rem] text-slate-400 mt-1 font-mono">
                   T+2: +{b.forecast_in} / -{b.forecast_out}
                 </div>
               )}
@@ -194,7 +194,7 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
             <div className="mt-1 text-lg font-bold font-mono text-blue-900 dark:text-blue-100">
               {suma.sumaPLN !== null ? `${suma.sumaPLN.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} PLN` : '—'}
             </div>
-            <div className="text-[10px] text-blue-900/80 dark:text-blue-100/80">
+            <div className="text-[0.6875rem] text-blue-900/80 dark:text-blue-100/80">
               {suma.sumaUSD !== null && `≈ ${suma.sumaUSD.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD · `}
               wg kursów średnich NBP
               {suma.bezKursu.length > 0 && ` · bez ${suma.bezKursu.join(', ')} (brak kursu NBP)`}
@@ -209,9 +209,9 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
         <div className="text-xs font-bold text-slate-700 dark:text-slate-300 mb-3 flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <Wallet className="w-4 h-4 text-blue-500" />
-            <span>Otwarte Pozycje w Freedom24 (Tradernet Live Feed):</span>
+            <span>Otwarte pozycje w Freedom24 (Tradernet Live Feed):</span>
           </div>
-          <span className="text-[11px] font-mono text-slate-400 font-normal">
+          <span className="text-[0.6875rem] font-mono text-slate-400 font-normal">
             {positions.length} otwartych pozycji
           </span>
         </div>
@@ -219,7 +219,7 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
             <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] text-slate-400 bg-slate-50/60 dark:bg-slate-950/40">
+              <tr className="border-b border-slate-200 dark:border-slate-800 text-[0.6875rem] text-slate-400 bg-slate-50/60 dark:bg-slate-950/40">
                 <th className="py-2.5 px-3">INSTRUMENT / ISIN</th>
                 <th className="py-2.5 px-3 text-right">ILOŚĆ</th>
                 <th className="py-2.5 px-3 text-right">CENA ZAKUPU (ŚR.)</th>
@@ -251,11 +251,11 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
                     <td className="py-3 px-3">
                       <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         <span>{p.i}</span>
-                        <span className="text-[9px] px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-normal">
+                        <span className="text-[0.6875rem] px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-normal">
                           #{p.acc_pos_id}
                         </span>
                       </div>
-                      <div className="text-[11px] text-slate-500 font-sans truncate max-w-[200px]">
+                      <div className="text-[0.6875rem] text-slate-500 font-sans truncate max-w-[200px]">
                         {p.name}
                       </div>
                     </td>
@@ -291,7 +291,7 @@ export const Freedom24PortfolioLiveInspector: React.FC<Freedom24PortfolioLiveIns
                         {zysk === null ? 'brak danych' : `${isPos ? '+' : ''}${formatLiczba(zysk)} ${p.curr || '—'}`}
                       </div>
                       <div
-                        className={`text-[10px] ${
+                        className={`text-[0.6875rem] ${
                           profitPct === null
                             ? 'text-slate-400'
                             : isPos

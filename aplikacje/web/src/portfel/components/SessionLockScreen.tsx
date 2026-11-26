@@ -83,14 +83,14 @@ export const SessionLockScreen: React.FC<SessionLockScreenProps> = ({
 
           <button
             type="submit"
-            className="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+            className="w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-md flex items-center justify-center gap-2 transition cursor-pointer"
           >
             <span>{t.verifyUnlock}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <div className="text-[11px] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div className="text-[0.6875rem] text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
           Wskazówka: Możesz również użyć 8-cyfrowego kodu zapasowego (np. 8941-2094).
         </div>
       </div>

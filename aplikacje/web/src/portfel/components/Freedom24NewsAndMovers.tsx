@@ -52,7 +52,7 @@ export const Freedom24NewsAndMovers: React.FC<Freedom24NewsAndMoversProps> = ({ 
   return (
     <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs overflow-hidden">
       {powodDanychPogladowych && (
-        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-[11px] font-semibold text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
+        <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-[0.6875rem] font-semibold text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
           {powodDanychPogladowych}
         </div>
       )}
@@ -64,7 +64,7 @@ export const Freedom24NewsAndMovers: React.FC<Freedom24NewsAndMoversProps> = ({ 
           </div>
           <div>
             <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-              <span>Rynek & Informacje Freedom24 (Tradernet API)</span>
+              <span>Rynek & informacje Freedom24 (Tradernet API)</span>
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Najnowsze wiadomości, wiadomości o spółkach z Twojego portfela i liderzy sesji USA
@@ -83,7 +83,7 @@ export const Freedom24NewsAndMovers: React.FC<Freedom24NewsAndMoversProps> = ({ 
               <button
                 key={klucz}
                 onClick={() => setActiveTab(klucz)}
-                className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                className={`px-3 py-1 text-xs font-semibold rounded-lg transition cursor-pointer ${
                   activeTab === klucz
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
@@ -123,13 +123,13 @@ export const Freedom24NewsAndMovers: React.FC<Freedom24NewsAndMoversProps> = ({ 
                 <div
                   key={m.ticker}
                   {...klikalny(() => onSelectTicker?.(m.ticker))}
-                  className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 hover:border-blue-400 dark:hover:border-blue-700 cursor-pointer transition-all group"
+                  className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 hover:border-blue-400 dark:hover:border-blue-700 cursor-pointer transition group"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-xs font-mono text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
                       {m.ticker}
                     </span>
-                    <span className="text-[9px] px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono">
+                    <span className="text-[0.6875rem] px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono">
                       {m.currency}
                     </span>
                   </div>
@@ -139,7 +139,7 @@ export const Freedom24NewsAndMovers: React.FC<Freedom24NewsAndMoversProps> = ({ 
                   </div>
 
                   <div
-                    className={`mt-1 text-[11px] font-semibold flex items-center gap-0.5 ${
+                    className={`mt-1 text-[0.6875rem] font-semibold flex items-center gap-0.5 ${
                       isPos ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'
                     }`}
                   >
@@ -162,17 +162,17 @@ export const Freedom24NewsAndMovers: React.FC<Freedom24NewsAndMoversProps> = ({ 
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-mono">
+                    <span className="text-[0.6875rem] font-semibold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-mono">
                       {item.source}
                     </span>
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[0.6875rem] text-slate-400">
                       {item.date ? new Date(item.date.replace(' ', 'T')).toLocaleString('pl-PL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '—'}
                     </span>
                     {item.tickers.map((t) => (
                       <button
                         key={t}
                         onClick={() => onSelectTicker && onSelectTicker(t)}
-                        className="text-[10px] font-bold font-mono px-1.5 py-0.2 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 hover:underline cursor-pointer"
+                        className="text-[0.6875rem] font-bold font-mono px-1.5 py-0.2 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 hover:underline cursor-pointer"
                       >
                         ${t}
                       </button>

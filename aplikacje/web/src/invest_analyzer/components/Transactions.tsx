@@ -1026,17 +1026,17 @@ export function Transactions({
       {isExpertMode && (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-3xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wiersze główne</p>
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Wiersze główne</p>
           <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">{statystyki.wszystkie}</p>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Rok widoku: {selectedYear}</p>
         </div>
         <div className="rounded-3xl border border-amber-200 bg-amber-50 p-4 shadow-sm dark:border-amber-800/50 dark:bg-amber-900/20">
-          <p className="text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">Zmodyfikowane</p>
+          <p className="text-xs font-semibold text-amber-700 dark:text-amber-300">Zmodyfikowane</p>
           <p className="mt-2 text-2xl font-bold text-amber-900 dark:text-amber-200">{statystyki.zmienione}</p>
           <p className="mt-1 text-sm text-amber-700 dark:text-amber-300">Rekordy z ręczną korektą użytkownika.</p>
         </div>
         <div className="rounded-3xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm dark:border-emerald-800/50 dark:bg-emerald-900/20">
-          <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Nowe</p>
+          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300">Nowe</p>
           <p className="mt-2 text-2xl font-bold text-emerald-900 dark:text-emerald-200">{statystyki.nowe}</p>
           <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-300">Pozycje dodane ręcznie do warstwy override.</p>
         </div>
@@ -1060,23 +1060,23 @@ export function Transactions({
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm md:grid-cols-4">
               <div className="rounded-2xl bg-white/80 px-3 py-2 text-blue-950 shadow-sm dark:bg-blue-950/50 dark:text-blue-100">
-                <p className="text-[10px] font-semibold uppercase tracking-wide opacity-70">{t('history.storageRows')}</p>
+                <p className="text-[0.6875rem] font-semibold opacity-70">{t('history.storageRows')}</p>
                 <p className="text-lg font-bold">{canonicalHistorySummary.storageRows}</p>
               </div>
               <div className="rounded-2xl bg-white/80 px-3 py-2 text-blue-950 shadow-sm dark:bg-blue-950/50 dark:text-blue-100">
-                <p className="text-[10px] font-semibold uppercase tracking-wide opacity-70">{t('history.rawRows')}</p>
+                <p className="text-[0.6875rem] font-semibold opacity-70">{t('history.rawRows')}</p>
                 <p className="text-lg font-bold">
                   {canonicalHistorySummary.rawRows ?? '—'}
                 </p>
               </div>
               <div className="rounded-2xl bg-white/80 px-3 py-2 text-blue-950 shadow-sm dark:bg-blue-950/50 dark:text-blue-100">
-                <p className="text-[10px] font-semibold uppercase tracking-wide opacity-70">{t('history.deduplicatedRows')}</p>
+                <p className="text-[0.6875rem] font-semibold opacity-70">{t('history.deduplicatedRows')}</p>
                 <p className="text-lg font-bold">
                   {canonicalHistorySummary.deduplicatedRows ?? '—'}
                 </p>
               </div>
               <div className="rounded-2xl bg-white/80 px-3 py-2 text-blue-950 shadow-sm dark:bg-blue-950/50 dark:text-blue-100">
-                <p className="text-[10px] font-semibold uppercase tracking-wide opacity-70">{t('history.mergedRows')}</p>
+                <p className="text-[0.6875rem] font-semibold opacity-70">{t('history.mergedRows')}</p>
                 <p className="text-lg font-bold">
                   {canonicalHistorySummary.mergedRows ?? '—'}
                 </p>
@@ -1089,17 +1089,17 @@ export function Transactions({
       {!isExpertMode && (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('history.summaryPitRows')}</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t('history.summaryPitRows')}</p>
             <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">{simpleHistorySummary.pitRows}</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t('history.summaryPitRowsDescription')}</p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('history.supportingRows')}</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t('history.supportingRows')}</p>
             <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">{simpleHistorySummary.supportingRows}</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{t('history.supportingRowsDescription')}</p>
           </div>
           <div className="rounded-2xl border border-indigo-100 bg-indigo-50 p-4 shadow-sm dark:border-indigo-900/50 dark:bg-indigo-950/20">
-            <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">
+            <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">
               {t('history.controlEvidenceRows')}
             </p>
             <p className="mt-2 text-2xl font-bold text-indigo-950 dark:text-indigo-100">
@@ -1110,7 +1110,7 @@ export function Transactions({
             </p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('history.hiddenTechnical')}</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t('history.hiddenTechnical')}</p>
             <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">{simpleHistorySummary.technicalRows}</p>
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {simpleHistorySummary.technicalRowsWidoczne
@@ -1138,7 +1138,7 @@ export function Transactions({
                     onChange={(event) => setSearchTerm(event.target.value)}
                   />
                   {deferredSearchTerm !== searchTerm && (
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-semibold uppercase tracking-wide text-blue-500">
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[0.6875rem] font-semibold text-blue-500">
                       filtruję
                     </span>
                   )}
@@ -1202,9 +1202,9 @@ export function Transactions({
                     transition={{ duration: 0.2, ease: 'easeOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="space-y-4 rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-50 to-cyan-50 p-3 dark:border-blue-900/40 dark:from-blue-950/30 dark:to-cyan-950/20">
+                    <div className="space-y-4 rounded-2xl border border-blue-100 bg-blue-50 p-3 dark:border-blue-900/40 dark:bg-blue-950/30">
                       <div>
-                        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
                           Tryb historii
                         </p>
                         <div className="flex flex-wrap gap-2">
@@ -1227,7 +1227,7 @@ export function Transactions({
                       </div>
                       {isExpertMode && (
                       <div>
-                        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
                           Typ wiersza
                         </p>
                         <div className="flex flex-wrap gap-2">
@@ -1250,7 +1250,7 @@ export function Transactions({
                       )}
                       {isExpertMode && (
                       <div>
-                        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
                           Wpływ na PIT
                         </p>
                         <div className="flex flex-wrap gap-2">
@@ -1273,7 +1273,7 @@ export function Transactions({
                       )}
                       {isExpertMode && (
                       <div>
-                        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
                           Status dowodowy
                         </p>
                         <div className="flex flex-wrap gap-2">

@@ -129,7 +129,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
   const handleOpenAdd = (type: BrokerAccount['brokerType'] = 'XTB') => {
     setBrokerType(type);
-    setName(type === 'XTB' ? 'XTB Indywidualne' : type === 'IBKR' ? 'Interactive Brokers' : type === 'BINANCE' ? 'Binance Spot' : type === 'FREEDOM24' ? 'Freedom24' : 'Konto Maklerskie');
+    setName(type === 'XTB' ? 'XTB Indywidualne' : type === 'IBKR' ? 'Interactive Brokers' : type === 'BINANCE' ? 'Binance Spot' : type === 'FREEDOM24' ? 'Freedom24' : 'Konto maklerskie');
     setCurrency(type === 'BINANCE' || type === 'IBKR' || type === 'FREEDOM24' ? 'USD' : 'PLN');
     setAccountNumber('');
     setApiKey('');
@@ -363,7 +363,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
         <div>
           <h1 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Building2 className="w-5 h-5 text-blue-600 shrink-0" />
-            <span>{language === 'pl' ? 'Konta Maklerskie' : 'Broker Accounts'}</span>
+            <span>{language === 'pl' ? 'Konta maklerskie' : 'Broker Accounts'}</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
             {accounts.length === 0
@@ -378,7 +378,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
               id="btn-sync-all-brokers"
               onClick={onSyncAllAccounts}
               disabled={isSyncingAll}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 transition-all cursor-pointer disabled:opacity-50"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700/80 transition cursor-pointer disabled:opacity-50"
               title="Synchronizuj wszystkie podłączone konta API"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isSyncingAll ? 'animate-spin text-blue-600' : 'text-slate-500 dark:text-slate-400'}`} />
@@ -389,7 +389,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
           {onResetAllData && (accounts.length > 0) && (
             <button
               onClick={() => setShowResetConfirm(true)}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-400 border border-rose-200/60 dark:border-rose-800/60 transition-all cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 text-rose-700 dark:text-rose-400 border border-rose-200/60 dark:border-rose-800/60 transition cursor-pointer"
               title="Wyczyść wszystkie konta i transakcje"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -400,10 +400,10 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
           <button
             id="btn-open-add-broker"
             onClick={() => handleOpenAdd('FREEDOM24')}
-            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition-all cursor-pointer active:scale-[0.98]"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition cursor-pointer active:scale-[0.98]"
           >
             <Plus className="w-3.5 h-3.5" />
-            <span>{language === 'pl' ? 'Połącz Konto (API)' : 'Connect Account'}</span>
+            <span>{language === 'pl' ? 'Połącz konto (API)' : 'Connect Account'}</span>
           </button>
         </div>
       </div>
@@ -434,7 +434,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                 }}
                 className="px-3 py-1.5 text-xs font-bold rounded-lg bg-rose-600 hover:bg-rose-500 text-white"
               >
-                Wyczyść Wszystko
+                Wyczyść wszystko
               </button>
             </div>
           </div>
@@ -459,52 +459,52 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-3xl mx-auto pt-2">
             <button
               onClick={() => handleOpenAdd('FREEDOM24')}
-              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-blue-50/30 dark:hover:bg-blue-950/20 text-left transition-all cursor-pointer group"
+              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-blue-50/30 dark:hover:bg-blue-950/20 text-left transition cursor-pointer group"
             >
               <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between">
                 <span>Freedom24</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono">REST API</span>
+                <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-blue-100 dark:bg-blue-950 text-blue-800 dark:text-blue-300 font-mono">REST API</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 mt-1">
                 Klucze Tradernet API (Public + Secret)
               </p>
             </button>
 
             <button
               onClick={() => handleOpenAdd('XTB')}
-              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20 text-left transition-all cursor-pointer group"
+              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20 text-left transition cursor-pointer group"
             >
               <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between">
                 <span>XTB</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-mono">xAPI</span>
+                <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-mono">xAPI</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 mt-1">
                 Login i hasło xAPI z Pokoju Inwestora
               </p>
             </button>
 
             <button
               onClick={() => handleOpenAdd('IBKR')}
-              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-500 dark:hover:border-rose-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-rose-50/30 dark:hover:bg-rose-950/20 text-left transition-all cursor-pointer group"
+              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-rose-500 dark:hover:border-rose-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-rose-50/30 dark:hover:bg-rose-950/20 text-left transition cursor-pointer group"
             >
               <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between">
                 <span>IBKR Pro</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 font-mono">Flex API</span>
+                <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 font-mono">Flex API</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 mt-1">
                 Flex Web Service Token & Query ID
               </p>
             </button>
 
             <button
               onClick={() => handleOpenAdd('BINANCE')}
-              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-amber-500 dark:hover:border-amber-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-amber-50/30 dark:hover:bg-amber-950/20 text-left transition-all cursor-pointer group"
+              className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-amber-500 dark:hover:border-amber-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-amber-50/30 dark:hover:bg-amber-950/20 text-left transition cursor-pointer group"
             >
               <div className="font-bold text-sm text-slate-900 dark:text-white flex items-center justify-between">
                 <span>Binance</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-mono">Spot v3</span>
+                <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-mono">Spot v3</span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">
+              <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 mt-1">
                 Klucz API Key & Secret (HMAC-256)
               </p>
             </button>
@@ -527,9 +527,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
           return (
             <div
               key={acc.id}
-              className={`min-w-0 bg-white dark:bg-slate-900 rounded-2xl border p-4 sm:p-5 shadow-xs flex flex-col justify-between space-y-4 relative overflow-hidden transition-all ${
+              className={`min-w-0 bg-white dark:bg-slate-900 rounded-2xl border p-4 sm:p-5 shadow-xs flex flex-col justify-between space-y-4 relative overflow-hidden transition ${
                 hasError
-                  ? 'border-rose-300 dark:border-rose-800/80 shadow-rose-500/5'
+                  ? 'border-rose-300 dark:border-rose-800/80'
                   : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
               }`}
             >
@@ -552,7 +552,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       <h3 className="font-bold text-sm text-slate-900 dark:text-white flex flex-wrap items-center gap-x-1.5 gap-y-1">
                         <span className="min-w-0 break-words">{acc.name}</span>
                         {hasError && (
-                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 dark:bg-rose-950 text-rose-600 border border-rose-200 dark:border-rose-800">
+                          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[0.6875rem] font-bold bg-rose-100 dark:bg-rose-950 text-rose-600 border border-rose-200 dark:border-rose-800">
                             BŁĄD
                           </span>
                         )}
@@ -584,7 +584,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                 {/* API Status Box */}
                 <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 text-xs space-y-2.5">
                   <div className="flex flex-wrap items-start justify-between gap-2">
-                    <span className="text-slate-500 dark:text-slate-400 font-medium">Status Integracji:</span>
+                    <span className="text-slate-500 dark:text-slate-400 font-medium">Status integracji:</span>
                     {hasError ? (
                       <span className="flex max-w-full items-center gap-1 text-rose-600 dark:text-rose-400 font-bold bg-rose-50 dark:bg-rose-950/60 px-2 py-0.5 rounded-md border border-rose-200 dark:border-rose-800">
                         <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
@@ -598,37 +598,37 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                     ) : (
                       <span className="flex max-w-full items-center gap-1 text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800/80 px-2 py-0.5 rounded-md">
                         <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                        <span className="min-w-0 break-words">Import Ręczny / CSV</span>
+                        <span className="min-w-0 break-words">Import ręczny / CSV</span>
                       </span>
                     )}
                   </div>
 
                   {acc.brokerType === 'IBKR' && acc.queryId && (
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 font-mono">
+                    <div className="flex items-center justify-between text-[0.6875rem] text-slate-500 font-mono">
                       <span>Flex Query ID:</span>
                       <span className="font-semibold text-slate-700 dark:text-slate-300">{acc.queryId}</span>
                     </div>
                   )}
 
                   {acc.brokerType === 'FREEDOM24' && (
-                    <div className="flex items-center justify-between text-[11px] text-slate-500">
-                      <span>Metoda Autoryzacji:</span>
+                    <div className="flex items-center justify-between text-[0.6875rem] text-slate-500">
+                      <span>Metoda autoryzacji:</span>
                       <span className="font-semibold text-blue-600 dark:text-blue-400 font-mono">
                         {acc.freedom24AuthMethod === 'SMS_SESSION'
-                          ? '📱 E-mail + SMS (2FA)'
+                          ? 'E-mail + SMS (2FA)'
                           : acc.freedom24AuthMethod === 'SESSION_TOKEN'
-                          ? '🎫 Token Sesji (SID)'
+                          ? 'Token sesji (SID)'
                           : acc.freedom24AuthMethod === 'DEMO'
-                          ? '🧪 Tryb Demo Sandbox'
+                          ? 'Tryb Demo Sandbox'
                           : acc.freedom24AuthMethod === 'STATEMENT'
-                          ? '📁 Wyciąg Offline'
-                          : '🔑 Klucze API V2 (HMAC)'}
+                          ? 'Wyciąg offline'
+                          : 'Klucze API V2 (HMAC)'}
                       </span>
                     </div>
                   )}
 
                   {acc.lastSyncAt && (
-                    <div className="text-[11px] text-slate-400 flex items-center justify-between">
+                    <div className="text-[0.6875rem] text-slate-400 flex items-center justify-between">
                       <span>Ostatnia synchronizacja:</span>
                       <span className="font-mono">{new Date(acc.lastSyncAt).toLocaleString('pl-PL')}</span>
                     </div>
@@ -644,7 +644,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       }`}
                     >
                       <div
-                        className={`flex items-center justify-between font-bold text-[11px] ${
+                        className={`flex items-center justify-between font-bold text-[0.6875rem] ${
                           brakApi ? 'text-amber-700 dark:text-amber-300' : 'text-rose-700 dark:text-rose-300'
                         }`}
                       >
@@ -657,12 +657,12 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                           <span>{brakApi ? 'Rachunek bez połączenia API' : 'Nieudana synchronizacja API'}</span>
                         </span>
                         {testResult?.latencyMs !== undefined && (
-                          <span className="font-mono text-[10px] text-rose-500">{testResult.latencyMs} ms</span>
+                          <span className="font-mono text-[0.6875rem] text-rose-500">{testResult.latencyMs} ms</span>
                         )}
                       </div>
 
                       <p
-                        className={`text-[11px] leading-relaxed font-medium break-words ${
+                        className={`text-[0.6875rem] leading-relaxed font-medium break-words ${
                           brakApi ? 'text-amber-800 dark:text-amber-200/90' : 'text-rose-800 dark:text-rose-200/90'
                         }`}
                       >
@@ -675,14 +675,14 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                           <button
                             type="button"
                             onClick={() => setExpandedDetailsId(isExpanded ? null : acc.id)}
-                            className="flex items-center gap-1 text-[10px] font-bold text-rose-700 dark:text-rose-400 hover:underline cursor-pointer"
+                            className="flex items-center gap-1 text-[0.6875rem] font-bold text-rose-700 dark:text-rose-400 hover:underline cursor-pointer"
                           >
                             <span>{isExpanded ? 'Ukryj szczegóły diagnostyczne' : 'Szczegóły techniczne (Diagnostyka)'}</span>
                             {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                           </button>
 
                           {isExpanded && (
-                            <div className="mt-1.5 p-2 rounded-lg bg-rose-100/60 dark:bg-rose-900/40 border border-rose-200 dark:border-rose-800 text-[10px] space-y-1 font-mono text-rose-900 dark:text-rose-200">
+                            <div className="mt-1.5 p-2 rounded-lg bg-rose-100/60 dark:bg-rose-900/40 border border-rose-200 dark:border-rose-800 text-[0.6875rem] space-y-1 font-mono text-rose-900 dark:text-rose-200">
                               {diagnostics.signatureVerified !== undefined && (
                                 <div className="flex justify-between">
                                   <span>Sygnatura HMAC:</span>
@@ -724,7 +724,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                           <button
                             type="button"
                             onClick={() => handleOpenEdit(acc)}
-                            className="text-[11px] font-bold text-rose-700 dark:text-rose-300 hover:text-rose-900 dark:hover:text-white underline cursor-pointer"
+                            className="text-[0.6875rem] font-bold text-rose-700 dark:text-rose-300 hover:text-rose-900 dark:hover:text-white underline cursor-pointer"
                           >
                             Popraw klucze API →
                           </button>
@@ -735,17 +735,17 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
                   {/* Successful Test Result Banner */}
                   {testResult && testResult.success && (
-                    <div className="p-2 rounded-xl text-[11px] border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 leading-tight space-y-0.5">
+                    <div className="p-2 rounded-xl text-[0.6875rem] border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 leading-tight space-y-0.5">
                       <div className="flex items-center justify-between font-bold">
                         <span className="flex items-center gap-1.5">
                           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                          <span>Test API Udany (Live Handshake)</span>
+                          <span>Test API udany (Live Handshake)</span>
                         </span>
                         {testResult.latencyMs !== undefined && (
-                          <span className="font-mono text-[10px] text-emerald-600">{testResult.latencyMs} ms</span>
+                          <span className="font-mono text-[0.6875rem] text-emerald-600">{testResult.latencyMs} ms</span>
                         )}
                       </div>
-                      <p className="text-[10.5px] text-emerald-700 dark:text-emerald-300">{testResult.message}</p>
+                      <p className="text-[0.6875rem] text-emerald-700 dark:text-emerald-300">{testResult.message}</p>
                     </div>
                   )}
                 </div>
@@ -756,7 +756,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                 <button
                   onClick={() => handleTestCardConnection(acc)}
                   disabled={isTestingThis}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-all cursor-pointer disabled:opacity-50"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition cursor-pointer disabled:opacity-50"
                   title="Sprawdź poprawność autoryzacji z serwerem brokera"
                 >
                   <Activity className={`w-3.5 h-3.5 ${isTestingThis ? 'animate-spin text-blue-500' : 'text-slate-500'}`} />
@@ -766,7 +766,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                 <button
                   onClick={() => onSyncAccount(acc.id)}
                   disabled={isSyncingThis}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition-all cursor-pointer disabled:opacity-50"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2 px-2.5 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-xs transition cursor-pointer disabled:opacity-50"
                   title="Pobierz najnowsze transakcje z konta maklerskiego"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 ${isSyncingThis ? 'animate-spin' : ''}`} />
@@ -792,7 +792,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                   {brokerType.slice(0, 3)}
                 </div>
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                  {editingAccount ? 'Konfiguracja Połączenia API' : 'Połącz z Brokerem (API)'}
+                  {editingAccount ? 'Konfiguracja połączenia API' : 'Połącz z brokerem (API)'}
                 </h2>
               </div>
               <button
@@ -807,7 +807,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
               {/* Broker Type Selection */}
               <div>
                 <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1.5">
-                  Wybierz Brokera / Platformę
+                  Wybierz brokera / platformę
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
@@ -826,18 +826,18 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       onClick={() => {
                         setBrokerType(b.id as any);
                         if (!editingAccount) {
-                          setName(b.id === 'XTB' ? 'XTB Indywidualne' : b.id === 'IBKR' ? 'Interactive Brokers' : b.id === 'BINANCE' ? 'Binance Spot' : b.id === 'FREEDOM24' ? 'Freedom24' : 'Konto Maklerskie');
+                          setName(b.id === 'XTB' ? 'XTB Indywidualne' : b.id === 'IBKR' ? 'Interactive Brokers' : b.id === 'BINANCE' ? 'Binance Spot' : b.id === 'FREEDOM24' ? 'Freedom24' : 'Konto maklerskie');
                           setColor(b.id === 'XTB' ? '#10B981' : b.id === 'IBKR' ? '#EF4444' : b.id === 'BINANCE' ? '#FBBF24' : b.id === 'FREEDOM24' ? '#3B82F6' : '#8B5CF6');
                         }
                       }}
-                      className={`p-2 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                      className={`p-2 rounded-xl border text-left flex flex-col justify-between transition cursor-pointer ${
                         brokerType === b.id
                           ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 font-bold shadow-xs'
                           : 'border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium'
                       }`}
                     >
                       <span>{b.label}</span>
-                      <span className="text-[9px] font-mono opacity-70 mt-1">{b.badge}</span>
+                      <span className="text-[0.6875rem] font-mono opacity-70 mt-1">{b.badge}</span>
                     </button>
                   ))}
                 </div>
@@ -851,17 +851,17 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       <Zap className="w-3.5 h-3.5" />
                       <span>{activeGuide.title}</span>
                     </div>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${activeGuide.badgeColor}`}>
+                    <span className={`px-2 py-0.5 rounded text-[0.6875rem] font-bold ${activeGuide.badgeColor}`}>
                       {activeGuide.badge}
                     </span>
                   </div>
-                  <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 text-[0.6875rem] leading-relaxed">
                     {activeGuide.subtitle}
                   </p>
                   <button
                     type="button"
                     onClick={() => setShowGuideModal(brokerType)}
-                    className="text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-[0.6875rem] font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <HelpCircle className="w-3.5 h-3.5" />
                     <span>Jak wygenerować klucze API dla {brokerType}? (Instrukcja krok po kroku)</span>
@@ -873,9 +873,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                    Nazwa Własna Konta
+                    Nazwa własna konta
                   </label>
-                  <input aria-label="Nazwa Własna Konta"
+                  <input aria-label="Nazwa własna konta"
                     type="text"
                     required
                     placeholder="np. XTB Indywidualne, IBKR Pro..."
@@ -887,14 +887,14 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
                 <div>
                   <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                    Waluta Bazowa Rachunku
+                    Waluta bazowa rachunku
                   </label>
-                  <select aria-label="Waluta Bazowa Rachunku"
+                  <select aria-label="Waluta bazowa rachunku"
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
                     className="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
                   >
-                    <option value="PLN">PLN (Polski Złoty)</option>
+                    <option value="PLN">PLN (Polski złoty)</option>
                     <option value="USD">USD (Dolar amerykański)</option>
                     <option value="EUR">EUR (Euro)</option>
                     <option value="GBP">GBP (Funt szterling)</option>
@@ -907,7 +907,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 space-y-3">
                 <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white">
                   <Key className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Parametry Autoryzacji API ({brokerType})</span>
+                  <span>Parametry autoryzacji API ({brokerType})</span>
                 </div>
 
                 {brokerType === 'IBKR' ? (
@@ -927,9 +927,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
                     <div>
                       <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                        Flex Query ID (Numer Raportu)
+                        Flex Query ID (numer raportu)
                       </label>
-                      <input aria-label="Flex Query ID (Numer Raportu)"
+                      <input aria-label="Flex Query ID (numer raportu)"
                         type="text"
                         placeholder="np. 984521"
                         value={queryId}
@@ -971,7 +971,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                     {/* Method Selector Tabs */}
                     <div>
                       <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1.5">
-                        Wybierz Metodę Uwierzytelnienia Freedom24:
+                        Wybierz metodę uwierzytelnienia Freedom24:
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
                         {[
@@ -982,8 +982,8 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                           { id: 'LOGIN_PASSWORD', label: 'Login i hasło', icon: KeyRound, desc: 'Bez SMS, tylko podgląd' },
                           { id: 'SMS_SESSION', label: 'Telefon + kod SMS', icon: Smartphone, desc: 'Bez hasła, tylko podgląd' },
                           { id: 'SESSION_TOKEN', label: 'Token SID', icon: Key, desc: 'Cookie / Session ID' },
-                          { id: 'DEMO', label: 'Konto Demo', icon: PlayCircle, desc: 'Środowisko testowe' },
-                          { id: 'STATEMENT', label: 'Import Pliku', icon: FileSpreadsheet, desc: 'Raport CSV (Offline)' },
+                          { id: 'DEMO', label: 'Konto demo', icon: PlayCircle, desc: 'Środowisko testowe' },
+                          { id: 'STATEMENT', label: 'Import pliku', icon: FileSpreadsheet, desc: 'Raport CSV (Offline)' },
                         ].map((m) => {
                           const IconComp = m.icon;
                           const isSelected = freedom24AuthMethod === m.id;
@@ -992,7 +992,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                               key={m.id}
                               type="button"
                               onClick={() => setFreedom24AuthMethod(m.id as any)}
-                              className={`p-2 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                              className={`p-2 rounded-xl border text-left flex flex-col justify-between transition cursor-pointer ${
                                 isSelected
                                   ? 'border-blue-600 bg-blue-50/80 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-bold shadow-xs'
                                   : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750'
@@ -1000,9 +1000,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                             >
                               <div className="flex items-center gap-1.5">
                                 <IconComp className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                                <span className="text-[11px]">{m.label}</span>
+                                <span className="text-[0.6875rem]">{m.label}</span>
                               </div>
-                              <span className="text-[9px] text-slate-400 dark:text-slate-400 font-normal mt-0.5">
+                              <span className="text-[0.6875rem] text-slate-400 dark:text-slate-400 font-normal mt-0.5">
                                 {m.desc}
                               </span>
                             </button>
@@ -1015,7 +1015,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                     {freedom24AuthMethod === 'API_KEYS' && (
                       <div className="space-y-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                         <div className="flex items-center gap-2 p-2 rounded-lg bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
-                          <div className="text-[11px] text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
+                          <div className="text-[0.6875rem] text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
                             <Shield className="w-4 h-4 text-emerald-500 shrink-0" />
                             <span><strong>Klucze lokalne serwera.</strong> Przeglądarka nie przechowuje ani nie wysyła klucza prywatnego. Użyj „Test połączenia”, aby sprawdzić status skonfigurowano / niedostępne.</span>
                           </div>
@@ -1026,7 +1026,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                     {/* Method 2: SMS Session (E-mail + Hasło + SMS) */}
                     {freedom24AuthMethod === 'LOGIN_PASSWORD' && (
                       <div className="space-y-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                        <div className="text-[0.6875rem] text-slate-500 dark:text-slate-400">
                           Logowanie loginem i hasłem (polecenie <code>authByLogin</code>) — bez SMS. Sesja otwiera się w trybie
                           <strong> tylko do podglądu</strong> i żyje w pamięci serwera aplikacji (do 12 godzin lub do restartu).
                           Hasło idzie wprost do Freedom24 i nie jest nigdzie zapisywane.
@@ -1044,7 +1044,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                         </button>
                         {loginNotice && (
                           <div
-                            className={`p-2 rounded-lg border text-[11px] ${
+                            className={`p-2 rounded-lg border text-[0.6875rem] ${
                               loginNotice.ok
                                 ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200'
                                 : 'bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200'
@@ -1058,7 +1058,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
                     {freedom24AuthMethod === 'SMS_SESSION' && (
                       <div className="space-y-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                        <div className="text-[0.6875rem] text-slate-500 dark:text-slate-400 flex items-center gap-1">
                           <Smartphone className="w-3.5 h-3.5 text-blue-500 shrink-0" />
                           <span>
                             Logowanie kodem SMS (polecenia <code>getAuthSms</code> → <code>authBySms</code>) — bez hasła. Sesja tylko do
@@ -1075,7 +1075,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                           </button>
                         </div>
                         {smsNotice && (
-                          <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-[11px]">
+                          <div className="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 text-[0.6875rem]">
                             {smsNotice}
                           </div>
                         )}
@@ -1088,7 +1088,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                         </button>
                         {loginNotice && (
                           <div
-                            className={`p-2 rounded-lg border text-[11px] ${
+                            className={`p-2 rounded-lg border text-[0.6875rem] ${
                               loginNotice.ok
                                 ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200'
                                 : 'bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200'
@@ -1102,15 +1102,15 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
                     {freedom24AuthMethod === 'SESSION_TOKEN' && (
                       <div className="space-y-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                        <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                        <div className="text-[0.6875rem] text-slate-500 dark:text-slate-400 flex items-center gap-1">
                           <Key className="w-3.5 h-3.5 text-purple-500 shrink-0" />
                           <span>Wklej aktywny token sesji SID (Session ID) pobrany z ciasteczka lub żądania sieciowego Tradernet.</span>
                         </div>
                         <div>
                           <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                            Identyfikator Sesji SID (Cookie SID)
+                            Identyfikator sesji SID (Cookie SID)
                           </label>
-                          <input aria-label="Identyfikator Sesji SID (Cookie SID)"
+                          <input aria-label="Identyfikator sesji SID (Cookie SID)"
                             type="password"
                             placeholder="Wklej identyfikator SID sesji..."
                             value={freedom24Sid}
@@ -1126,9 +1126,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       <div className="p-3 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 text-xs space-y-2">
                         <div className="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-300">
                           <PlayCircle className="w-4 h-4" />
-                          <span>Tryb Demo / Symulator Freedom24 (Sandbox)</span>
+                          <span>Tryb Demo / symulator Freedom24 (Sandbox)</span>
                         </div>
-                        <p className="text-slate-600 dark:text-slate-300 text-[11px]">
+                        <p className="text-slate-600 dark:text-slate-300 text-[0.6875rem]">
                           Połączenie z serwerem demonstracyjnym Tradernet Demo. Umożliwia testowanie notowań w czasie rzeczywistym, składanie zleceń symulacyjnych i kalkulację podatku bez podawania prawdziwych danych konta.
                         </p>
                       </div>
@@ -1139,10 +1139,10 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                       <div className="p-3 rounded-xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/80 text-xs space-y-2">
                         <div className="flex items-center gap-2 font-bold text-blue-700 dark:text-blue-300">
                           <FileSpreadsheet className="w-4 h-4" />
-                          <span>Bezpieczny Tryb Importu Wyciągu (100% Prywatności Offline)</span>
+                          <span>Bezpieczny tryb importu wyciągu (100% prywatności offline)</span>
                         </div>
-                        <p className="text-slate-600 dark:text-slate-300 text-[11px]">
-                          Nie musisz podawać żadnych kluczy ani haseł. Pobierz plik wyciągu operacji (CSV / XLSX / PDF) z panelu Freedom24 i zaimportuj go bezpośrednio w zakładce <strong>„Import CSV / Raportów”</strong>.
+                        <p className="text-slate-600 dark:text-slate-300 text-[0.6875rem]">
+                          Nie musisz podawać żadnych kluczy ani haseł. Pobierz plik wyciągu operacji (CSV / XLSX / PDF) z panelu Freedom24 i zaimportuj go bezpośrednio w zakładce <strong>„Import CSV / raportów”</strong>.
                         </p>
                       </div>
                     )}
@@ -1151,9 +1151,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                   <>
                     <div>
                       <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                        Numer Rachunku / Login / ID
+                        Numer rachunku / login / ID
                       </label>
-                      <input aria-label="Numer Rachunku / Login / ID"
+                      <input aria-label="Numer rachunku / login / ID"
                         type="text"
                         placeholder="np. XTB-894120 lub Login..."
                         value={accountNumber}
@@ -1179,15 +1179,15 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
                         <div>
                           <label className="block text-slate-700 dark:text-slate-300 font-medium mb-1">
-                            Typ Serwera XTB
+                            Typ serwera XTB
                           </label>
-                          <select aria-label="Typ Serwera XTB"
+                          <select aria-label="Typ serwera XTB"
                             value={apiServerType}
                             onChange={(e) => setApiServerType(e.target.value as any)}
                             className="w-full px-3 py-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none"
                           >
-                            <option value="REAL">Serwer Rzeczywisty (Real Account)</option>
-                            <option value="DEMO">Serwer Demonstracyjny (Demo Account)</option>
+                            <option value="REAL">Serwer rzeczywisty (Real Account)</option>
+                            <option value="DEMO">Serwer demonstracyjny (Demo Account)</option>
                           </select>
                         </div>
                       </>
@@ -1196,7 +1196,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                 )}
 
                 {czyTrybHostowany() && (
-                  <p className="text-[11px] text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-2.5 py-2">
+                  <p className="text-[0.6875rem] text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-2.5 py-2">
                     Wersja online nie łączy się z brokerami: klucze API, hasła ani sesje nie są zapisywane w tej
                     przeglądarce. Rachunek zostanie dodany do ręcznych transakcji; integracje działają w wersji Windows
                     albo z lokalnym serwerem.
@@ -1209,22 +1209,22 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                     type="button"
                     onClick={handleTestModalConnection}
                     disabled={isTestingModalConnection}
-                    className="w-full py-2 px-3 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 font-bold flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
+                    className="w-full py-2 px-3 rounded-xl bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 font-bold flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-50"
                   >
                     <Activity className={`w-3.5 h-3.5 ${isTestingModalConnection ? 'animate-spin text-blue-500' : ''}`} />
-                    <span>{isTestingModalConnection ? 'Wysyłanie zapytania testowego...' : '🧪 Testuj Połączenie API Teraz'}</span>
+                    <span>{isTestingModalConnection ? 'Wysyłanie zapytania testowego...' : 'Testuj połączenie API teraz'}</span>
                   </button>
 
                   {modalTestResult && (
                     <div
-                      className={`mt-2 p-2.5 rounded-xl border text-[11px] ${
+                      className={`mt-2 p-2.5 rounded-xl border text-[0.6875rem] ${
                         modalTestResult.success
                           ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200'
                           : 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-200'
                       }`}
                     >
                       <div className="font-bold flex items-center justify-between mb-1">
-                        <span>{modalTestResult.success ? '✅ Połączenie Udane' : '❌ Błąd Autoryzacji'}</span>
+                        <span>{modalTestResult.success ? 'Połączenie udane' : 'Błąd autoryzacji'}</span>
                         {modalTestResult.latencyMs !== undefined && <span>{modalTestResult.latencyMs} ms</span>}
                       </div>
                       <p>{modalTestResult.message}</p>
@@ -1244,9 +1244,9 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-md shadow-blue-500/20 cursor-pointer"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold shadow-md cursor-pointer"
                 >
-                  {editingAccount ? 'Zapisz Zmiany' : 'Połącz i Zapisz Konto'}
+                  {editingAccount ? 'Zapisz zmiany' : 'Połącz i zapisz konto'}
                 </button>
               </div>
             </form>
@@ -1275,7 +1275,7 @@ export const BrokerAccountsManager: React.FC<BrokerAccountsManagerProps> = ({
 
             <div className="space-y-3 text-xs">
               <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-800 dark:text-blue-300">
-                <span className="font-bold block mb-1">🔐 Zasada Bezpieczeństwa (Read-Only):</span>
+                <span className="font-bold block mb-1">Zasada bezpieczeństwa (Read-Only):</span>
                 <span>{BROKER_GUIDES[showGuideModal].securityNotes}</span>
               </div>
 

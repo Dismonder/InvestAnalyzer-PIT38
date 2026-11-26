@@ -91,7 +91,7 @@ export const OptymalizacjaPanel: React.FC<OptymalizacjaPanelProps> = ({ language
       {/* 1. Nagłówek */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Optymalizacja Podatkowa</h2>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Optymalizacja podatkowa</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Aktywne pozycje kosztowe: <strong className="text-slate-900 dark:text-white">{aktywnych}</strong></p>
         </div>
         <button onClick={handlePrzywroc} className="rounded-xl px-4 py-2 text-sm font-semibold border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center gap-2">

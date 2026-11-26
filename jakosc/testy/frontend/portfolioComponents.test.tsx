@@ -31,7 +31,7 @@ test('karty KPI renderują brak danych dziennych bez wyjątku i bez fałszywego 
     totalDailyChangePct={null} liczbaZeZnanaZmiana={0} liczbaWycenionychPozycji={1}
     klasaWyniku={(known: boolean, positive: boolean, up: string, down: string, unknown: string) => known ? positive ? up : down : unknown}
   />);
-  assert.match(markup, /Dzienna Zmiana \(24h\)/);
+  assert.match(markup, /Dzienna zmiana \(24h\)/);
   assert.match(markup, /brak wyceny/);
   assert.match(markup, /brak danych o zmianie/);
   assert.doesNotMatch(markup, /\+0\.00%/);
@@ -73,7 +73,7 @@ test('wykres alokacji i baner podatkowy renderują bieżące dane', () => {
     selectedCategory="ALL" setSelectedCategory={() => undefined}
     selectedBroker="ALL" setSelectedBroker={() => undefined} onNavigateToTab={() => undefined}
   />);
-  assert.match(charts, /Struktura Portfela i Alokacja Kapitału/);
+  assert.match(charts, /Struktura portfela i alokacja kapitału/);
   assert.match(charts, /USD/);
 
   const banner = renderToStaticMarkup(<PortfolioTaxSummaryBanner

@@ -128,7 +128,7 @@ export function Dashboard({
           <div className="border-t border-gray-100 dark:border-gray-700/60 p-6 bg-gray-50/30 dark:bg-gray-800/30">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                Podsumowanie Roku ({selectedYear})
+                Podsumowanie roku ({selectedYear})
               </h3>
             </div>
 
@@ -166,7 +166,7 @@ export function Dashboard({
                     <p className="text-base font-semibold text-gray-900 dark:text-white">{formatPlanName(engineResult?.plan_used)}</p>
                   </div>
                   <div className={`p-4 rounded-xl shadow-sm border ${Number(summary.net_pln || 0) >= 0 ? 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/20' : 'bg-rose-50 dark:bg-rose-500/10 border-rose-100 dark:border-rose-500/20'}`}>
-                    <span className={`text-xs font-semibold uppercase tracking-wider block mb-1.5 ${Number(summary.net_pln || 0) >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}`}>Netto po scenariuszu głównym</span>
+                    <span className={`text-xs font-semibold block mb-1.5 ${Number(summary.net_pln || 0) >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}`}>Netto po scenariuszu głównym</span>
                     <p className={`text-base font-bold ${Number(summary.net_pln || 0) >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}`}>
                       {Number(summary.net_pln || 0) >= 0 ? '+' : ''}{formatPln(summary.net_pln)}
                     </p>
@@ -183,19 +183,19 @@ export function Dashboard({
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex justify-between items-center px-5 py-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-sm">
-                    <span className="text-xs font-semibold text-gray-500 uppercase">Konserwatywny vs zrównoważony</span>
+                    <span className="text-xs font-semibold text-gray-500">Konserwatywny vs zrównoważony</span>
                     <span className={`text-sm font-bold ${Number(conservativeScenario?.delta_vs_defensible_pln || 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                       {Number(conservativeScenario?.delta_vs_defensible_pln || 0) >= 0 ? '+' : ''}{formatPln(conservativeScenario?.delta_vs_defensible_pln)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center px-5 py-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-sm">
-                    <span className="text-xs font-semibold text-gray-500 uppercase">Brutto w planie zrównoważonym</span>
+                    <span className="text-xs font-semibold text-gray-500">Brutto w planie zrównoważonym</span>
                     <span className={`text-sm font-bold ${Number(primaryScenario?.gross_result_pln || 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                       {Number(primaryScenario?.gross_result_pln || 0) >= 0 ? '+' : ''}{formatPln(primaryScenario?.gross_result_pln)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center px-5 py-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700/60 shadow-sm">
-                    <span className="text-xs font-semibold text-gray-500 uppercase">Agresywny vs zrównoważony</span>
+                    <span className="text-xs font-semibold text-gray-500">Agresywny vs zrównoważony</span>
                     <span className={`text-sm font-bold ${Number(aggressiveScenario?.delta_vs_defensible_pln || 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                       {Number(aggressiveScenario?.delta_vs_defensible_pln || 0) >= 0 ? '+' : ''}{formatPln(aggressiveScenario?.delta_vs_defensible_pln)}
                     </span>
@@ -239,7 +239,7 @@ export function Dashboard({
                   }}
                   stroke="currentColor"
                   tick={{ fill: 'currentColor' }}
-                  className="text-[11px] font-medium transition-colors"
+                  className="text-[0.6875rem] font-medium transition-colors"
                   tickLine={false}
                   axisLine={false}
                 />
@@ -247,7 +247,7 @@ export function Dashboard({
                   tickFormatter={(val) => new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 0 }).format(val)}
                   stroke="currentColor"
                   tick={{ fill: 'currentColor' }}
-                  className="text-[11px] font-medium transition-colors"
+                  className="text-[0.6875rem] font-medium transition-colors"
                   tickLine={false}
                   axisLine={false}
                   width={80}

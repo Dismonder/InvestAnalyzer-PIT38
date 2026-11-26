@@ -95,7 +95,7 @@ function InputField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{label}</span>
+      <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">{label}</span>
       <input
         type={type}
         value={value}
@@ -311,7 +311,7 @@ export function TransactionEditorPanel({
           <InputField label="Ticker" value={String(formValues.symbol || '')} onChange={(value) => updateField('symbol', value)} />
           <InputField label="ISIN" value={String(formValues.isin || '')} onChange={(value) => updateField('isin', value)} />
           <label className="block">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Strona</span>
+            <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">Strona</span>
             <select
               value={String(formValues.side || 'BUY')}
               onChange={(event) => updateField('side', event.target.value)}
@@ -332,7 +332,7 @@ export function TransactionEditorPanel({
           <InputField label="Kraj" value={String(formValues.country || '')} onChange={(value) => updateField('country', value)} />
           <InputField label="Kod typu instrumentu" value={String(formValues.instrument_type_code || '')} onChange={(value) => updateField('instrument_type_code', value)} />
           <label className="block md:col-span-2">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Komentarz</span>
+            <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">Komentarz</span>
             <textarea
               value={String(formValues.comment || '')}
               onChange={(event) => updateField('comment', event.target.value)}
@@ -340,7 +340,7 @@ export function TransactionEditorPanel({
             />
           </label>
           <label className="block md:col-span-2">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wiadomość</span>
+            <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">Wiadomość</span>
             <textarea
               value={String(formValues.message || '')}
               onChange={(event) => updateField('message', event.target.value)}
@@ -362,7 +362,7 @@ export function TransactionEditorPanel({
           <InputField label="Ilość" value={String(formValues.quantity || '')} onChange={(value) => updateField('quantity', value)} />
           <InputField label="Kraj" value={String(formValues.country || '')} onChange={(value) => updateField('country', value)} />
           <label className="block md:col-span-2">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Komentarz</span>
+            <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">Komentarz</span>
             <textarea
               value={String(formValues.comment || '')}
               onChange={(event) => updateField('comment', event.target.value)}
@@ -370,7 +370,7 @@ export function TransactionEditorPanel({
             />
           </label>
           <label className="block md:col-span-2">
-            <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wiadomość</span>
+            <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">Wiadomość</span>
             <textarea
               value={String(formValues.message || '')}
               onChange={(event) => updateField('message', event.target.value)}
@@ -391,7 +391,7 @@ export function TransactionEditorPanel({
         <InputField label="Podstawa promocji" value={String(formValues.promotion_basis || '')} onChange={(value) => updateField('promotion_basis', value)} />
         <InputField label="Kraj" value={String(formValues.country || '')} onChange={(value) => updateField('country', value)} />
         <label className="block md:col-span-2">
-          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Komentarz / dowód</span>
+          <span className="mb-1.5 block text-xs font-semibold text-gray-500 dark:text-gray-400">Komentarz / dowód</span>
           <textarea
             value={String(formValues.comment || '')}
             onChange={(event) => updateField('comment', event.target.value)}
@@ -434,7 +434,7 @@ export function TransactionEditorPanel({
             <div className="space-y-6">
               {context.mode === 'new' && (
                 <div className="rounded-3xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900/60">
-                  <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300">Typ nowej pozycji</h3>
+                  <h3 className="mb-3 text-sm font-bold text-gray-700 dark:text-gray-300">Typ nowej pozycji</h3>
                   <div className="flex flex-wrap gap-2">
                     {(['TRADE', 'EVENT', 'BONUS_CONTEST_SHARE'] as TypRekorduEdycji[]).map((entryType) => (
                       <button
@@ -484,14 +484,14 @@ export function TransactionEditorPanel({
                 <section className="rounded-3xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900/60">
                   <div className="mb-5 flex items-center gap-2">
                     <PencilLine size={18} className="text-blue-600" />
-                    <h3 className="text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300">Aktualna wersja</h3>
+                    <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300">Aktualna wersja</h3>
                   </div>
                   {renderFormFields()}
                 </section>
 
                 <div className="space-y-6">
                   <section className="rounded-3xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900/60">
-                    <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300">Dane z silnika</h3>
+                    <h3 className="mb-4 text-sm font-bold text-gray-700 dark:text-gray-300">Dane z silnika</h3>
                     {context.mode === 'edit' && Object.keys(originalValues).length > 0 ? (
                       <div className="space-y-2 text-sm">
                         {Object.entries(originalValues).map(([fieldName, value]) => (
@@ -509,7 +509,7 @@ export function TransactionEditorPanel({
                   </section>
 
                   <section className="rounded-3xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900/60">
-                    <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300">Różnice</h3>
+                    <h3 className="mb-4 text-sm font-bold text-gray-700 dark:text-gray-300">Różnice</h3>
                     {currentDiffs.length > 0 ? (
                       <div className="space-y-3">
                         {currentDiffs.map((diff) => (
@@ -517,13 +517,13 @@ export function TransactionEditorPanel({
                             <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{poleOpisowe(diff.fieldName)}</p>
                             <div className="mt-3 grid gap-3 text-xs sm:grid-cols-2">
                               <div>
-                                <p className="mb-1 font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wersja z silnika</p>
+                                <p className="mb-1 font-semibold text-gray-500 dark:text-gray-400">Wersja z silnika</p>
                                 <div className="rounded-2xl bg-white px-3 py-2 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                                   {tekstWartosci(diff.originalValue)}
                                 </div>
                               </div>
                               <div>
-                                <p className="mb-1 font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wersja po zmianie</p>
+                                <p className="mb-1 font-semibold text-gray-500 dark:text-gray-400">Wersja po zmianie</p>
                                 <div className="rounded-2xl bg-blue-50 px-3 py-2 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300">
                                   {tekstWartosci(diff.currentValue)}
                                 </div>

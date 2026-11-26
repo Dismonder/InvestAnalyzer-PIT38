@@ -806,7 +806,7 @@ test("ImportData pokazuje neutralny plikowy control tower importu", () => {
   assert.equal(markup.includes("Transaction Intelligence Layer"), true);
   assert.equal(markup.includes("Kliknij albo przeciągnij wiele plików tutaj"), true);
   assert.equal(markup.includes("Ollama AI Normalizer"), true);
-  assert.equal(markup.includes("Centrum Weryfikacji Danych"), true);
+  assert.equal(markup.includes("Centrum weryfikacji danych"), true);
   assert.equal(markup.includes("Health Score"), true);
   assert.equal(markup.includes("Gotowe rekordy"), true);
   assert.equal(markup.includes("Niepełne rekordy"), true);
@@ -863,7 +863,7 @@ test("ImportData w trybie prostym pokazuje skrót bez technicznych tabel", () =>
   assert.equal(markup.includes("Wymagane kolumny w pliku"), false);
   assert.equal(markup.includes("Pliki lokalne w storage"), false);
   assert.equal(markup.includes("Importuj do bazy"), false);
-  assert.equal(markup.includes("Centrum Weryfikacji Danych"), true);
+  assert.equal(markup.includes("Centrum weryfikacji danych"), true);
   assert.equal(markup.includes("Adapter obliczeń otrzyma jeden strumień danych"), true);
   assert.equal(markup.includes(["tax", "active", "events"].join("_")), false);
 });

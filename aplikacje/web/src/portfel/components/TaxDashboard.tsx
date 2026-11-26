@@ -260,7 +260,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
     const fName = localStorage.getItem('pit38_taxpayer_firstName') || '';
     const lName = localStorage.getItem('pit38_taxpayer_lastName') || '';
     if (fName || lName) return `${fName} ${lName}`.trim();
-    return 'Inwestor Indywidualny';
+    return 'Inwestor indywidualny';
   };
 
   // Generator PDF doladowuje sie na zadanie, wiec obie akcje sa asynchroniczne.
@@ -305,7 +305,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h1 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-                Rozliczenie Podatkowe PIT-38
+                Rozliczenie podatkowe PIT-38
               </h1>
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-semibold">
                 Stawka 19% (Zryczałtowany)
@@ -326,7 +326,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
               <button
                 key={yr}
                 onClick={() => setSelectedYear(yr)}
-                className={`px-3 py-1.5 text-xs font-bold font-mono rounded-lg transition-all cursor-pointer ${
+                className={`px-3 py-1.5 text-xs font-bold font-mono rounded-lg transition cursor-pointer ${
                   selectedYear === yr
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-700/60'
@@ -341,7 +341,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
             id="btn-sync-apis"
             onClick={onSyncAllApis}
             disabled={isSyncing}
-            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all disabled:opacity-50 cursor-pointer"
+            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition disabled:opacity-50 cursor-pointer"
             title="Synchronizuj rachunki maklerskie przez API i odśwież notowania. Kursy NBP do rozliczenia pobiera silnik przy przeliczeniu."
           >
             <RefreshCw className={`w-3.5 h-3.5 text-blue-500 ${isSyncing ? 'animate-spin' : ''}`} />
@@ -353,10 +353,10 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
             disabled={exportBlocked}
             title={exportTitle}
             onClick={handleExportAnnualSummaryPDF}
-            className="flex items-center justify-center sm:justify-start gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
+            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white shadow-xs transition cursor-pointer"
           >
             <FileDown className="w-3.5 h-3.5" />
-            <span>Podsumowanie Roczne (PDF)</span>
+            <span>Podsumowanie roczne (PDF)</span>
           </button>
 
           <button
@@ -364,7 +364,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
             disabled={exportBlocked}
             title={exportTitle}
             onClick={handleExportPDF}
-            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
+            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition cursor-pointer"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Szczegóły FIFO (PDF)</span>
@@ -375,7 +375,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
             disabled={xmlBlocked}
             title={xmlTitle}
             onClick={handleExportXML}
-            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-xs font-semibold text-white shadow-xs transition-all cursor-pointer"
+            className="flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition cursor-pointer"
           >
             <FileCode2 className="w-3.5 h-3.5" />
             <span>e-Deklaracje XML</span>
@@ -399,14 +399,14 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
       </div>
 
       {/* INTUITIVE STEP-BY-STEP PROGRESS BAR BANNER */}
-      <div className="bg-gradient-to-r from-blue-50 via-white to-indigo-50 dark:from-blue-950/80 dark:via-slate-900 dark:to-indigo-950/80 border border-blue-200 dark:border-blue-800/40 rounded-2xl p-5 shadow-sm text-slate-900 dark:text-slate-100">
+      <div className=" bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800/40 rounded-2xl p-5 shadow-sm text-slate-900 dark:text-slate-100">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <span className="p-1 rounded-md bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300">
               <Sparkles className="w-4 h-4" />
             </span>
             <span className="text-sm font-bold text-slate-900 dark:text-white">
-              Szybka Ścieżka Rozliczenia PIT-38 (Rok {selectedYear})
+              Szybka ścieżka rozliczenia PIT-38 (rok {selectedYear})
             </span>
           </div>
           <button
@@ -426,14 +426,14 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
               1
             </div>
             <div className="space-y-1 min-w-0">
-              <div className="text-xs font-bold text-slate-900 dark:text-white">Transakcje i Kursy NBP</div>
-              <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">
+              <div className="text-xs font-bold text-slate-900 dark:text-white">Transakcje i kursy NBP</div>
+              <div className="text-[0.6875rem] text-slate-600 dark:text-slate-400 leading-snug">
                 {liczbaRachunkow} {odmienLiczebnik(liczbaRachunkow, 'rachunek', 'rachunki', 'rachunków')} • {yearGains.length} {odmienLiczebnik(yearGains.length, 'zbycie', 'zbycia', 'zbyć')} • {yearDividends.length} {odmienLiczebnik(yearDividends.length, 'dywidenda', 'dywidendy', 'dywidend')}
               </div>
               <div className="pt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
                 <button
                   onClick={onQuickImport}
-                  className="text-[11px] text-blue-700 dark:text-blue-400 hover:underline flex items-center whitespace-nowrap gap-1 font-medium cursor-pointer"
+                  className="text-[0.6875rem] text-blue-700 dark:text-blue-400 hover:underline flex items-center whitespace-nowrap gap-1 font-medium cursor-pointer"
                 >
                   <UploadCloud className="w-3 h-3" />
                   <span>Import CSV</span>
@@ -441,7 +441,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
                 <span className="text-slate-400 dark:text-slate-500">•</span>
                 <button
                   onClick={onQuickAddTransaction}
-                  className="text-[11px] text-emerald-700 dark:text-emerald-400 hover:underline flex items-center whitespace-nowrap gap-1 font-medium cursor-pointer"
+                  className="text-[0.6875rem] text-emerald-700 dark:text-emerald-400 hover:underline flex items-center whitespace-nowrap gap-1 font-medium cursor-pointer"
                 >
                   <PlusCircle className="w-3 h-3" />
                   <span>Dodaj ręcznie</span>
@@ -456,14 +456,14 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
               2
             </div>
             <div className="space-y-1 min-w-0">
-              <div className="text-xs font-bold text-slate-900 dark:text-white">Weryfikacja Pól PIT-38</div>
-              <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">
+              <div className="text-xs font-bold text-slate-900 dark:text-white">Weryfikacja pól PIT-38</div>
+              <div className="text-[0.6875rem] text-slate-600 dark:text-slate-400 leading-snug">
                 Część C (akcje), E (krypto), G (dywidendy zagraniczne) i PIT/ZG (zbycie za granicą)
               </div>
               <div className="pt-1">
                 <button
                   onClick={() => setActivePitSection('EPIT')}
-                  className="text-[11px] text-indigo-700 dark:text-indigo-400 hover:underline flex items-center gap-1 font-medium cursor-pointer"
+                  className="text-[0.6875rem] text-indigo-700 dark:text-indigo-400 hover:underline flex items-center gap-1 font-medium cursor-pointer"
                 >
                   <span>Zobacz kafelki z 1-klik kopiowaniem →</span>
                 </button>
@@ -477,12 +477,12 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
               3
             </div>
             <div className="space-y-1 min-w-0">
-              <div className="text-xs font-bold text-slate-900 dark:text-white">Podatek i Złożenie</div>
-              <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-snug">
+              <div className="text-xs font-bold text-slate-900 dark:text-white">Podatek i złożenie</div>
+              <div className="text-[0.6875rem] text-slate-600 dark:text-slate-400 leading-snug">
                 Należny podatek: <strong className="text-emerald-700 dark:text-emerald-400 font-mono">{kwota(currentSummary.totalTaxToPayPLN)}</strong>
                 {resultStale && <strong role="status" className="ml-2 text-amber-700 dark:text-amber-300">NIEAKTUALNE — przelicz ponownie</strong>}
                 {!currentSummary.nieobliczony && (
-                  <span className="block text-[10px] text-slate-500 dark:text-slate-400">
+                  <span className="block text-[0.6875rem] text-slate-500 dark:text-slate-400">
                     z silnika: sprzedaż {kwota(currentSummary.taxDuePLN)} + dywidendy {kwota(currentSummary.dividendTaxToPayPLN)}
                     {currentSummary.cryptoTaxDuePLN !== undefined ? <> + krypto {kwota(currentSummary.cryptoTaxDuePLN)}</> : null}
                   </span>
@@ -493,7 +493,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
                   href="https://urzadskarbowy.gov.pl"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[11px] text-emerald-700 dark:text-emerald-400 hover:underline flex items-center whitespace-nowrap gap-1 font-medium cursor-pointer"
+                  className="text-[0.6875rem] text-emerald-700 dark:text-emerald-400 hover:underline flex items-center whitespace-nowrap gap-1 font-medium cursor-pointer"
                 >
                   <ExternalLink className="w-3 h-3" />
                   <span>Otwórz podatki.gov.pl</span>
@@ -517,7 +517,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
                 Wiersz 1 (poz. 20 i 21) wypełnia się kwotami z otrzymanej informacji PIT-8C,
                 a wiersz 2 (poz. 22 i 23) — przychodami bez PIT-8C, w tym zagranicznymi.
                 Poz. 26–29 wyliczy się same:
-                <div className="mt-1 ml-4 p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 font-mono text-[11px] space-y-1 text-slate-700 dark:text-slate-200">
+                <div className="mt-1 ml-4 p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 font-mono text-[0.6875rem] space-y-1 text-slate-700 dark:text-slate-200">
                   <div>• <strong>Poz. 20 / 21 (z PIT-8C)</strong>: {kwota(currentSummary.pit8cRevenuePLN)} / {kwota(currentSummary.pit8cCostsPLN)}</div>
                   <div>• <strong>Poz. 22 / 23 (bez PIT-8C)</strong>: {kwota(currentSummary.foreignRevenuePLN ?? (pit8cZInformacji ? undefined : currentSummary.revenuePLN))} / {kwota(currentSummary.foreignCostsPLN ?? (pit8cZInformacji ? undefined : currentSummary.costsPLN))}</div>
                   <div>• <strong>Razem (poz. 26 / 27)</strong>: {kwota(currentSummary.revenuePLN)} / {kwota(currentSummary.costsPLN)}</div>
@@ -573,19 +573,19 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
       <div className="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2 overflow-x-auto">
         <button
           onClick={() => setActivePitSection('SUMMARY')}
-          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 whitespace-nowrap ${
             activePitSection === 'SUMMARY'
               ? 'bg-blue-600 text-white shadow-xs'
               : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
           }`}
         >
           <FileText className="w-3.5 h-3.5" />
-          <span>Podsumowanie i Kafelki Twój e-PIT</span>
+          <span>Podsumowanie i kafelki Twój e-PIT</span>
         </button>
 
         <button
           onClick={() => setActivePitSection('DIVIDENDS')}
-          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 whitespace-nowrap ${
             activePitSection === 'DIVIDENDS'
               ? 'bg-blue-600 text-white shadow-xs'
               : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
@@ -593,36 +593,36 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
         >
           <Coins className="w-3.5 h-3.5" />
           <span>Dywidendy zagraniczne (część G)</span>
-          <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-700 text-[10px]">
+          <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-700 text-[0.6875rem]">
             {yearDividends.length}
           </span>
         </button>
 
         <button
           onClick={() => setActivePitSection('BROKERS')}
-          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 whitespace-nowrap ${
             activePitSection === 'BROKERS'
               ? 'bg-blue-600 text-white shadow-xs'
               : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
           }`}
         >
           <Building2 className="w-3.5 h-3.5" />
-          <span>Podział wg Kont Brokerskich</span>
-          <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-700 text-[10px]">
+          <span>Podział wg Kont brokerskich</span>
+          <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-slate-700 text-[0.6875rem]">
             {liczbaRachunkow}
           </span>
         </button>
 
         <button
           onClick={() => setActivePitSection('LOSS_CALC')}
-          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 whitespace-nowrap ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-2 whitespace-nowrap ${
             activePitSection === 'LOSS_CALC'
               ? 'bg-blue-600 text-white shadow-xs'
               : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
           }`}
         >
           <Calculator className="w-3.5 h-3.5" />
-          <span>Kalkulator Odliczenia Straty</span>
+          <span>Kalkulator odliczenia straty</span>
         </button>
       </div>
 
@@ -649,7 +649,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                  Wynik Podatkowy wg Kont Brokerskich (Rok {selectedYear})
+                  Wynik podatkowy wg Kont brokerskich (rok {selectedYear})
                 </h2>
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold font-mono">
                           {liczbaRachunkow} {odmienLiczebnik(liczbaRachunkow, 'rachunek', 'rachunki', 'rachunków')}
@@ -675,11 +675,11 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
               <table className="w-full text-xs text-left">
                 <thead className="text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
                   <tr>
-                    <th className="py-2.5">Rachunek Maklerski</th>
+                    <th className="py-2.5">Rachunek maklerski</th>
                     <th className="py-2.5">Typ brokera</th>
                     <th className="py-2.5 text-right">Przychód (PLN)</th>
                     <th className="py-2.5 text-right">Koszty KUP (PLN)</th>
-                    <th className="py-2.5 text-right">Dochód / Strata (PLN)</th>
+                    <th className="py-2.5 text-right">Dochód / strata (PLN)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -690,7 +690,7 @@ export const TaxDashboard: React.FC<TaxDashboardProps> = ({
                         <span>{b.accountName}</span>
                       </td>
                       <td className="py-3">
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono">
+                        <span className="text-[0.6875rem] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono">
                           {b.brokerType}
                         </span>
                       </td>

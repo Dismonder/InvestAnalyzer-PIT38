@@ -105,11 +105,11 @@ export function OverrideHistoryPanel({
             Ponów
           </button>
           <div className="rounded-2xl bg-blue-50 px-4 py-3 dark:bg-blue-900/20">
-            <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">Operacje do cofnięcia</p>
+            <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">Operacje do cofnięcia</p>
             <p className="mt-1 text-2xl font-bold text-blue-900 dark:text-blue-200">{undoCount}</p>
           </div>
           <div className="rounded-2xl bg-gray-100 px-4 py-3 dark:bg-gray-800">
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-400">Operacje do ponowienia</p>
+            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">Operacje do ponowienia</p>
             <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-gray-100">{redoCount}</p>
           </div>
         </div>
@@ -118,7 +118,7 @@ export function OverrideHistoryPanel({
           <section className="space-y-4">
             <div className="flex items-center gap-2">
               <History size={16} className="text-blue-600" />
-              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300">Ostatnie operacje</h3>
+              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300">Ostatnie operacje</h3>
             </div>
             <div className="space-y-3">
               {operationHistory.length > 0 ? (
@@ -133,7 +133,7 @@ export function OverrideHistoryPanel({
                             {entry.recordKey || 'Cała warstwa override'}
                           </p>
                         </div>
-                        <span className="inline-flex rounded-full bg-gray-100 px-2.5 py-1 text-[11px] font-semibold text-gray-700 dark:bg-gray-900 dark:text-gray-300">
+                        <span className="inline-flex rounded-full bg-gray-100 px-2.5 py-1 text-[0.6875rem] font-semibold text-gray-700 dark:bg-gray-900 dark:text-gray-300">
                           {describeOverrideOperation(entry.kind)}
                         </span>
                       </div>
@@ -154,7 +154,7 @@ export function OverrideHistoryPanel({
           <section className="mt-8 space-y-4">
             <div className="flex items-center gap-2">
               <Download size={16} className="text-emerald-600" />
-              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-700 dark:text-gray-300">Kopie zapasowe</h3>
+              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300">Kopie zapasowe</h3>
             </div>
             <div className="space-y-3">
               {snapshots.length > 0 ? (

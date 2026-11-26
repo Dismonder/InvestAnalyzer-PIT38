@@ -42,7 +42,7 @@ export const DividendsPitZgSection: React.FC<DividendsPitZgSectionProps> = ({
           <div className="text-lg font-bold text-slate-900 dark:text-white font-mono mt-1">
             {kwota(currentSummary.dividendGrossPLN)}
           </div>
-          <span className="text-[10px] text-slate-400">Przeliczone kursem NBP T-1</span>
+          <span className="text-[0.6875rem] text-slate-400">Przeliczone kursem NBP T-1</span>
         </div>
 
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80">
@@ -50,7 +50,7 @@ export const DividendsPitZgSection: React.FC<DividendsPitZgSectionProps> = ({
           <div className="text-lg font-bold text-amber-600 dark:text-amber-400 font-mono mt-1">
             {kwota(currentSummary.dividendForeignTaxPLN)}
           </div>
-          <span className="text-[10px] text-slate-400">Zapłacony za granicą</span>
+          <span className="text-[0.6875rem] text-slate-400">Zapłacony za granicą</span>
         </div>
 
         <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/80">
@@ -58,7 +58,7 @@ export const DividendsPitZgSection: React.FC<DividendsPitZgSectionProps> = ({
           <div className="text-lg font-bold text-slate-800 dark:text-slate-200 font-mono mt-1">
             {kwota(currentSummary.dividendPolishTaxDuePLN)}
           </div>
-          <span className="text-[10px] text-slate-400">Stawka zryczałtowana</span>
+          <span className="text-[0.6875rem] text-slate-400">Stawka zryczałtowana</span>
         </div>
 
         <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
@@ -66,7 +66,7 @@ export const DividendsPitZgSection: React.FC<DividendsPitZgSectionProps> = ({
           <div className="text-lg font-bold text-blue-700 dark:text-blue-300 font-mono mt-1">
             {kwota(currentSummary.dividendTaxToPayPLN)}
           </div>
-          <span className="text-[10px] text-blue-500">Np. 4% różnicy (19% - 15%)</span>
+          <span className="text-[0.6875rem] text-blue-500">Np. 4% różnicy (19% - 15%)</span>
         </div>
       </div>
 
@@ -85,11 +85,11 @@ export const DividendsPitZgSection: React.FC<DividendsPitZgSectionProps> = ({
             <thead className="text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">
               <tr>
                 <th className="py-2.5">Data wypłaty</th>
-                <th className="py-2.5">Walor / Ticker</th>
-                <th className="py-2.5">Konto Maklerskie</th>
+                <th className="py-2.5">Walor / ticker</th>
+                <th className="py-2.5">Konto maklerskie</th>
                 <th className="py-2.5 text-right">Kurs NBP (T-1)</th>
                 <th className="py-2.5 text-right">Brutto (PLN)</th>
-                <th className="py-2.5 text-right">Podatek Zagr.</th>
+                <th className="py-2.5 text-right">Podatek zagr.</th>
                 <th className="py-2.5 text-right" title="Kwota dopłaty przepisana z wyniku silnika.">
                   Dopłata PIT
                 </th>
@@ -102,7 +102,7 @@ export const DividendsPitZgSection: React.FC<DividendsPitZgSectionProps> = ({
                     <td className="py-2.5 font-mono text-slate-600 dark:text-slate-300">{formatPolishDate(d.date)}</td>
                     <td className="py-2.5 font-bold text-slate-900 dark:text-white">
                       {d.ticker}
-                      <span className="ml-1 text-[10px] text-slate-400 font-normal">{d.name}</span>
+                      <span className="ml-1 text-[0.6875rem] text-slate-400 font-normal">{d.name}</span>
                     </td>
                     <td className="py-2.5 text-slate-600 dark:text-slate-400">{etykietaRachunkuDywidendy(d.accountId, accounts)}</td>
                     <td className="py-2.5 text-right font-mono text-slate-500">{formatLiczba(d.exchangeRate, 4)}</td>

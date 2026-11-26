@@ -7,9 +7,9 @@ export function PortfolioTaxSummaryBanner({ currentYearSummary, availableTaxYear
     <>
       {/* Tax Shortcut Notification Card */}
       {currentYearSummary && (
-        <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-gradient-to-r from-blue-50/80 via-indigo-50/30 to-white dark:from-slate-900 dark:via-blue-950/20 dark:to-slate-900 border border-blue-200/70 dark:border-blue-800/50 shadow-2xs hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-colors duration-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 md:gap-4">
+        <div className="px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-blue-50/80 dark:bg-slate-900 border border-blue-200/70 dark:border-blue-800/50 shadow-2xs hover:shadow-md hover:border-blue-300 dark:hover:border-blue-700/60 transition-colors duration-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 md:gap-4">
           <div className="flex items-center gap-3 min-w-0 flex-1 flex-wrap sm:flex-nowrap">
-            <div className="p-2 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-2xs shrink-0">
+            <div className="p-2 rounded-lg bg-blue-600 text-white shadow-2xs shrink-0">
               <Calculator className="w-4 h-4" />
             </div>
             <div className="flex items-center gap-x-3 gap-y-1 min-w-0 flex-wrap">
@@ -36,12 +36,12 @@ export function PortfolioTaxSummaryBanner({ currentYearSummary, availableTaxYear
                   </span>
                 )}
               </div>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-mono shrink-0">
+              <span className="text-[0.6875rem] font-semibold px-2 py-0.5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-mono shrink-0">
                 {currentYearSummary.transactionCount} poz.
               </span>
               <div className="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-300 flex-wrap">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-slate-400 text-[11px]">Dochód:</span>
+                  <span className="text-slate-400 text-[0.6875rem]">Dochód:</span>
                   <strong
                     className={`font-mono font-bold text-xs ${
                       currentYearSummary.nieobliczony
@@ -58,7 +58,7 @@ export function PortfolioTaxSummaryBanner({ currentYearSummary, availableTaxYear
                 </div>
                 <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="text-slate-400 text-[11px]">Podatek (19%):</span>
+                  <span className="text-slate-400 text-[0.6875rem]">Podatek (19%):</span>
                   <strong
                     className={`font-mono font-bold text-xs ${
                       currentYearSummary.nieobliczony ? 'text-slate-400' : 'text-slate-900 dark:text-white'
@@ -81,7 +81,7 @@ export function PortfolioTaxSummaryBanner({ currentYearSummary, availableTaxYear
           <div className="flex items-center gap-2 shrink-0 self-end md:self-center">
             <button
               onClick={() => onNavigateToTab('tax')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition shadow-2xs cursor-pointer whitespace-nowrap"
             >
               <span>Raport PIT-38</span>
               <ExternalLink className="w-3 h-3" />

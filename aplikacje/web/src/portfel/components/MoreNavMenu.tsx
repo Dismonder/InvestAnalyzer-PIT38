@@ -5,7 +5,7 @@ export interface MoreNavItem {
   id: string;
   label: string;
   icon: LucideIcon;
-  badge: string | number | null;
+  badge: React.ReactNode;
 }
 
 export default function MoreNavMenu({ items, activeTab, language, onSelect }: {
@@ -26,7 +26,7 @@ export default function MoreNavMenu({ items, activeTab, language, onSelect }: {
         >
           <Icon className="w-4 h-4 shrink-0" />
           <span className="truncate">{label}</span>
-          {badge !== null && <span className="ml-auto text-[10px] font-mono">{badge}</span>}
+          {badge !== null && <span className="ml-auto text-[0.6875rem] font-mono">{badge}</span>}
         </button>
       ))}
     </div>

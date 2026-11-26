@@ -65,7 +65,7 @@ interface PortfolioDashboardProps {
 }
 
 const CATEGORY_LABELS: Record<string, { label: string; color: string; bg: string }> = {
-  STOCK_FOREIGN: { label: 'Akcje Zagraniczne', color: '#3B82F6', bg: 'bg-blue-500/10 text-blue-500 border-blue-500/30' },
+  STOCK_FOREIGN: { label: 'Akcje zagraniczne', color: '#3B82F6', bg: 'bg-blue-500/10 text-blue-500 border-blue-500/30' },
   STOCK_PL: { label: 'Akcje GPW (Polska)', color: '#EF4444', bg: 'bg-rose-500/10 text-rose-500 border-rose-500/30' },
   ETF: { label: 'Fundusze ETF', color: '#10B981', bg: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30' },
   CRYPTO: { label: 'Kryptowaluty', color: '#F59E0B', bg: 'bg-amber-500/10 text-amber-500 border-amber-500/30' },
@@ -434,30 +434,17 @@ export const PortfolioDashboard: React.FC<PortfolioDashboardProps> = ({
 
   return (
     <div id="portfolio-dashboard-view" className="space-y-6 animate-in fade-in duration-200">
-      {/* Top Header Banner - Compact & Sleek */}
-      <div className="relative overflow-hidden rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 shadow-sm p-3.5 sm:p-4 transition-colors">
-        <div className="flex items-center justify-between gap-3">
-          {/* Header Title */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/70 text-blue-600 dark:text-blue-400">
-              <Wallet className="w-4 h-4" />
-            </div>
-            <h1 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Portfel Inwestycyjny
-            </h1>
-          </div>
-        </div>
-      </div>
+      <h1 className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">Portfel inwestycyjny</h1>
 
       <PortfolioKpiCards totalValuePLN={totalValuePLN} liczbaBezWyceny={liczbaBezWyceny} komunikatBrakow={komunikatBrakow} sumaUSD={sumaUSD} sumaEUR={sumaEUR} wynikZnany={wynikZnany} wynikNaPlus={wynikNaPlus} totalUnrealizedPLN={totalUnrealizedPLN} totalUnrealizedPct={totalUnrealizedPct} totalCostBasisPLN={totalCostBasisPLN} danePozycjiNieznane={danePozycjiNieznane} zmianaZnana={zmianaZnana} zmianaNaPlus={zmianaNaPlus} totalDailyChangePLN={totalDailyChangePLN} totalDailyChangePct={totalDailyChangePct} liczbaZeZnanaZmiana={liczbaZeZnanaZmiana} liczbaWycenionychPozycji={podsumowanieWyceny.wycenione.length} klasaWyniku={klasaWyniku} />
       <PortfolioTaxSummaryBanner currentYearSummary={currentYearSummary} availableTaxYears={availableTaxYears} onSelectYear={onSelectYear} onNavigateToTab={onNavigateToTab} />
 
+      <HoldingsTable searchTerm={searchTerm} setSearchTerm={setSearchTerm} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} selectedBroker={selectedBroker} setSelectedBroker={setSelectedBroker} accounts={accounts} filteredPositions={filteredPositions} enrichedPositions={enrichedPositions} expandedPosition={expandedPosition} setExpandedPosition={setExpandedPosition} onQuickAddTransaction={onQuickAddTransaction} totalValuePLN={totalValuePLN} onOpenPriceAlert={onOpenPriceAlert} onSelectTickerForChart={onSelectTickerForChart} onNavigateToTab={onNavigateToTab} setOptionsModalTicker={setOptionsModalTicker} setShowOptionsModal={setShowOptionsModal} handleClosePosition={handleClosePosition} CATEGORY_LABELS={CATEGORY_LABELS} />
       <AllocationCharts enrichedPositions={enrichedPositions} totalValuePLN={totalValuePLN} accounts={accounts} categoryAllocationData={categoryAllocationData} brokerAllocationData={brokerAllocationData} currencyAllocationData={currencyAllocationData} brokerDependencyMatrix={brokerDependencyMatrix} brokerHHI={brokerHHI} allocationView={allocationView} setAllocationView={setAllocationView} hoveredAssetIndex={hoveredAssetIndex} setHoveredAssetIndex={setHoveredAssetIndex} hoveredBrokerIndex={hoveredBrokerIndex} setHoveredBrokerIndex={setHoveredBrokerIndex} hoveredCurrencyIndex={hoveredCurrencyIndex} setHoveredCurrencyIndex={setHoveredCurrencyIndex} selectedCorrelationBroker={selectedCorrelationBroker} setSelectedCorrelationBroker={setSelectedCorrelationBroker} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} selectedBroker={selectedBroker} setSelectedBroker={setSelectedBroker} onNavigateToTab={onNavigateToTab} />
 
       {/* Freedom24 Live Portfolio & Balance Inspector - wymaga serwera z kluczami brokera; w hostingu (telefon) panel znika. */}
       {!trybHostowany && <Freedom24PortfolioLiveInspector onSelectTicker={onSelectTickerForChart} />}
 
-      <HoldingsTable searchTerm={searchTerm} setSearchTerm={setSearchTerm} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} selectedBroker={selectedBroker} setSelectedBroker={setSelectedBroker} accounts={accounts} filteredPositions={filteredPositions} enrichedPositions={enrichedPositions} expandedPosition={expandedPosition} setExpandedPosition={setExpandedPosition} onQuickAddTransaction={onQuickAddTransaction} totalValuePLN={totalValuePLN} onOpenPriceAlert={onOpenPriceAlert} onSelectTickerForChart={onSelectTickerForChart} onNavigateToTab={onNavigateToTab} setOptionsModalTicker={setOptionsModalTicker} setShowOptionsModal={setShowOptionsModal} handleClosePosition={handleClosePosition} CATEGORY_LABELS={CATEGORY_LABELS} />
 
       {/* Freedom24 Market News & Top Movers - jak wyzej, tylko z serwerem. */}
       {!trybHostowany && (
@@ -468,7 +455,7 @@ export const PortfolioDashboard: React.FC<PortfolioDashboardProps> = ({
       )}
 
       {/* Built-in Stock Search & Catalog Explorer */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition-all">
+      <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden transition">
         <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/80 dark:bg-slate-800/40">
           <div className="flex items-center gap-3">
             <div className="shrink-0 p-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 shadow-xs">
@@ -477,11 +464,11 @@ export const PortfolioDashboard: React.FC<PortfolioDashboardProps> = ({
             <div>
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                 <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight">
-                  Katalog Rynkowy & Wyszukiwarka Instrumentów
+                  Katalog rynkowy & wyszukiwarka instrumentów
                 </h3>
                 {/* Plakietka "Baza Live" z pulsujaca kropka wisiala nad lista
                     spolek wpisana w kod aplikacji. */}
-                <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[11px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700">
+                <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[0.6875rem] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700">
                   Wykaz w aplikacji
                 </span>
               </div>
@@ -494,7 +481,7 @@ export const PortfolioDashboard: React.FC<PortfolioDashboardProps> = ({
           <button
             type="button"
             onClick={() => setShowCatalogSection(!showCatalogSection)}
-            className="self-start sm:self-auto shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all cursor-pointer border border-slate-200 dark:border-slate-700 shadow-xs shrink-0"
+            className="self-start sm:self-auto shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition cursor-pointer border border-slate-200 dark:border-slate-700 shadow-xs shrink-0"
           >
             <span>{showCatalogSection ? 'Zwiń katalog' : 'Rozwiń katalog'}</span>
             {showCatalogSection ? (

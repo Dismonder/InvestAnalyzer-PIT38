@@ -64,7 +64,7 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
   };
 
   return (
-    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Historia Dyspozycji i Dokumenty CPS Freedom24" className="outline-none fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
+    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Historia dyspozycji i dokumenty CPS Freedom24" className="outline-none fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="relative w-full max-w-4xl max-h-[92vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-900/70">
@@ -75,7 +75,7 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                  Historia Dyspozycji i Dokumenty CPS Freedom24
+                  Historia dyspozycji i dokumenty CPS Freedom24
                 </h2>
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-semibold font-mono">
                   getClientCpsHistory & getCpsFiles
@@ -101,14 +101,14 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
           <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none text-xs">
             {[
               { id: undefined, label: 'Wszystkie dyspozycje' },
-              { id: 3, label: '🟢 Zrealizowane pomyślnie' },
-              { id: 1, label: '🟡 W trakcie realizacji' },
-              { id: 2, label: '🔴 Odrzucone' },
+              { id: 3, label: 'Zrealizowane pomyślnie' },
+              { id: 1, label: 'W trakcie realizacji' },
+              { id: 2, label: 'Odrzucone' },
             ].map((tab) => (
               <button
                 key={String(tab.id)}
                 onClick={() => setSelectedStatus(tab.id)}
-                className={`px-3 py-1 rounded-lg font-medium whitespace-nowrap transition-all cursor-pointer ${
+                className={`px-3 py-1 rounded-lg font-medium whitespace-nowrap transition cursor-pointer ${
                   selectedStatus === tab.id
                     ? 'bg-blue-600 text-white font-bold shadow-xs'
                     : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-750'
@@ -144,7 +144,7 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
               {cpsList.map((item, indeks) => (
                 <div
                   key={item.id ?? `bez-numeru-${indeks}`}
-                  className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs hover:border-slate-300 dark:hover:border-slate-700 transition-all"
+                  className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs hover:border-slate-300 dark:hover:border-slate-700 transition"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -152,12 +152,12 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
                         {item.id !== undefined ? `ID #${item.id}` : 'bez numeru'}
                       </span>
                       {item.type_doc_id !== undefined && (
-                        <span className="text-[10px] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">
+                        <span className="text-[0.6875rem] px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 font-mono">
                           Typ #{item.type_doc_id}
                         </span>
                       )}
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded font-semibold ${
+                        className={`text-[0.6875rem] px-2 py-0.5 rounded font-semibold ${
                           item.status_c === 3
                             ? 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300'
                             : item.status_c === 1
@@ -173,7 +173,7 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
                       {item.name || 'Dokument bez nazwy'}
                     </h4>
 
-                    <div className="text-[11px] text-slate-400 flex items-center gap-3 font-mono">
+                    <div className="text-[0.6875rem] text-slate-400 flex items-center gap-3 font-mono">
                       <span>
                         Data zgłoszenia:{' '}
                         {item.date_crt && !Number.isNaN(Date.parse(item.date_crt))
@@ -188,7 +188,7 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
                     onClick={() => item.id !== undefined && handleDownloadPdf(item.id)}
                     disabled={downloadingId === item.id || item.id === undefined}
                     title={item.id === undefined ? 'Broker nie podał numeru dokumentu.' : undefined}
-                    className="px-3.5 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-xs"
+                    className="px-3.5 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/80 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shrink-0 shadow-xs"
                   >
                     {downloadingId === item.id ? (
                       <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -212,7 +212,7 @@ const Freedom24CpsModalTresc: React.FC<Freedom24CpsModalProps> = ({ onClose }) =
 
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer"
+            className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer"
           >
             Zamknij
           </button>

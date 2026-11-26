@@ -88,7 +88,8 @@ export async function fetchOfficialNBPRate(currency: string, transactionDate: st
       if (bledySieci >= 2) {
         throw new Error(
           `Nie udalo sie pobrac kursu NBP dla ${curr} na dzien ${targetDate}: ${err?.message || 'blad polaczenia'}. ` +
-            'Kurs nie zostal podstawiony z innego dnia.'
+            'Kurs nie zostal podstawiony z innego dnia.',
+          { cause: err }
         );
       }
       // Pierwszy blad moze byc chwilowy - probujemy jeszcze raz ten sam dzien.

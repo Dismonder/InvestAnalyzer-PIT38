@@ -23,9 +23,9 @@ export const LossCalculatorPanel: React.FC<LossCalculatorPanelProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-              Kalkulator Odliczenia Straty z Lat Ubiegłych
+              Kalkulator odliczenia straty z lat ubiegłych
             </h2>
-            <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-semibold font-mono">
+            <span className="text-[0.6875rem] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-semibold font-mono">
               Art. 9 ust. 3-3a ustawy o PIT
             </span>
           </div>

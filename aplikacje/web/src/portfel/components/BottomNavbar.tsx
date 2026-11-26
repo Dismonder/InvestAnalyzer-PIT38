@@ -235,28 +235,28 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
       label: language === 'pl' ? '2FA / Bezpieczeństwo' : 'Security',
       shortLabel: '2FA',
       icon: Shield,
-      badge: twoFactor.isEnabled ? (twoFactor.isLocked ? '🔒' : '✓') : null,
+      badge: twoFactor.isEnabled ? (twoFactor.isLocked ? <Lock className="w-2.5 h-2.5" /> : '✓') : null,
     },
   ].filter((item) => !(trybHostowany && item.id === 'engine'));
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40">
+    <div className="fixed bottom-0 inset-x-0 z-40 lg:top-0 lg:right-auto lg:w-56">
       {/* Floating Notifications Popover (Opens Upward) */}
       {showNotifMenu && (
         <div
           ref={notifMenuRef}
           id="bottom-notifications-popup"
-          className="max-w-md mx-auto mb-2 px-4 max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-bottom-3 duration-200"
+          className="max-w-md mx-auto mb-2 px-4 lg:fixed lg:left-56 lg:bottom-4 lg:mb-0 lg:w-[28rem] max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-bottom-3 duration-200"
         >
           <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-4 overflow-hidden">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2">
                 <Bell className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 <span className="font-bold text-sm text-slate-900 dark:text-white">
-                  {language === 'pl' ? 'Centrum Powiadomień' : 'Notifications Center'}
+                  {language === 'pl' ? 'Centrum powiadomień' : 'Notifications Center'}
                 </span>
                 {unreadCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-mono">
+                  <span className="px-2 py-0.5 rounded-full text-[0.6875rem] font-bold bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-mono">
                     {unreadCount} {language === 'pl' ? 'nowych' : 'new'}
                   </span>
                 )}
@@ -269,7 +269,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                     title={language === 'pl' ? 'Wyczyść wszystkie' : 'Clear all'}
                   >
                     <Trash2 className="w-3 h-3" />
-                    <span className="text-[11px]">{language === 'pl' ? 'Wyczyść' : 'Clear'}</span>
+                    <span className="text-[0.6875rem]">{language === 'pl' ? 'Wyczyść' : 'Clear'}</span>
                   </button>
                 )}
                 <button
@@ -292,7 +292,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   <div
                     key={n.id}
                     {...klikalny(() => onMarkNotificationRead(n.id))}
-                    className={`p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
+                    className={`p-2.5 rounded-xl border text-xs cursor-pointer transition ${
                       n.read
                         ? 'bg-slate-50 dark:bg-slate-800/40 border-slate-100 dark:border-slate-800 text-slate-500'
                         : 'bg-blue-50/80 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800/70 text-slate-800 dark:text-slate-200 shadow-xs'
@@ -303,11 +303,11 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                         {!n.read && <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />}
                         {n.title}
                       </span>
-                      <span className="text-[10px] text-slate-400 font-mono shrink-0">
+                      <span className="text-[0.6875rem] text-slate-400 font-mono shrink-0">
                         {new Date(n.timestamp).toLocaleTimeString(language === 'pl' ? 'pl-PL' : 'en-GB', { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
-                    <p className="mt-1 text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <p className="mt-1 text-slate-600 dark:text-slate-300 text-[0.6875rem] leading-relaxed">
                       {n.body}
                     </p>
                   </div>
@@ -323,7 +323,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
         <div
           ref={settingsMenuRef}
           id="bottom-settings-popup"
-          className="max-w-md w-full mx-auto mb-2 px-3 sm:px-4 max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-bottom-3 duration-200"
+          className="max-w-md w-full mx-auto mb-2 px-3 sm:px-4 lg:fixed lg:left-56 lg:bottom-4 lg:mb-0 lg:w-[28rem] max-h-[calc(100dvh-6rem)] overflow-y-auto overscroll-contain animate-in fade-in slide-in-from-bottom-3 duration-200"
         >
           <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-4 sm:p-5 overflow-hidden text-slate-900 dark:text-slate-100 space-y-4">
             {/* Header */}
@@ -334,9 +334,9 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                 </div>
                 <div>
                   <h3 className="font-bold text-sm text-slate-900 dark:text-white leading-none">
-                    {language === 'pl' ? 'Ustawienia Aplikacji' : 'App Settings'}
+                    {language === 'pl' ? 'Ustawienia aplikacji' : 'App Settings'}
                   </h3>
-                  <p className="text-[10px] text-slate-400 mt-0.5">
+                  <p className="text-[0.6875rem] text-slate-400 mt-0.5">
                     {language === 'pl' ? 'Częstotliwość danych i preferencje' : 'Data refresh frequency & preferences'}
                   </p>
                 </div>
@@ -381,7 +381,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                 <button
                   id="settings-stream-toggle-btn"
                   onClick={handleToggleStreaming}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                  className={`px-2.5 py-1 rounded-lg text-[0.6875rem] font-bold flex items-center gap-1 transition cursor-pointer ${
                     streamActive
                       ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 border border-amber-500/30'
                       : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30'
@@ -395,7 +395,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
 
               {/* Frequency Selector Buttons */}
               <div>
-                <label className="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1.5">
+                <label className="block text-[0.6875rem] font-medium text-slate-500 dark:text-slate-400 mb-1.5">
                   {language === 'pl' ? 'Częstotliwość odświeżania wycen giełdowych:' : 'Quote refresh interval:'}
                 </label>
                 <div className="grid grid-cols-5 gap-1.5">
@@ -406,7 +406,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                         key={opt.value}
                         id={`settings-stream-speed-${opt.shortLabel}`}
                         onClick={() => handleChangeSpeed(opt.value)}
-                        className={`py-1.5 px-1 rounded-lg text-xs font-bold text-center transition-all cursor-pointer font-mono ${
+                        className={`py-1.5 px-1 rounded-lg text-xs font-bold text-center transition cursor-pointer font-mono ${
                           isSelected
                             ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-500/40'
                             : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
@@ -421,8 +421,8 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
               </div>
 
               {/* Timestamp & Refresh Button */}
-              <div className="flex items-center justify-between pt-2 text-[11px] text-slate-500 dark:text-slate-400 border-t border-slate-200/60 dark:border-slate-700/60">
-                <div className="flex items-center gap-1 font-mono text-[10px]">
+              <div className="flex items-center justify-between pt-2 text-[0.6875rem] text-slate-500 dark:text-slate-400 border-t border-slate-200/60 dark:border-slate-700/60">
+                <div className="flex items-center gap-1 font-mono text-[0.6875rem]">
                   <Clock className="w-3 h-3 text-slate-400 shrink-0" />
                   <span>
                     {lastFetchedAt
@@ -455,7 +455,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   <Globe className="w-3.5 h-3.5 text-blue-500" />
                   <span className="text-xs font-semibold">{language === 'pl' ? 'Język' : 'Language'}</span>
                 </div>
-                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase font-mono">
+                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 font-mono">
                   {language.toUpperCase()}
                 </span>
               </button>
@@ -479,7 +479,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   )}
                   <span className="text-xs font-semibold">{language === 'pl' ? 'Motyw' : 'Theme'}</span>
                 </div>
-                <span className="text-[11px] font-bold font-mono text-slate-700 dark:text-slate-300 uppercase">
+                <span className="text-[0.6875rem] font-bold font-mono text-slate-700 dark:text-slate-300">
                   {theme === 'dark' ? (language === 'pl' ? 'Ciemny' : 'Dark') : (language === 'pl' ? 'Jasny' : 'Light')}
                 </span>
               </button>
@@ -503,7 +503,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   )}
                   <span className="text-xs font-semibold">{language === 'pl' ? 'Dźwięk' : 'Sound'}</span>
                 </div>
-                <span className={`text-[11px] font-bold font-mono ${soundActive ? 'text-emerald-500' : 'text-slate-400'}`}>
+                <span className={`text-[0.6875rem] font-bold font-mono ${soundActive ? 'text-emerald-500' : 'text-slate-400'}`}>
                   {soundActive ? 'ON' : 'OFF'}
                 </span>
               </button>
@@ -526,7 +526,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   <Shield className="w-3.5 h-3.5 text-emerald-500" />
                   <span className="text-xs font-semibold">2FA TOTP</span>
                 </div>
-                <span className={`text-[11px] font-bold font-mono ${twoFactor.isEnabled ? (twoFactor.isLocked ? 'text-amber-500' : 'text-emerald-500') : 'text-slate-400'}`}>
+                <span className={`text-[0.6875rem] font-bold font-mono ${twoFactor.isEnabled ? (twoFactor.isLocked ? 'text-amber-500' : 'text-emerald-500') : 'text-slate-400'}`}>
                   {twoFactor.isEnabled ? (twoFactor.isLocked ? 'LOCKED' : 'ACTIVE') : 'OFF'}
                 </span>
               </button>
@@ -551,13 +551,13 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
       {/* Main Navigation Bar */}
       <nav
         id="bottom-navigation-bar"
-        aria-label="Główna nawigacja dolna"
-        className="w-full pb-[env(safe-area-inset-bottom)] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/90 dark:border-slate-800/90 shadow-[0_-4px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.28)] transition-colors duration-200"
+        aria-label="Główna nawigacja"
+        className="w-full lg:h-full pb-[env(safe-area-inset-bottom)] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-slate-200/90 dark:border-slate-800/90 shadow-[0_-4px_20px_rgba(15,23,42,0.06)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.28)] lg:shadow-none dark:lg:shadow-none transition-colors duration-200"
       >
-        <div className="max-w-7xl mx-auto px-2 sm:px-4">
-          <div className="flex items-center justify-between h-16 sm:h-18 gap-1 sm:gap-2">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:h-full lg:px-3 lg:py-4">
+          <div className="flex items-center justify-between h-16 sm:h-18 gap-1 sm:gap-2 lg:h-full lg:flex-col lg:items-stretch lg:gap-3">
             {/* Primary Tab Navigation Buttons */}
-            <div className="flex items-center justify-around flex-1 gap-0.5 sm:gap-1">
+            <div className="flex items-center justify-around flex-1 gap-0.5 sm:gap-1 lg:flex-col lg:items-stretch lg:justify-start">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -572,24 +572,24 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                        setShowSettingsMenu(false);
                        setShowMoreMenu(false);
                      }}
-                    className={`relative ${navItems.indexOf(item) >= 3 ? 'hidden lg:flex' : 'flex'} flex-col items-center justify-center flex-1 h-full py-1.5 px-1 sm:px-2 rounded-xl transition-all duration-150 group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+                    className={`relative ${navItems.indexOf(item) >= 3 ? 'hidden lg:flex' : 'flex'} flex-col items-center justify-center flex-1 h-full py-1.5 px-1 sm:px-2 lg:flex-none lg:flex-row lg:justify-start lg:gap-2.5 lg:h-9 lg:px-2.5 lg:py-0 rounded-xl transition duration-150 group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
                       isActive
-                        ? 'text-blue-600 dark:text-blue-400 font-bold'
+                        ? 'text-blue-600 dark:text-blue-400 font-bold lg:bg-blue-50 dark:lg:bg-blue-950/40'
                         : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100/60 dark:hover:bg-slate-800/40 font-medium'
                     }`}
                     title={item.label}
                   >
                     {/* Top active indicator line */}
                     {isActive && (
-                      <span className="absolute top-0 inset-x-2 sm:inset-x-4 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                      <span className="absolute top-0 inset-x-2 sm:inset-x-4 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full lg:hidden" />
                     )}
 
                     {/* Icon Container with Badge */}
-                    <div className="relative flex items-center justify-center">
+                    <div className="relative lg:static flex items-center justify-center">
                       <div
-                        className={`p-1.5 rounded-lg transition-transform duration-150 group-active:scale-95 ${
+                        className={`p-1.5 lg:p-0 rounded-lg transition-transform duration-150 group-active:scale-95 ${
                           isActive
-                            ? 'bg-blue-100/80 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400'
+                            ? 'bg-blue-100/80 dark:bg-blue-900/40 lg:bg-transparent dark:lg:bg-transparent text-blue-600 dark:text-blue-400'
                             : 'text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200'
                         }`}
                       >
@@ -599,9 +599,9 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                       {/* Badge */}
                       {item.badge !== null && (
                         <span
-                          className={`absolute -top-1 -right-2 min-w-4 h-4 px-1 rounded-full text-[9px] font-bold flex items-center justify-center font-mono shadow-xs ${
+                          className={`absolute -top-1 -right-2 lg:top-1/2 lg:right-2 lg:-translate-y-1/2 min-w-4 h-4 px-1 rounded-full text-[0.6875rem] font-bold flex items-center justify-center font-mono shadow-xs ${
                             item.isLive
-                              ? 'bg-emerald-700 text-white animate-pulse text-[8px]'
+                              ? 'bg-emerald-700 text-white'
                               : isActive
                               ? 'bg-blue-600 text-white'
                               : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
@@ -613,7 +613,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                     </div>
 
                     {/* Label text */}
-                    <span className="text-[10px] sm:text-xs tracking-tight mt-0.5 truncate max-w-full text-center leading-none">
+                    <span className="text-[0.6875rem] sm:text-xs lg:text-sm tracking-tight lg:tracking-normal mt-0.5 lg:mt-0 truncate max-w-full text-center lg:text-left leading-none">
                       <span className="hidden md:inline">{item.label}</span>
                       <span className="md:hidden">{item.shortLabel}</span>
                     </span>
@@ -631,15 +631,15 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   setShowNotifMenu(false);
                   setShowSettingsMenu(false);
                 }}
-                className={`relative flex lg:hidden flex-col items-center justify-center flex-1 h-full py-1.5 px-1 rounded-xl transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${showMoreMenu || navItems.slice(3).some((item) => item.id === activeTab) ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100/60 dark:hover:bg-slate-800/40'}`}
+                className={`relative flex lg:hidden flex-col items-center justify-center flex-1 h-full py-1.5 px-1 rounded-xl transition duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${showMoreMenu || navItems.slice(3).some((item) => item.id === activeTab) ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100/60 dark:hover:bg-slate-800/40'}`}
               >
                 <MoreHorizontal className="w-5 h-5" />
-                <span className="text-[10px] tracking-tight mt-0.5 leading-none">{language === 'pl' ? 'Więcej' : 'More'}</span>
+                <span className="text-[0.6875rem] tracking-tight mt-0.5 leading-none">{language === 'pl' ? 'Więcej' : 'More'}</span>
               </button>
             </div>
 
             {/* Utility & Action Controls Cluster on the right */}
-            <div className="flex items-center gap-1 sm:gap-2 pl-2 sm:pl-3 border-l border-slate-200 dark:border-slate-800 shrink-0">
+            <div className="flex items-center gap-1 sm:gap-2 pl-2 sm:pl-3 border-l lg:border-l-0 lg:border-t lg:pl-0 lg:pt-3 lg:justify-between border-slate-200 dark:border-slate-800 shrink-0">
               {/* Notifications Button */}
               <button
                 ref={notifBtnRef}
@@ -663,7 +663,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
               >
                 <Bell className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                 {unreadCount > 0 && (
-                  <span aria-hidden="true" className="absolute top-1 right-1 flex h-3.5 min-w-3.5 px-0.5 items-center justify-center rounded-full bg-rose-600 text-[9px] font-bold text-white shadow-xs">
+                  <span aria-hidden="true" className="absolute top-1 right-1 flex h-3.5 min-w-3.5 px-0.5 items-center justify-center rounded-full bg-rose-600 text-[0.6875rem] font-bold text-white shadow-xs">
                     {unreadCount > 9 ? '9+' : unreadCount}
                   </span>
                 )}
@@ -679,14 +679,14 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
                       ? 'Sesja zablokowana 2FA - kliknij aby odblokować'
                       : 'Zablokuj sesję (2FA TOTP)'
                   }
-                  className={`p-2 min-h-10 min-w-10 inline-flex items-center justify-center rounded-xl text-xs font-semibold flex items-center gap-1 border transition-all cursor-pointer ${
+                  className={`p-2 min-h-10 min-w-10 inline-flex items-center justify-center rounded-xl text-xs font-semibold flex items-center gap-1 border transition cursor-pointer ${
                     twoFactor.isLocked
                       ? 'bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400'
                       : 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400'
                   }`}
                 >
                   {twoFactor.isLocked ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
-                  <span className="hidden lg:inline text-[11px] font-mono">
+                  <span className="hidden lg:inline text-[0.6875rem] font-mono">
                     {twoFactor.isLocked ? 'LOCKED' : '2FA'}
                   </span>
                 </button>
@@ -696,11 +696,11 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
               <button
                 id="bottom-nav-lang-btn"
                 onClick={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
-                className="px-2 py-1.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold uppercase flex items-center gap-1 transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
+                className="px-2 py-1.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
                 title={language === 'pl' ? 'Zmień język na English' : 'Switch to Polish'}
               >
                 <Globe className="w-3.5 h-3.5 text-slate-500" />
-                <span className="text-[11px]">{language.toUpperCase()}</span>
+                <span className="text-[0.6875rem]">{language.toUpperCase()}</span>
               </button>
 
               {/* 3-Lines (Hamburger Menu) Settings Button */}

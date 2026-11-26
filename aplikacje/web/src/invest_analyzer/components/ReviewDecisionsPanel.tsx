@@ -129,14 +129,14 @@ export function ReviewDecisionsPanel({
                   {item.symbol ? ` · ${item.symbol}` : ''}
                   {item.date ? ` · ${item.date}` : ' · bez daty'}
                 </div>
-                <div className="font-mono text-[11px] text-gray-600 dark:text-gray-300">
+                <div className="font-mono text-[0.6875rem] text-gray-600 dark:text-gray-300">
                   {item.quantity ? `${item.quantity} szt.` : ''}
                   {item.quantity && item.amount ? ' · ' : ''}
                   {item.amount ? `${item.amount} ${item.currency || '(waluta nieznana)'}` : ''}
                 </div>
               </div>
-              {item.comment && <div className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">{item.comment}</div>}
-              <div className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+              {item.comment && <div className="mt-1 text-[0.6875rem] text-gray-500 dark:text-gray-400">{item.comment}</div>}
+              <div className="mt-1 text-[0.6875rem] text-gray-500 dark:text-gray-400">
                 {item.blocks_filing ? 'Blokuje gotowość rozliczenia' : 'Ostrzeżenie (inny rok)'} · pliki: {item.source_files.length}
                 {item.occurrences > 1 ? ` · to samo zdarzenie w ${item.occurrences} zapisach` : ''}
               </div>
@@ -156,7 +156,7 @@ export function ReviewDecisionsPanel({
                     type="button"
                     disabled={disabled}
                     onClick={() => toggleBonusProposal(item)}
-                    className="rounded-md border border-blue-500 bg-blue-600 px-2 py-1 text-[11px] font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+                    className="rounded-md border border-blue-500 bg-blue-600 px-2 py-1 text-[0.6875rem] font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
                   >
                     {pendingProposals.has(item.decision_key) ? '✓ Propozycja akcji bonusowej zaznaczona' : 'Zatwierdź propozycję akcji bonusowej'}
                   </button>
@@ -167,13 +167,13 @@ export function ReviewDecisionsPanel({
                     type="button"
                     disabled={disabled}
                     onClick={() => choose(item.decision_key, current === kind ? null : kind)}
-                    className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition disabled:opacity-50 ${
+                    className={`rounded-md border px-2 py-1 text-[0.6875rem] font-semibold transition disabled:opacity-50 ${
                       current === kind
                         ? (niewystarcza ? 'border-rose-600 bg-rose-600 text-white' : 'border-emerald-700 bg-emerald-700 text-white')
                         : 'border-amber-400 bg-white text-amber-900 hover:bg-amber-100 dark:bg-gray-900 dark:text-amber-200'
                     }`}
                   >
-                    {current === kind ? (niewystarcza ? '⚠ ' : '✓ ') : ''}
+                    {current === kind ? (niewystarcza ? '' : '✓ ') : ''}
                     {REVIEW_DECISION_LABELS[kind]}
                   </button>
                 ))}
@@ -182,7 +182,7 @@ export function ReviewDecisionsPanel({
                     type="button"
                     disabled={disabled}
                     onClick={() => choose(item.decision_key, null)}
-                    className="rounded-md border border-gray-300 px-2 py-1 text-[11px] font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
+                    className="rounded-md border border-gray-300 px-2 py-1 text-[0.6875rem] font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
                   >
                     Cofnij decyzję
                   </button>

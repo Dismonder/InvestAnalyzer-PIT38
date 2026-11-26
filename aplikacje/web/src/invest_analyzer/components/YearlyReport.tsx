@@ -405,7 +405,7 @@ const BrokerActionReportSection = React.memo(function BrokerActionReportSection(
     <div className="mt-4 rounded-lg border border-indigo-100 bg-indigo-50 p-3 dark:border-indigo-900/50 dark:bg-indigo-950/20">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-300">Sprawy importu w pakiecie PIT</p>
+          <p className="text-xs font-semibold text-indigo-700 dark:text-indigo-300">Sprawy importu w pakiecie PIT</p>
           <h4 className="mt-1 font-bold text-gray-900 dark:text-white">{workbench.open} otwarte / {workbench.total} razem</h4>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
             Te statusy są lokalnym workflow importu i audytu. Nie zmieniają ledgeru, scenariuszy ani kwot PIT.
@@ -1301,7 +1301,7 @@ export function YearlyReport({
                     ['Do diagnostyki', pitTrustView.blockedSourceCount],
                   ].map(([label, value]) => (
                     <div key={String(label)} className="rounded-lg border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
-                      <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{label}</p>
+                      <p className="text-[0.6875rem] font-semibold text-gray-500 dark:text-gray-400">{label}</p>
                       <p className="mt-1 text-base font-bold text-gray-950 dark:text-white">
                         {typeof value === 'number' ? value : '—'}
                       </p>
@@ -1312,8 +1312,8 @@ export function YearlyReport({
                   {sourceTrustGroups.map((group) => (
                     <div key={group.id} className="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-900">
                       <div className="flex items-center justify-between gap-2">
-                        <p className="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{group.title}</p>
-                        <span className="rounded-full bg-gray-50 px-2 py-0.5 text-[11px] font-semibold text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
+                        <p className="text-xs font-bold text-gray-500 dark:text-gray-400">{group.title}</p>
+                        <span className="rounded-full bg-gray-50 px-2 py-0.5 text-[0.6875rem] font-semibold text-gray-700 ring-1 ring-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:ring-gray-700">
                           {group.items.length}
                         </span>
                       </div>
@@ -1331,7 +1331,7 @@ export function YearlyReport({
                                 <button
                                   type="button"
                                   onClick={() => onOpenCandidateTransactions(item.source_id)}
-                                  className="rounded-lg bg-indigo-50 px-2 py-1 text-[11px] font-semibold text-indigo-700 ring-1 ring-indigo-100 transition hover:bg-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-200 dark:ring-indigo-900/60"
+                                  className="rounded-lg bg-indigo-50 px-2 py-1 text-[0.6875rem] font-semibold text-indigo-700 ring-1 ring-indigo-100 transition hover:bg-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-200 dark:ring-indigo-900/60"
                                 >
                                   Pokaż transakcje z tego pliku
                                 </button>
@@ -1339,7 +1339,7 @@ export function YearlyReport({
                             </div>
                           ))}
                           {group.items.length > 4 ? (
-                            <p className="text-[11px] text-gray-500 dark:text-gray-400">+{group.items.length - 4} więcej w trybie eksperta.</p>
+                            <p className="text-[0.6875rem] text-gray-500 dark:text-gray-400">+{group.items.length - 4} więcej w trybie eksperta.</p>
                           ) : null}
                         </div>
                       ) : (
@@ -1404,7 +1404,7 @@ export function YearlyReport({
                     ['Wyłączone', noOverpayV3DecisionCounts.excluded_by_policy || 0],
                   ].map(([label, value]) => (
                     <div key={String(label)} className="rounded-lg border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
-                      <p className="text-[11px] font-semibold text-gray-500 dark:text-gray-400">{label}</p>
+                      <p className="text-[0.6875rem] font-semibold text-gray-500 dark:text-gray-400">{label}</p>
                       <p className="mt-1 font-bold text-gray-950 dark:text-white">{value}</p>
                     </div>
                   ))}
@@ -1658,7 +1658,7 @@ export function YearlyReport({
             className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="flex flex-wrap items-center gap-2">
-              <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ring-1 ${bankStatus.badgeClassName}`}>
+              <span className={`rounded-full px-3 py-1 text-xs font-bold ring-1 ${bankStatus.badgeClassName}`}>
                 {bankStatus.label}
               </span>
               <span className="text-sm text-gray-600 dark:text-gray-300">{bankStatus.description}</span>
@@ -1706,7 +1706,7 @@ export function YearlyReport({
               whileTap={simpleTapPress}
               className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-left transition hover:border-emerald-300 hover:bg-emerald-100/60 dark:border-emerald-900/60 dark:bg-emerald-950/30 dark:hover:bg-emerald-950/50"
             >
-              <p className="text-xs font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">{t('report.pitTaxToPay')}</p>
+              <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300">{t('report.pitTaxToPay')}</p>
               <p className="mt-3 text-4xl font-black tracking-tight text-emerald-900 dark:text-emerald-100">{pelneZloteZFormularza(bankTaxPln)}</p>
               <p className="mt-3 text-sm text-emerald-800/80 dark:text-emerald-200/80">{t('report.taxToPayDescription')}</p>
             </motion.button>
@@ -1722,7 +1722,7 @@ export function YearlyReport({
               whileTap={simpleTapPress}
               className="rounded-2xl border border-gray-200 bg-gray-50 p-5 text-left transition hover:border-blue-200 hover:bg-blue-50 dark:border-gray-700 dark:bg-gray-900/70 dark:hover:border-blue-900 dark:hover:bg-blue-950/20"
             >
-              <p className="text-xs font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('report.scenarioNet')}</p>
+              <p className="text-xs font-bold text-gray-500 dark:text-gray-400">{t('report.scenarioNet')}</p>
               <p className={`mt-3 text-4xl font-black tracking-tight ${bankNetTone}`}>{kwotaAlboBrak(bankNetPln)}</p>
               <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">Wynik ekonomiczny po kosztach scenariusza, podatku scenariusza i podatkach z danych.</p>
             </motion.button>
@@ -1736,7 +1736,7 @@ export function YearlyReport({
               transition={simpleMotionTransition(0.14)}
               className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900/70"
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('report.revenue')}</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t('report.revenue')}</p>
               <p className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{kwotaAlboBrak(bankRevenuePln)}</p>
             </motion.div>
             <motion.div
@@ -1746,7 +1746,7 @@ export function YearlyReport({
               transition={simpleMotionTransition(0.17)}
               className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900/70"
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('report.costs')}</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t('report.costs')}</p>
               <p className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{kwotaAlboBrak(bankCostPln)}</p>
             </motion.div>
             <motion.button
@@ -1760,7 +1760,7 @@ export function YearlyReport({
               whileTap={simpleTapPress}
               className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-left transition hover:border-blue-200 hover:bg-blue-50 dark:border-gray-700 dark:bg-gray-900/70 dark:hover:border-blue-900 dark:hover:bg-blue-950/20"
             >
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t('report.taxBase')} (poz. 31)</p>
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">{t('report.taxBase')} (poz. 31)</p>
               <p className="mt-2 text-xl font-bold text-gray-950 dark:text-white">{pelneZloteZFormularza(bankBasePln)}</p>
             </motion.button>
           </div>
@@ -1788,10 +1788,10 @@ export function YearlyReport({
             className="mt-4 flex w-full flex-col gap-2 rounded-xl border border-blue-100 bg-blue-50/70 p-4 text-left text-sm transition hover:border-blue-200 hover:bg-blue-50 dark:border-blue-900/50 dark:bg-blue-950/20 dark:hover:bg-blue-950/30 sm:flex-row sm:items-center sm:justify-between"
           >
             <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('report.daneTrustQuestion')}</p>
+              <p className="text-xs font-bold text-blue-700 dark:text-blue-300">{t('report.daneTrustQuestion')}</p>
               <p className="mt-1 font-semibold text-blue-950 dark:text-blue-100">{resultTrust.label}</p>
               <p className="mt-1 text-blue-900/75 dark:text-blue-200/75">{resultTrust.summary}</p>
-              <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-semibold">
+              <div className="mt-3 flex flex-wrap gap-2 text-[0.6875rem] font-semibold">
                 <span className="rounded-full bg-white px-2.5 py-1 text-blue-800 ring-1 ring-blue-100 dark:bg-blue-950/40 dark:text-blue-100 dark:ring-blue-900">
                   Źródła transakcji: {licznikAudytu(pitTrustView.activeSourceCount)}
                 </span>
@@ -1840,7 +1840,7 @@ export function YearlyReport({
               onClick={() => openSimpleReportInsight('evidence')}
               className="rounded-xl border border-amber-100 bg-amber-50/80 p-4 text-left transition hover:border-amber-200 hover:bg-amber-50 dark:border-amber-900/50 dark:bg-amber-950/20 dark:hover:bg-amber-950/30"
             >
-              <p className="text-xs font-bold uppercase tracking-wide text-amber-700 dark:text-amber-300">{t('noOverpay.title')}</p>
+              <p className="text-xs font-bold text-amber-700 dark:text-amber-300">{t('noOverpay.title')}</p>
               <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
                 {[
                   [t('noOverpay.counted'), noOverpayV3Summary.counted_total_pln ?? pitTrustView.noOverpayCountedPln],
@@ -1849,7 +1849,7 @@ export function YearlyReport({
                   ['Duplikaty / wyłączone', `${noOverpayV3Summary.duplicate_risk_total_pln ?? '0'} / ${noOverpayV3Summary.excluded_total_pln ?? '0'}`],
                 ].map(([label, value]) => (
                   <div key={String(label)} className="rounded-lg bg-white px-3 py-2 ring-1 ring-amber-100 dark:bg-gray-900 dark:ring-amber-900/60">
-                    <p className="text-[11px] font-semibold text-gray-500 dark:text-gray-400">{label}</p>
+                    <p className="text-[0.6875rem] font-semibold text-gray-500 dark:text-gray-400">{label}</p>
                     <p className="mt-1 font-bold text-gray-950 dark:text-white">{String(value)} PLN</p>
                   </div>
                 ))}
@@ -1864,7 +1864,7 @@ export function YearlyReport({
               onClick={() => openSimpleReportInsight('evidence')}
               className="rounded-xl border border-blue-100 bg-blue-50/80 p-4 text-left transition hover:border-blue-200 hover:bg-blue-50 dark:border-blue-900/50 dark:bg-blue-950/20 dark:hover:bg-blue-950/30"
             >
-              <p className="text-xs font-bold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('defenseVault.title')}</p>
+              <p className="text-xs font-bold text-blue-700 dark:text-blue-300">{t('defenseVault.title')}</p>
               <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
                 <span className="rounded-full bg-white px-2.5 py-1 text-blue-800 ring-1 ring-blue-100 dark:bg-blue-950/40 dark:text-blue-100 dark:ring-blue-900">
                   Dostępne: {pitTrustView.defenseAvailableCount}
@@ -1907,10 +1907,10 @@ export function YearlyReport({
                     <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{step.actionLabel}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <span className="rounded-full bg-gray-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 ring-1 ring-blue-100 dark:bg-gray-800 dark:text-blue-300 dark:ring-blue-900/60">
+                    <span className="rounded-full bg-gray-50 px-2 py-0.5 text-[0.6875rem] font-semibold text-blue-700 ring-1 ring-blue-100 dark:bg-gray-800 dark:text-blue-300 dark:ring-blue-900/60">
                       {step.status}
                     </span>
-                    <span className="rounded-full bg-white px-2 py-0.5 text-[11px] font-semibold text-gray-600 ring-1 ring-gray-200 dark:bg-gray-950 dark:text-gray-300 dark:ring-gray-700">
+                    <span className="rounded-full bg-white px-2 py-0.5 text-[0.6875rem] font-semibold text-gray-600 ring-1 ring-gray-200 dark:bg-gray-950 dark:text-gray-300 dark:ring-gray-700">
                       {step.count}
                     </span>
                   </div>
@@ -1954,7 +1954,7 @@ export function YearlyReport({
         <section className={`ia-content-visibility rounded-xl border p-4 shadow-sm ${pitVerdictClass(pitSubmissionReadiness.verdict)}`}>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide opacity-75">Kontrola przed złożeniem PIT</p>
+              <p className="text-xs font-semibold opacity-75">Kontrola przed złożeniem PIT</p>
               <h3 className="mt-1 text-xl font-bold">{pitVerdictLabel(pitSubmissionReadiness.verdict)}</h3>
               <p className="mt-1 text-sm opacity-80">
                 Jeden werdykt z ledgeru podatku, braków dowodowych, luk NBP i problemów jakości. Nie zmienia matematyki, tylko checklistę przed wysłaniem.
@@ -1962,19 +1962,19 @@ export function YearlyReport({
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm md:grid-cols-4">
               <div className="rounded-lg border border-current/10 bg-white/50 p-3 dark:bg-gray-950/20">
-                <p className="text-xs uppercase opacity-70">Wynik</p>
+                <p className="text-xs opacity-70">Wynik</p>
                 <p className="text-lg font-bold">{pitSubmissionReadiness.score}/100</p>
               </div>
               <div className="rounded-lg border border-current/10 bg-white/50 p-3 dark:bg-gray-950/20">
-                <p className="text-xs uppercase opacity-70">Kontrole PIT</p>
+                <p className="text-xs opacity-70">Kontrole PIT</p>
                 <p className="text-lg font-bold">{pitSubmissionCounts.blocking || 0}</p>
               </div>
               <div className="rounded-lg border border-current/10 bg-white/50 p-3 dark:bg-gray-950/20">
-                <p className="text-xs uppercase opacity-70">Dowody</p>
+                <p className="text-xs opacity-70">Dowody</p>
                 <p className="text-lg font-bold">{pitSubmissionCounts.evidence || 0}</p>
               </div>
               <div className="rounded-lg border border-current/10 bg-white/50 p-3 dark:bg-gray-950/20">
-                <p className="text-xs uppercase opacity-70">Ryzyka</p>
+                <p className="text-xs opacity-70">Ryzyka</p>
                 <p className="text-lg font-bold">{pitSubmissionCounts.risk || 0}</p>
               </div>
             </div>
@@ -2007,7 +2007,7 @@ export function YearlyReport({
         <section className="ia-content-visibility rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-gray-800">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Źródła danych i ochrona przed przepłaceniem</p>
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Źródła danych i ochrona przed przepłaceniem</p>
               <h3 className="mt-1 text-lg font-bold text-gray-900 dark:text-white">Import Intelligence + analiza kosztów</h3>
               <p className="mt-1 max-w-3xl text-sm text-gray-600 dark:text-gray-300">
                 Program pokazuje lokalne źródła, rekordy wejściowe, koszty i dowody. To warstwa audytu; nie zmienia matematyki silnika.
@@ -2015,22 +2015,22 @@ export function YearlyReport({
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm md:grid-cols-4">
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-gray-900">
-                <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Źródła</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Źródła</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{sourceManifestV2.length}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">canonical: {canonicalInputSources.length}</p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-gray-900">
-                <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Koszty kandydaci</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Koszty kandydaci</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{noOverpaySummary.candidateCostCount ?? noOverpayCandidateCosts.length}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">pominięte: {noOverpaySummary.excludedCostCount ?? noOverpayExcludedCosts.length}</p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-gray-900">
-                <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Pewność audytu</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Pewność audytu</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{noOverpayAudit?.confidenceScore ?? '—'}/100</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">duplikaty: {noOverpaySummary.duplicateRiskCount ?? noOverpayDuplicateRisks.length}</p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-gray-900">
-                <p className="text-xs uppercase text-slate-500 dark:text-slate-400">Case file</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Case file</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{defenseCaseFile?.summary?.source_count ?? sourceManifestV2.length}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">braki: {defenseCaseFile?.summary?.missing_evidence_count ?? noOverpayMissingEvidence.length}</p>
               </div>
@@ -2047,7 +2047,7 @@ export function YearlyReport({
             <div className="mt-4 rounded-lg border border-blue-100 bg-blue-50 p-3 dark:border-blue-900/50 dark:bg-blue-950/20">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">Broker File Control Tower</p>
+                  <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">Broker File Control Tower</p>
                   <h4 className="mt-1 font-bold text-gray-900 dark:text-white">Co wgrałeś i jak zostało rozpoznane</h4>
                   <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                     Ten panel jest zbudowany przez silnik Python z lokalnych plików brokera. Frontend nie przelicza podatku, tylko pokazuje gotową diagnostykę źródeł.
@@ -2306,7 +2306,7 @@ export function YearlyReport({
       <section className="ia-content-visibility rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Odtwarzalność raportu</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Odtwarzalność raportu</p>
             <h3 className="mt-1 text-lg font-bold text-gray-900 dark:text-white">{pitCaseFileSummary.statusLabel}</h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               Case file spina hash audytu, fingerprint wejścia, ledger kalkulacji i ścieżki kwot. Służy do wyjaśnienia, dlaczego wynik wyszedł dokładnie tak.
@@ -2314,15 +2314,15 @@ export function YearlyReport({
           </div>
           <div className="grid gap-2 text-sm md:grid-cols-3">
             <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900">
-              <p className="text-xs uppercase text-gray-500 dark:text-gray-400">Case ID</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Case ID</p>
               <p className="mt-1 font-semibold text-gray-900 dark:text-white">{pitCaseFileSummary.caseFileId || '—'}</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900">
-              <p className="text-xs uppercase text-gray-500 dark:text-gray-400">Fingerprint danych</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Fingerprint danych</p>
               <p className="mt-1 font-semibold text-gray-900 dark:text-white">{pitCaseFileSummary.inputFingerprint || '—'}</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-900">
-              <p className="text-xs uppercase text-gray-500 dark:text-gray-400">Fingerprint kalkulacji</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Fingerprint kalkulacji</p>
               <p className="mt-1 font-semibold text-gray-900 dark:text-white">{pitCaseFileSummary.calculationFingerprint || '—'}</p>
             </div>
           </div>
@@ -2373,7 +2373,7 @@ export function YearlyReport({
       <section className="ia-content-visibility rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Zamknięcie roku PIT</p>
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400">Zamknięcie roku PIT</p>
             <h3 className="mt-1 text-lg font-bold text-gray-900 dark:text-white">{taxYearClosureStatus.label}</h3>
             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               Lokalny snapshot zamknięcia roku blokuje przypadkowe pomylenie starego pakietu z nowym przebiegiem. Nie zmienia matematyki PIT.
@@ -2524,7 +2524,7 @@ export function YearlyReport({
         </div>
 
         <div className="mb-4 rounded-lg border border-blue-100 bg-white/80 p-4 dark:border-blue-900/60 dark:bg-gray-900/30">
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">Status Samocheck</p>
+          <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">Status Samocheck</p>
           <div className="mt-2 flex flex-wrap gap-2 text-xs font-semibold">
             <span className="rounded-full bg-blue-50 px-2.5 py-1 text-blue-800 dark:bg-blue-900/40 dark:text-blue-200">
               {simpleReportStatus.sourceLabel}
@@ -2584,19 +2584,19 @@ export function YearlyReport({
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               <div className="ia-content-visibility bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Plan liczenia podatku</p>
+                <p className="text-xs text-gray-500">Plan liczenia podatku</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{planLabel(engineResult.plan_used || 'aggressive_user')}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Przychód PIT-38</p>
+                <p className="text-xs text-gray-500">Przychód PIT-38</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{kwotaAlboBrak(bankRevenuePln)}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Koszt PIT-38</p>
+                <p className="text-xs text-gray-500">Koszt PIT-38</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{kwotaAlboBrak(bankCostPln)}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Netto po scenariuszu głównym</p>
+                <p className="text-xs text-gray-500">Netto po scenariuszu głównym</p>
                 <p className="text-lg font-bold text-indigo-700 dark:text-indigo-300">{formatPln(summary.net_pln)}</p>
               </div>
             </div>
@@ -2605,48 +2605,48 @@ export function YearlyReport({
             <>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Koszt przewalutowania EUR→USD</p>
+                <p className="text-xs text-gray-500">Koszt przewalutowania EUR→USD</p>
                 <p className="text-base font-semibold text-gray-900 dark:text-white">{summary.include_fx_conversion_costs || 'nie'}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Odsetki inwestycyjne</p>
+                <p className="text-xs text-gray-500">Odsetki inwestycyjne</p>
                 <p className="text-base font-semibold text-gray-900 dark:text-white">{summary.include_interest_costs || 'nie'}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Koszty rachunku</p>
+                <p className="text-xs text-gray-500">Koszty rachunku</p>
                 <p className="text-base font-semibold text-gray-900 dark:text-white">{summary.include_account_costs || 'nie'}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Prowizja bankowa za zasilenie</p>
+                <p className="text-xs text-gray-500">Prowizja bankowa za zasilenie</p>
                 <p className="text-base font-semibold text-gray-900 dark:text-white">{summary.include_bank_funding_fee || (fundingFeeAllocations.length > 0 ? 'tak' : 'nie')}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Kontrole PIT</p>
+                <p className="text-xs text-gray-500">Kontrole PIT</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{qualityMetrics.blocking_count || 0}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Kontrole uruchomienia</p>
+                <p className="text-xs text-gray-500">Kontrole uruchomienia</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{qualityMetrics.runtime_blocking_count || 0}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Braki kursów FX</p>
+                <p className="text-xs text-gray-500">Braki kursów FX</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{coverageGaps.length}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Wiersze DePo</p>
+                <p className="text-xs text-gray-500">Wiersze DePo</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{depoRows.length}</p>
               </div>
               <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xs text-gray-500 uppercase">Okresy finansowania</p>
+                <p className="text-xs text-gray-500">Okresy finansowania</p>
                 <p className="text-lg font-bold text-gray-900 dark:text-white">{financingLedger?.episode_count ?? 0}</p>
               </div>
             </div>
 
             {legacyCryptoCost && <p role="alert" className="text-sm text-amber-700 dark:text-amber-400">
-              Dawny koszt krypto bez roku: {legacyCryptoCost} PLN. Nie jest używany w obliczeniach. Przypisz go do właściwego roku w Optymalizacji Podatkowej.
+              Dawny koszt krypto bez roku: {legacyCryptoCost} PLN. Nie jest używany w obliczeniach. Przypisz go do właściwego roku w Optymalizacji podatkowej.
             </p>}
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between mb-1">
@@ -2686,7 +2686,7 @@ export function YearlyReport({
                   {priorLosses.map((entry, index) => (
                     <div key={entry.id} className="flex flex-wrap items-end gap-2">
                       <label className="text-xs text-gray-600 dark:text-gray-300">
-                        <span className="block uppercase text-gray-500 mb-1">Rok straty</span>
+                        <span className="block text-gray-500 mb-1">Rok straty</span>
                         <input
                           type="number"
                           value={entry.taxYear}
@@ -2704,7 +2704,7 @@ export function YearlyReport({
                         />
                       </label>
                       <label className="text-xs text-gray-600 dark:text-gray-300">
-                        <span className="block uppercase text-gray-500 mb-1">Kwota straty w PLN</span>
+                        <span className="block text-gray-500 mb-1">Kwota straty w PLN</span>
                         <input
                           inputMode="decimal"
                           value={entry.amountPln}
@@ -2719,7 +2719,7 @@ export function YearlyReport({
                         />
                       </label>
                       <label className="text-xs text-gray-600 dark:text-gray-300">
-                        <span className="block uppercase text-gray-500 mb-1">Pozostało do odliczenia (po zeznaniach za lata poprzednie)</span>
+                        <span className="block text-gray-500 mb-1">Pozostało do odliczenia (po zeznaniach za lata poprzednie)</span>
                         <input
                           inputMode="decimal"
                           value={entry.remainingPln ?? ''}
@@ -2773,7 +2773,7 @@ export function YearlyReport({
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="text-left text-xs uppercase text-gray-500 border-b border-gray-200 dark:border-gray-700">
+                      <tr className="text-left text-xs text-gray-500 border-b border-gray-200 dark:border-gray-700">
                         <th className="py-2 pr-3">Od</th>
                         <th className="py-2 pr-3">Uregulowane</th>
                         <th className="py-2 pr-3 text-right">Dni</th>
@@ -2840,7 +2840,7 @@ export function YearlyReport({
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <label className="text-sm text-gray-700 dark:text-gray-300">
-                  <span className="block text-xs uppercase text-gray-500 mb-2">Rodzaj pakietu do wygenerowania</span>
+                  <span className="block text-xs text-gray-500 mb-2">Rodzaj pakietu do wygenerowania</span>
                   <select
                     value={selectedPackageScope}
                     onChange={(event) => setSelectedPackageScope(event.target.value as TaxPackageScope)}
@@ -2854,7 +2854,7 @@ export function YearlyReport({
                   </select>
                 </label>
                 <label className="text-sm text-gray-700 dark:text-gray-300">
-                  <span className="block text-xs uppercase text-gray-500 mb-2">Tryb draftu</span>
+                  <span className="block text-xs text-gray-500 mb-2">Tryb draftu</span>
                   <select
                     value={selectedFilingMode}
                     onChange={(event) => setSelectedFilingMode(event.target.value as 'ORIGINAL' | 'CORRECTION')}
@@ -2924,7 +2924,7 @@ export function YearlyReport({
                 <div className="space-y-3">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <label className="text-sm text-gray-700 dark:text-gray-300">
-                      <span className="block text-xs uppercase text-gray-500 mb-2">Plan dla projekcji formularza</span>
+                      <span className="block text-xs text-gray-500 mb-2">Plan dla projekcji formularza</span>
                       <select
                         value={selectedProjectionPlan}
                         onChange={(event) => setSelectedProjectionPlan(event.target.value as 'conservative' | 'defensible' | 'aggressive_user')}
@@ -3001,7 +3001,7 @@ export function YearlyReport({
                         </div>
                         <table className="min-w-full text-sm">
                           <thead>
-                            <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500 dark:border-gray-700">
+                            <tr className="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-gray-700">
                               <th className="px-3 py-2">Pozycja</th>
                               <th className="px-3 py-2">Kwota PLN</th>
                               <th className="px-3 py-2">Wpływ</th>
@@ -3049,7 +3049,7 @@ export function YearlyReport({
                       <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-900/20">
                         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                           <div>
-                            <p className="text-xs uppercase tracking-wide text-blue-700 dark:text-blue-300">Ścieżka kwoty</p>
+                            <p className="text-xs text-blue-700 dark:text-blue-300">Ścieżka kwoty</p>
                             <h5 className="mt-1 font-semibold text-gray-900 dark:text-white">{selectedTrace.entry.label}</h5>
                             <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{selectedTrace.entry.explanation_pl}</p>
                           </div>
@@ -3127,7 +3127,7 @@ export function YearlyReport({
                           <div className="mt-3 overflow-x-auto">
                             <table className="min-w-full text-sm">
                               <thead>
-                                <tr className="border-b border-gray-200 text-left text-xs uppercase tracking-wide text-gray-500 dark:border-gray-700">
+                                <tr className="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-gray-700">
                                   <th className="py-2 pr-3">Pozycja</th>
                                   <th className="py-2 pr-3">Zmiana</th>
                                   <th className="py-2 pr-3">Było</th>
@@ -3167,7 +3167,7 @@ export function YearlyReport({
                     </p>
                   </div>
                   <div className="rounded-xl border border-indigo-200 bg-indigo-50 px-4 py-3 text-right dark:border-indigo-900 dark:bg-indigo-900/20">
-                    <p className="text-xs uppercase text-indigo-700 dark:text-indigo-300">Gotowość obrony</p>
+                    <p className="text-xs text-indigo-700 dark:text-indigo-300">Gotowość obrony</p>
                     <p className="text-2xl font-bold text-indigo-900 dark:text-indigo-100">{defenseReadiness.score}/100</p>
                   </div>
                 </div>
@@ -3390,7 +3390,7 @@ export function YearlyReport({
                     </dl>
                     {scenario.additional_costs.length > 0 && (
                       <div className="mt-3">
-                        <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">Dodatkowo użyte koszty</p>
+                        <p className="text-xs text-gray-500 mb-1">Dodatkowo użyte koszty</p>
                         <div className="flex flex-wrap gap-2">
                           {scenario.additional_costs.map((cost) => (
                             <span key={cost} className="text-xs px-2 py-1 rounded bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300">

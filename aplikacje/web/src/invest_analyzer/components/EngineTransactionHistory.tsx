@@ -191,7 +191,7 @@ function TransactionDossierPanel({
       <h4 className="text-sm font-semibold text-blue-950 dark:text-blue-100">{t('transactionDossier.title')}</h4>
       <div className="mt-3 grid gap-3 lg:grid-cols-2">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('transactionDossier.coreTrade')}</p>
+          <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">{t('transactionDossier.coreTrade')}</p>
           <dl className="mt-2 space-y-1 text-xs text-blue-950 dark:text-blue-100">
             <div className="grid grid-cols-[110px,1fr] gap-2"><dt>Operacja</dt><dd>{tekstWartosci(coreTrade.operation)}</dd></div>
             <div className="grid grid-cols-[110px,1fr] gap-2"><dt>Data</dt><dd>{tekstWartosci(coreTrade.trade_date || coreTrade.date_time)}</dd></div>
@@ -202,25 +202,25 @@ function TransactionDossierPanel({
           </dl>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('transactionDossier.fees')}</p>
+          <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">{t('transactionDossier.fees')}</p>
           <dl className="mt-2 space-y-1 text-xs text-blue-950 dark:text-blue-100">
             <div className="grid grid-cols-[150px,1fr] gap-2"><dt>Prowizja</dt><dd>{tekstWartosci(brokerCommission.amount)} {tekstWartosci(brokerCommission.currency)}</dd></div>
             <div className="grid grid-cols-[150px,1fr] gap-2"><dt>Ruchy kosztowe</dt><dd>{nestedArray(fees, 'cash_movement_fees').length}</dd></div>
             <div className="grid grid-cols-[150px,1fr] gap-2"><dt>Ujemne saldo</dt><dd>{nestedArray(fees, 'negative_balance_interest').length}</dd></div>
           </dl>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('transactionDossier.cashContext')}</p>
+          <p className="mt-3 text-xs font-semibold text-blue-700 dark:text-blue-300">{t('transactionDossier.cashContext')}</p>
           <p className="mt-1 text-xs text-blue-950 dark:text-blue-100">
             {nestedArray(cashContext, 'related_cash_movements').length} powiązanych ruchów gotówki, margin: {cashContext.margin_or_negative_balance_detected ? 'tak' : 'nie'}.
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('transactionDossier.fxNbp')}</p>
+          <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">{t('transactionDossier.fxNbp')}</p>
           <p className="mt-1 text-xs text-blue-950 dark:text-blue-100">
             Waluta transakcji: {tekstWartosci(fxContext.trade_currency)}. Waluta prowizji: {tekstWartosci(fxContext.commission_currency)}.
           </p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">{t('transactionDossier.review')}</p>
+          <p className="text-xs font-semibold text-blue-700 dark:text-blue-300">{t('transactionDossier.review')}</p>
           <p className="mt-1 text-xs text-blue-950 dark:text-blue-100">
             Safe for tax engine: {review.safe_for_tax_engine ? 'tak' : 'nie'}. Review: {review.needs_user_review ? 'tak' : 'nie'}.
           </p>
@@ -837,19 +837,19 @@ export function EngineTransactionHistory({
           content: (
             <dl className="space-y-2 text-xs text-gray-600 dark:text-gray-300">
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Data</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Data</dt>
                 <dd>{formatDisplayDateTime(row.display_date)}</dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Źródło</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Źródło</dt>
                 <dd>{row.source_name || '—'}</dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Kategoria</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Kategoria</dt>
                 <dd>{row.display_category_label_pl || String(row.details?.display_category_label_pl || row.details?.display_category || '—')}</dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Scalenie</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Scalenie</dt>
                 <dd>
                   {row.dedupe_status === 'merged_from_sources' || row.details?.dedupe_status === 'merged_from_sources'
                     ? 'Rekord scalony z wielu plików'
@@ -857,21 +857,21 @@ export function EngineTransactionHistory({
                 </dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Lineage</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Lineage</dt>
                 <dd>{row.lineage_summary || String(row.details?.lineage_summary || row.source_refs?.join(', ') || '—')}</dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Raw ID</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Raw ID</dt>
                 <dd className="break-all">
                   {String(row.details?.source_record_id || row.transaction_id || row.source_refs?.join(', ') || '—')}
                 </dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Świat logiczny</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Świat logiczny</dt>
                 <dd>{row.logical_world || '—'}</dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Komentarz</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Komentarz</dt>
                 <dd>{row.comment || row.message || '—'}</dd>
               </div>
             </dl>
@@ -1051,7 +1051,7 @@ export function EngineTransactionHistory({
               {depth > 0 && <span className="text-gray-400 dark:text-gray-400">↳</span>}
               <span>{formatDisplayDateTime(row.display_date)}</span>
               {canPinSource && (
-                <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-gray-500 dark:bg-gray-900 dark:text-gray-400">
+                <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-[0.6875rem] font-semibold text-gray-500 dark:bg-gray-900 dark:text-gray-400">
                   <GripVertical size={12} />
                 </span>
               )}
@@ -1312,13 +1312,13 @@ export function EngineTransactionHistory({
                           <p className="font-semibold text-gray-900 dark:text-gray-100">{fieldName}</p>
                           <div className="mt-2 grid gap-2 text-xs sm:grid-cols-2">
                             <div>
-                              <p className="mb-1 font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wersja z silnika</p>
+                              <p className="mb-1 font-semibold text-gray-500 dark:text-gray-400">Wersja z silnika</p>
                               <div className="rounded-lg bg-gray-50 px-2 py-1.5 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
                                 {tekstWartosci(row.original_snapshot?.[fieldName])}
                               </div>
                             </div>
                             <div>
-                              <p className="mb-1 font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Wersja po zmianie</p>
+                              <p className="mb-1 font-semibold text-gray-500 dark:text-gray-400">Wersja po zmianie</p>
                               <div className="rounded-lg bg-blue-50 px-2 py-1.5 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300">
                                 {tekstWartosci(row.current_snapshot?.[fieldName])}
                               </div>
@@ -1414,7 +1414,7 @@ export function EngineTransactionHistory({
         <thead className="sticky top-0 z-10 bg-gray-50 dark:bg-gray-900/95">
           <tr>
             <th
-              className="cursor-pointer px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+              className="cursor-pointer px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400"
               onClick={() => toggleSort('display_date')}
             >
               <div className="flex items-center gap-1">
@@ -1422,12 +1422,12 @@ export function EngineTransactionHistory({
                 {sortConfig.key === 'display_date' && (sortConfig.direction === 'asc' ? <ArrowUp size={14} /> : <ArrowDown size={14} />)}
               </div>
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Typ</th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Instrument</th>
-            {isExpertMode && <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Ilość</th>}
-            {isExpertMode && <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Kwota</th>}
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400">Typ</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400">Instrument</th>
+            {isExpertMode && <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">Ilość</th>}
+            {isExpertMode && <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">Kwota</th>}
             <th
-              className="cursor-pointer px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+              className="cursor-pointer px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400"
               onClick={() => toggleSort('amount_pln')}
             >
               <div className="flex items-center justify-end gap-1">
@@ -1435,8 +1435,8 @@ export function EngineTransactionHistory({
                 {sortConfig.key === 'amount_pln' && (sortConfig.direction === 'asc' ? <ArrowUp size={14} /> : <ArrowDown size={14} />)}
               </div>
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">{t('history.pitImpact')} / {t('history.status').toLowerCase()}</th>
-            <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">{t('history.details')}</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400">{t('history.pitImpact')} / {t('history.status').toLowerCase()}</th>
+            <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400">{t('history.details')}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
@@ -1484,19 +1484,19 @@ export function EngineTransactionHistory({
             <h4 className="font-semibold text-gray-950 dark:text-white">Dane z silnika</h4>
             <dl className="mt-2 space-y-2 text-xs text-gray-600 dark:text-gray-300">
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Data</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Data</dt>
                 <dd>{formatDisplayDateTime(detailDrawerRow.display_date)}</dd>
               </div>
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Źródło</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Źródło</dt>
                   <dd>{detailDrawerRow.source_name || '—'}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Kategoria</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Kategoria</dt>
                   <dd>{detailDrawerRow.display_category_label_pl || String(detailDrawerRow.details?.display_category_label_pl || detailDrawerRow.details?.display_category || '—')}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Scalenie</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Scalenie</dt>
                   <dd>
                     {detailDrawerRow.dedupe_status === 'merged_from_sources' || detailDrawerRow.details?.dedupe_status === 'merged_from_sources'
                       ? 'Rekord scalony z wielu plików'
@@ -1504,21 +1504,21 @@ export function EngineTransactionHistory({
                   </dd>
                 </div>
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Lineage</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Lineage</dt>
                   <dd>{detailDrawerRow.lineage_summary || String(detailDrawerRow.details?.lineage_summary || detailDrawerRow.source_refs?.join(', ') || '—')}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Raw ID</dt>
+                  <dt className="font-semibold text-gray-500 dark:text-gray-400">Raw ID</dt>
                 <dd className="break-all">
                   {String(detailDrawerRow.details?.source_record_id || detailDrawerRow.transaction_id || detailDrawerRow.source_refs?.join(', ') || '—')}
                 </dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Świat logiczny</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Świat logiczny</dt>
                 <dd>{detailDrawerRow.logical_world || '—'}</dd>
               </div>
               <div>
-                <dt className="font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">Komentarz</dt>
+                <dt className="font-semibold text-gray-500 dark:text-gray-400">Komentarz</dt>
                 <dd>{detailDrawerRow.comment || detailDrawerRow.message || '—'}</dd>
               </div>
             </dl>

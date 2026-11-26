@@ -510,9 +510,9 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
           {/* Target Account Picker */}
           <div>
             <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-              Docelowy Rachunek Maklerski:
+              Docelowy rachunek maklerski:
             </label>
-            <select aria-label="Docelowy Rachunek Maklerski"
+            <select aria-label="Docelowy rachunek maklerski"
               value={selectedAccountId}
               onChange={(e) => {
                 selectedAccountIdRef.current = e.target.value;
@@ -546,7 +546,7 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
               <div className="font-semibold text-slate-800 dark:text-slate-200">
                 {fileName ? fileName : 'Przeciągnij i upuść plik raportu CSV / wyciągu'}
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[0.6875rem] text-slate-400">
                 Obsługuje raporty: XTB CSV, IBKR Flex Query, Freedom24, Revolut, eMakler, Binance
               </p>
             </div>
@@ -562,11 +562,11 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
           {/* Parsed Preview Table */}
           {pominieteWiersze.length > 0 && (
             <div className="p-3 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50/80 dark:bg-amber-950/30 text-amber-900 dark:text-amber-200 space-y-1.5">
-              <div className="flex items-center gap-1.5 font-bold text-[11px]">
+              <div className="flex items-center gap-1.5 font-bold text-[0.6875rem]">
                 <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
                 <span>Pominięto {pominieteWiersze.length} {odmienLiczebnik(pominieteWiersze.length, 'wiersz', 'wiersze', 'wierszy')}</span>
               </div>
-              <div className="max-h-24 overflow-y-auto space-y-0.5 text-[11px] leading-relaxed">
+              <div className="max-h-24 overflow-y-auto space-y-0.5 text-[0.6875rem] leading-relaxed">
                 {pominieteWiersze.slice(0, 20).map((wiersz) => (
                   <div key={wiersz.nr} className="font-mono">
                     wiersz {wiersz.nr}: {wiersz.powod}
@@ -576,7 +576,7 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
                   <div className="italic">…oraz {pominieteWiersze.length - 20} kolejnych.</div>
                 )}
               </div>
-              <div className="text-[10.5px]">
+              <div className="text-[0.6875rem]">
                 Te wiersze nie trafią do rejestru. Uzupełnij je w pliku albo dodaj ręcznie — puste
                 miejsce w rozliczeniu widać, a podstawiona liczba wygląda jak prawdziwa.
               </div>
@@ -594,7 +594,7 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
               </div>
 
               <div className="max-h-48 overflow-y-auto rounded-xl border border-slate-200 dark:border-slate-700">
-                <table className="w-full text-left text-[11px]">
+                <table className="w-full text-left text-[0.6875rem]">
                   <thead className="bg-slate-100 dark:bg-slate-800 text-slate-500">
                     <tr>
                       <th className="p-2">Data</th>
@@ -623,7 +623,7 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
                   </tbody>
                 </table>
                 {parsedItems.length > LIMIT_PODGLADU && (
-                  <p className="p-2 text-[11px] text-slate-500 dark:text-slate-400">
+                  <p className="p-2 text-[0.6875rem] text-slate-500 dark:text-slate-400">
                     Podgląd pokazuje {LIMIT_PODGLADU} z {parsedItems.length} pozycji — zaimportowane zostaną wszystkie.
                   </p>
                 )}
@@ -645,7 +645,7 @@ export const ImportTransactionsModal: React.FC<ImportTransactionsModalProps> = (
               onClick={handleConfirmImport}
               className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-xs disabled:opacity-50 cursor-pointer"
             >
-              Zatwierdź i Zaimportuj ({parsedItems.length})
+              Zatwierdź i zaimportuj ({parsedItems.length})
             </button>
           </div>
         </div>

@@ -11,13 +11,13 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
   return (
     <>
       {/* Main Table: Open Positions (Aktywa w Portfelu) */}
-      <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+      <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition duration-300 overflow-hidden">
         {/* Table Filters & Search Bar */}
         <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 space-y-3">
           <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
             <div className="flex min-w-0 items-center gap-2">
               <h2 className="font-bold text-base text-slate-900 dark:text-white flex flex-wrap items-center gap-x-2 gap-y-1">
-                <span>Aktywa w Portfelu (Otwarte Pozycje)</span>
+                <span>Aktywa w portfelu (otwarte pozycje)</span>
                 <span className="shrink-0 whitespace-nowrap text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-mono font-semibold">
                   {filteredPositions.length} / {enrichedPositions.length} pozycji
                 </span>
@@ -46,7 +46,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                 className="w-full sm:w-auto py-1.5 px-3 rounded-xl text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
               >
                 <option value="ALL">Wszystkie kategorie</option>
-                <option value="STOCK_FOREIGN">Akcje Zagraniczne</option>
+                <option value="STOCK_FOREIGN">Akcje zagraniczne</option>
                 <option value="STOCK_PL">Akcje GPW (Polska)</option>
                 <option value="ETF">Fundusze ETF</option>
                 <option value="CRYPTO">Kryptowaluty</option>
@@ -75,7 +75,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
           {/* Active Filter Badges Bar */}
           {(selectedCategory !== 'ALL' || selectedBroker !== 'ALL' || searchTerm.trim() !== '') && (
             <div className="flex items-center flex-wrap gap-2 pt-1">
-              <span className="text-[11px] font-semibold text-slate-400">Aktywne filtry:</span>
+              <span className="text-[0.6875rem] font-semibold text-slate-400">Aktywne filtry:</span>
               {selectedCategory !== 'ALL' && (
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/60 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-800">
                   <span>Kategoria: {CATEGORY_LABELS[selectedCategory]?.label || selectedCategory}</span>
@@ -119,7 +119,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                   setSelectedBroker('ALL');
                   setSearchTerm('');
                 }}
-                className="text-[11px] font-bold text-rose-600 dark:text-rose-400 hover:underline ml-1 cursor-pointer"
+                className="text-[0.6875rem] font-bold text-rose-600 dark:text-rose-400 hover:underline ml-1 cursor-pointer"
               >
                 Wyczyść wszystkie
               </button>
@@ -147,12 +147,12 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
           <table className="w-full text-left text-xs border-collapse">
             <thead>
               <tr className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-semibold">
-                <th className="py-3.5 px-4">Instrument / Spółka</th>
+                <th className="py-3.5 px-4">Instrument / spółka</th>
                 <th className="py-3.5 px-4 text-right">Ilość</th>
-                <th className="py-3.5 px-4 text-right">Śr. Cena Zakupu</th>
-                <th className="py-3.5 px-4 text-right">Kurs Bieżący (Live)</th>
+                <th className="py-3.5 px-4 text-right">Śr. Cena zakupu</th>
+                <th className="py-3.5 px-4 text-right">Kurs bieżący (Live)</th>
                 <th className="py-3.5 px-4 text-right">Wycena (PLN)</th>
-                <th className="py-3.5 px-4 text-right">Niezrealizowany Wynik</th>
+                <th className="py-3.5 px-4 text-right">Niezrealizowany wynik</th>
                 <th className="py-3.5 px-4 text-right">Zmiana 24h</th>
                 <th className="py-3.5 px-4 text-center">Akcje</th>
               </tr>
@@ -170,7 +170,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                   return (
                     <React.Fragment key={positionKey}>
                       <tr
-                        className={`hover:bg-slate-50/90 dark:hover:bg-slate-800/60 hover:scale-[1.004] transition-all duration-150 origin-left ${
+                        className={`hover:bg-slate-50/90 dark:hover:bg-slate-800/60 transition duration-150 origin-left ${
                           isExpanded ? 'bg-blue-50/30 dark:bg-blue-950/20' : ''
                         }`}
                       >
@@ -190,22 +190,22 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                                   {pos.ticker}
                                 </span>
                                 <span
-                                  className={`text-[10px] px-1.5 py-0.5 rounded-md font-semibold border ${catConfig.bg}`}
+                                  className={`text-[0.6875rem] px-1.5 py-0.5 rounded-md font-semibold border ${catConfig.bg}`}
                                 >
                                   {catConfig.label}
                                 </span>
                                 {pos.accountsCount > 1 ? (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded-md font-bold bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1">
+                                  <span className="text-[0.6875rem] px-1.5 py-0.5 rounded-md font-bold bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1">
                                     <Split className="w-2.5 h-2.5" />
                                     {pos.accountsCount} brokerów
                                   </span>
                                 ) : (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded-md font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                                  <span className="text-[0.6875rem] px-1.5 py-0.5 rounded-md font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                                     {pos.primaryAccountName}
                                   </span>
                                 )}
                               </div>
-                              <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[220px] mt-0.5">
+                              <p className="text-[0.6875rem] text-slate-500 dark:text-slate-400 truncate max-w-[220px] mt-0.5">
                                 {pos.name}
                               </p>
                             </div>
@@ -215,7 +215,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                         {/* Quantity */}
                         <td className="py-3.5 px-4 text-right font-mono font-semibold text-slate-800 dark:text-slate-200">
                           {pos.totalQuantity.toLocaleString('pl-PL', { maximumFractionDigits: 6 })}
-                          <div className="text-[10px] text-slate-400 font-normal">
+                          <div className="text-[0.6875rem] text-slate-400 font-normal">
                             {pos.openLotsCount} {odmienLiczebnik(pos.openLotsCount, 'transza', 'transze', 'transz')}
                           </div>
                         </td>
@@ -225,7 +225,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                           <div className="font-semibold text-slate-800 dark:text-slate-200">
                             {formatLiczba(pos.avgBuyPrice)} {pos.currency}
                           </div>
-                          <div className="text-[10px] text-slate-400">
+                          <div className="text-[0.6875rem] text-slate-400">
                             ≈ {formatLiczba(pos.avgBuyPricePLN)} PLN/szt.
                           </div>
                         </td>
@@ -246,13 +246,13 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                               </div>
                               {pos.zrodloCeny === 'BROKER' && (
                                 <div
-                                  className="text-[10px] font-semibold text-blue-600 dark:text-blue-300"
+                                  className="text-[0.6875rem] font-semibold text-blue-600 dark:text-blue-300"
                                   title="Dostawca notowań nie zna tego instrumentu. Cena pochodzi z rachunku Freedom24 (tylko odczyt)."
                                 >
                                   cena z rachunku Freedom24
                                 </div>
                               )}
-                              <div className="text-[10px] text-slate-400">
+                              <div className="text-[0.6875rem] text-slate-400">
                                 {pos.maWycene
                                   ? `≈ ${formatLiczba(pos.currentPricePLN)} PLN`
                                   : 'brak kursu NBP'}
@@ -273,7 +273,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                           <div className="font-bold text-slate-900 dark:text-white">
                             {pos.maWycene ? formatCurrency(pos.currentValuePLN, 'PLN') : '—'}
                           </div>
-                          <div className="text-[10px] text-slate-400">
+                          <div className="text-[0.6875rem] text-slate-400">
                             {shareOfPortfolio === null ? '— (brak wyceny)' : `${shareOfPortfolio}% portfela`}
                           </div>
                         </td>
@@ -310,7 +310,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                                 </span>
                               </div>
                               <div
-                                className={`text-[11px] font-semibold ${
+                                className={`text-[0.6875rem] font-semibold ${
                                   pos.unrealizedOrig >= 0
                                     ? 'text-emerald-600 dark:text-emerald-400'
                                     : 'text-rose-600 dark:text-rose-400'
@@ -323,7 +323,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                               )}
                               {/* Secondary: Total PLN with FX effect */}
                               <div
-                                className={`text-[10px] font-medium mt-0.5 ${
+                                className={`text-[0.6875rem] font-medium mt-0.5 ${
                                   pos.unrealizedPLN >= 0 ? 'text-emerald-600/80 dark:text-emerald-400/80' : 'text-rose-600/80 dark:text-rose-400/80'
                                 }`}
                                 title={`Wycena w PLN z uwzględnieniem kursu NBP (Efekt walutowy FX: ${pos.fxImpactPLN === null ? '—' : `${pos.fxImpactPLN >= 0 ? '+' : ''}${formatLiczba(pos.fxImpactPLN)} PLN`})`}
@@ -351,7 +351,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                                 </span>
                               </div>
                               <div
-                                className={`text-[11px] font-semibold ${
+                                className={`text-[0.6875rem] font-semibold ${
                                   isProfit
                                     ? 'text-emerald-600 dark:text-emerald-400'
                                     : 'text-rose-600 dark:text-rose-400'
@@ -372,7 +372,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                               nie niesie zmiany dziennej - wtedy tez "—". */}
                           {pos.change24h !== null ? (
                             <span
-                              className={`inline-block px-1.5 py-0.5 rounded text-[11px] font-bold ${
+                              className={`inline-block px-1.5 py-0.5 rounded text-[0.6875rem] font-bold ${
                                 pos.change24h >= 0
                                   ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400'
                                   : 'bg-rose-100 dark:bg-rose-950/80 text-rose-700 dark:text-rose-400'
@@ -381,7 +381,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                               {pos.change24h >= 0 ? '+' : ''}{formatLiczba(pos.change24h)}%
                             </span>
                           ) : (
-                            <span className="text-[11px] text-slate-400">—</span>
+                            <span className="text-[0.6875rem] text-slate-400">—</span>
                           )}
                         </td>
 
@@ -474,7 +474,7 @@ export function HoldingsTable({ searchTerm, setSearchTerm, selectedCategory, set
                             {/* Close / Sell / Redeem Position */}
                             <button disabled={!canUseAccount}
                               onClick={() => handleClosePosition(pos)}
-                              className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 dark:hover:bg-rose-900/80 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-800 text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer shadow-xs whitespace-nowrap"
+                              className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/60 dark:hover:bg-rose-900/80 text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-800 text-[0.6875rem] font-bold flex items-center gap-1 transition cursor-pointer shadow-xs whitespace-nowrap"
                               title={`Zamknij pozycję / Zarejestruj sprzedaż lub wykup dla ${pos.ticker}`}
                             >
                               <MinusCircle className="w-3.5 h-3.5 text-rose-500" />

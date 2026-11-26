@@ -81,7 +81,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
   const expDates = optionsData?.expirationDates || [];
 
   return (
-    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Łańcuch Opcji Giełdowych (Freedom24 Options Chain)" className="outline-none fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
+    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Łańcuch opcji giełdowych (Freedom24 Options Chain)" className="outline-none fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="relative w-full max-w-5xl max-h-[92vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-900/70">
@@ -92,7 +92,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                  Łańcuch Opcji Giełdowych (Freedom24 Options Chain)
+                  Łańcuch opcji giełdowych (Freedom24 Options Chain)
                 </h2>
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 font-semibold font-mono">
                   {ticker} •{' '}
@@ -132,7 +132,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
               <button
                 key={sym}
                 onClick={() => setTicker(sym)}
-                className={`px-2.5 py-1 text-xs font-mono font-bold rounded-lg transition-all cursor-pointer ${
+                className={`px-2.5 py-1 text-xs font-mono font-bold rounded-lg transition cursor-pointer ${
                   ticker === sym
                     ? 'bg-purple-600 text-white shadow-xs'
                     : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-750'
@@ -153,7 +153,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
               <button
                 key={d}
                 onClick={() => setSelectedExp(d)}
-                className={`px-2.5 py-1 text-xs font-mono rounded-lg transition-all cursor-pointer ${
+                className={`px-2.5 py-1 text-xs font-mono rounded-lg transition cursor-pointer ${
                   selectedExp === d
                     ? 'bg-blue-600 text-white font-bold shadow-xs'
                     : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-750'
@@ -191,10 +191,10 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
                       STRIKE
                     </th>
                     <th colSpan={4} className="py-2 px-3 text-center bg-rose-50/50 dark:bg-rose-950/20 text-rose-700 dark:text-rose-300 font-bold border-l border-slate-200 dark:border-slate-700">
-                      OPCJE PUT (Spadkowe / Zabezpieczające)
+                      OPCJE PUT (Spadkowe / zabezpieczające)
                     </th>
                   </tr>
-                  <tr className="border-b border-slate-200 dark:border-slate-800 text-[10px] text-slate-400 bg-slate-50/60 dark:bg-slate-950/40">
+                  <tr className="border-b border-slate-200 dark:border-slate-800 text-[0.6875rem] text-slate-400 bg-slate-50/60 dark:bg-slate-950/40">
                     <th className="py-1.5 px-2 text-right">BID (USD)</th>
                     <th className="py-1.5 px-2 text-right">ASK (USD)</th>
                     <th className="py-1.5 px-2 text-right">IV (%)</th>
@@ -228,7 +228,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
                         <td className={`py-2 px-2 text-right ${isCallITM ? 'bg-emerald-50/30 dark:bg-emerald-950/10 text-emerald-700 dark:text-emerald-300 font-bold' : 'text-slate-700 dark:text-slate-300'}`}>
                           {cenaOpcji(c.callAsk)}
                         </td>
-                        <td className="py-2 px-2 text-right text-slate-400 text-[10px]">
+                        <td className="py-2 px-2 text-right text-slate-400 text-[0.6875rem]">
                           {procentOpcji(c.callIV)}
                         </td>
                         <td className="py-2 px-2 text-right text-slate-500 border-r border-slate-200 dark:border-slate-700">
@@ -246,7 +246,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
                         <td className="py-2 px-2 text-left text-slate-500 border-l border-slate-200 dark:border-slate-700">
                           {deltaOpcji(c.putDelta)}
                         </td>
-                        <td className="py-2 px-2 text-left text-slate-400 text-[10px]">
+                        <td className="py-2 px-2 text-left text-slate-400 text-[0.6875rem]">
                           {procentOpcji(c.putIV)}
                         </td>
                         <td className={`py-2 px-2 text-left ${isPutITM ? 'bg-rose-50/30 dark:bg-rose-950/10 text-rose-600 dark:text-rose-400 font-bold' : 'text-slate-600 dark:text-slate-400'}`}>
@@ -282,7 +282,7 @@ export const Freedom24OptionsModal: React.FC<Freedom24OptionsModalProps> = ({
 
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer"
+            className="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer"
           >
             Zamknij
           </button>

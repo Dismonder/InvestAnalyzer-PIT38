@@ -254,7 +254,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
   const activeFreedomList = freedomLists.find((l) => l.id === selectedFreedomListId) || freedomLists[0];
 
   return (
-    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Katalog Spółek i Tickerów Maklerskich" className="outline-none fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
+    <div ref={refOkna} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Katalog spółek i tickerów maklerskich" className="outline-none fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
       <div
         id="manage-favorites-modal"
         className="relative w-full max-w-3xl max-h-[92vh] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
@@ -268,7 +268,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
-                  Katalog Spółek i Tickerów Maklerskich
+                  Katalog spółek i tickerów maklerskich
                 </h2>
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-semibold font-mono">
                   {favorites.length} śledzonych
@@ -298,13 +298,13 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                 value={customTickerInput}
                 onChange={(e) => setCustomTickerInput(e.target.value.toUpperCase())}
                 placeholder="Wyszukaj lub dodaj dowolny ticker (np. BABA, TSM, ARM, COIN, PLTR, PKN, CDR, BTC)..."
-                className="w-full pl-3 pr-10 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 uppercase font-mono"
+                className="w-full pl-3 pr-10 py-2 text-xs sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono"
               />
             </div>
             <button
               type="submit"
               disabled={isSearchingCustom || !customTickerInput.trim()}
-              className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-amber-950 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer shrink-0"
+              className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-amber-950 text-xs font-semibold flex items-center gap-1.5 transition shadow-xs cursor-pointer shrink-0"
             >
               {isSearchingCustom ? (
                 <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -352,14 +352,14 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
               <button
                 type="button"
                 onClick={handleSelectDefaults}
-                className="px-2.5 py-1.5 text-[11px] font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
+                className="px-2.5 py-1.5 text-[0.6875rem] font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors cursor-pointer"
               >
                 Zestaw domyślny
               </button>
               <button
                 type="button"
                 onClick={handleClearAll}
-                className="px-2.5 py-1.5 text-[11px] font-medium rounded-lg text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
+                className="px-2.5 py-1.5 text-[0.6875rem] font-medium rounded-lg text-slate-500 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors cursor-pointer"
               >
                 Odznacz wszystkie
               </button>
@@ -371,16 +371,16 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
             {[
               { id: 'ALL', label: 'Wszystkie rynki' },
               { id: 'FAVORITES', label: `⭐ Ulubione (${favorites.length})` },
-              { id: 'FREEDOM_LISTS', label: '📑 Listy Freedom24 (lokalne zmiany)' },
+              { id: 'FREEDOM_LISTS', label: 'Listy Freedom24 (lokalne zmiany)' },
               { id: 'STOCK_FOREIGN', label: '🇺🇸 Akcje USA / Global' },
               { id: 'STOCK_PL', label: '🇵🇱 GPW Warszawa' },
               { id: 'ETF', label: '🇪🇺 Fundusze ETF UCITS' },
-              { id: 'CRYPTO', label: '🪙 Kryptowaluty' },
+              { id: 'CRYPTO', label: 'Kryptowaluty' },
             ].map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3 py-1 rounded-lg font-medium whitespace-nowrap transition-all cursor-pointer ${
+                className={`px-3 py-1 rounded-lg font-medium whitespace-nowrap transition cursor-pointer ${
                   selectedCategory === cat.id
                     ? 'bg-amber-500 text-amber-950 shadow-xs'
                     : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'
@@ -393,8 +393,8 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
 
           {/* Broker Filter Badges (only when not in Freedom lists view) */}
           {selectedCategory !== 'FREEDOM_LISTS' && (
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none text-[11px] pt-0.5">
-              <span className="text-slate-400 text-[10px] font-medium shrink-0 flex items-center gap-1">
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none text-[0.6875rem] pt-0.5">
+              <span className="text-slate-400 text-[0.6875rem] font-medium shrink-0 flex items-center gap-1">
                 <Briefcase className="w-3 h-3" />
                 <span>Broker:</span>
               </span>
@@ -402,7 +402,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                 <button
                   key={b.id}
                   onClick={() => setSelectedBroker(b.id)}
-                  className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-all cursor-pointer text-[11px] border ${
+                  className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition cursor-pointer text-[0.6875rem] border ${
                     selectedBroker === b.id
                       ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
                       : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750'
@@ -423,11 +423,11 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
               <div>
                 <h3 className="font-bold text-xs sm:text-sm text-blue-900 dark:text-blue-100 flex items-center gap-2">
                    <span>Listy papierów Freedom24</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-200/80 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-mono">
+                  <span className="text-[0.6875rem] px-2 py-0.5 rounded bg-blue-200/80 dark:bg-blue-900 text-blue-800 dark:text-blue-200 font-mono">
                     {freedomLists.length} list
                   </span>
                 </h3>
-                <p className="text-[11px] text-blue-700 dark:text-blue-300 mt-0.5">
+                <p className="text-[0.6875rem] text-blue-700 dark:text-blue-300 mt-0.5">
                    Listy można odczytać z konta Freedom24. Dodawanie i usuwanie list oraz tickerów zapisuje zmiany tylko w tej przeglądarce — nie na koncie brokera.
                 </p>
               </div>
@@ -435,7 +435,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
               <button
                 type="button"
                 onClick={() => setIsCreatingList(!isCreatingList)}
-                className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1 cursor-pointer transition-all shadow-xs shrink-0"
+                className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center gap-1 cursor-pointer transition shadow-xs shrink-0"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Nowa lista</span>
@@ -483,7 +483,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                   <div
                     key={list.id}
                     {...klikalny(() => setSelectedFreedomListId(list.id), { wybrany: isSelected })}
-                    className={`px-3 py-2 rounded-xl border flex items-center gap-2 cursor-pointer transition-all shrink-0 ${
+                    className={`px-3 py-2 rounded-xl border flex items-center gap-2 cursor-pointer transition shrink-0 ${
                       isSelected
                         ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
                         : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-750'
@@ -492,7 +492,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                     <span>{list.picture || '📁'}</span>
                     <span className="font-semibold text-xs">{list.name}</span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
+                      className={`text-[0.6875rem] px-1.5 py-0.2 rounded-full font-mono font-bold ${
                         isSelected
                           ? 'bg-blue-700 text-white'
                           : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
@@ -519,7 +519,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                         (ID #{activeFreedomList.id})
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 mt-0.5">
+                    <p className="text-[0.6875rem] text-slate-500 mt-0.5">
                       Zawiera {activeFreedomList.tickers.length} {odmienLiczebnik(activeFreedomList.tickers.length, 'instrument', 'instrumenty', 'instrumentów')}.
                     </p>
                   </div>
@@ -528,10 +528,10 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleApplyFreedomListToFavorites(activeFreedomList)}
-                      className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs transition-all"
+                      className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-amber-950 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs transition"
                     >
                       <Star className="w-3.5 h-3.5 fill-white" />
-                      <span>Zaimportuj do Ulubionych</span>
+                      <span>Zaimportuj do ulubionych</span>
                     </button>
                     {freedomLists.length > 1 && (
                       <button
@@ -553,7 +553,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                     value={newTickerForList}
                     onChange={(e) => setNewTickerForList(e.target.value.toUpperCase())}
                     placeholder="Wpisz ticker do dodania (np. AAPL, NVDA, INTC.US, TSLA)..."
-                    className="flex-1 px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white uppercase font-mono focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="flex-1 px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                   <button
                     type="button"
@@ -562,7 +562,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                     className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-1 cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
-                    <span>Dodaj Ticker</span>
+                    <span>Dodaj ticker</span>
                   </button>
                 </div>
 
@@ -590,14 +590,14 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                             )}
                           </div>
                            {typeof livePrice === 'number' && Number.isFinite(livePrice) ? (
-                            <div className="text-[10px] font-mono text-slate-500">
+                            <div className="text-[0.6875rem] font-mono text-slate-500">
                                {formatLiczba(livePrice)} {quote.currency}{' '}
                               <span className={change >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}>
                                 ({change >= 0 ? '+' : ''}{formatLiczba(change, 1)}%)
                               </span>
                             </div>
                           ) : (
-                            <div className="text-[9px] text-slate-400">Notowany Freedom24</div>
+                            <div className="text-[0.6875rem] text-slate-400">Notowany Freedom24</div>
                           )}
                         </div>
 
@@ -633,7 +633,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                     <div
                       key={asset.ticker}
                       onClick={() => onToggleFavorite(asset.ticker)}
-                      className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                      className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition ${
                         asset.isFav
                           ? 'bg-amber-50/60 dark:bg-amber-950/25 border-amber-300 dark:border-amber-700/60 shadow-xs ring-1 ring-amber-400/30'
                           : 'bg-white dark:bg-slate-800/60 border-slate-200 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600'
@@ -658,23 +658,23 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                             <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white font-mono">
                               {asset.ticker}
                             </span>
-                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 font-medium">
+                            <span className="text-[0.6875rem] px-1.5 py-0.2 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 font-medium">
                               {asset.exchange}
                             </span>
                           </div>
-                          <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[170px] sm:max-w-[200px]" title={asset.name}>
+                          <div className="text-[0.6875rem] text-slate-500 dark:text-slate-400 truncate max-w-[170px] sm:max-w-[200px]" title={asset.name}>
                             {asset.name}
                           </div>
                           {/* Broker Support Badges */}
                           {asset.brokers && asset.brokers.length > 0 && (
                             <div className="flex items-center gap-1 mt-1 flex-wrap">
                               {asset.brokers.slice(0, 3).map((brk) => (
-                                <span key={brk} className="text-[8px] font-semibold px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-750 text-slate-500 dark:text-slate-400 font-mono">
+                                <span key={brk} className="text-[0.6875rem] font-semibold px-1 py-0.2 rounded bg-slate-100 dark:bg-slate-750 text-slate-500 dark:text-slate-400 font-mono">
                                   {brk}
                                 </span>
                               ))}
                               {asset.brokers.length > 3 && (
-                                <span className="text-[8px] text-slate-400">+{asset.brokers.length - 3}</span>
+                                <span className="text-[0.6875rem] text-slate-400">+{asset.brokers.length - 3}</span>
                               )}
                             </div>
                           )}
@@ -688,7 +688,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                               {formatLiczba(asset.price)} {asset.currency}
                             </div>
                             <div
-                              className={`text-[11px] font-semibold flex items-center justify-end gap-0.5 ${
+                              className={`text-[0.6875rem] font-semibold flex items-center justify-end gap-0.5 ${
                                 isPos ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'
                               }`}
                             >
@@ -700,7 +700,7 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
                             </div>
                           </>
                         ) : (
-                          <div className="text-[10px] text-slate-400 font-mono">
+                          <div className="text-[0.6875rem] text-slate-400 font-mono">
                             {asset.currency}
                           </div>
                         )}
@@ -718,12 +718,12 @@ const ManageFavoritesModalTresc: React.FC<ManageFavoritesModalProps> = ({
           <div className="flex items-center gap-2 text-xs text-slate-500">
             <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
             <span className="hidden sm:inline">Prawdziwe notowania giełdowe z GPW, NASDAQ, NYSE, Xetra i Binance.</span>
-            <span className="sm:hidden font-mono text-[11px]">{filteredAssets.length} {odmienLiczebnik(filteredAssets.length, 'instrument', 'instrumenty', 'instrumentów')}</span>
+            <span className="sm:hidden font-mono text-[0.6875rem]">{filteredAssets.length} {odmienLiczebnik(filteredAssets.length, 'instrument', 'instrumenty', 'instrumentów')}</span>
           </div>
 
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer"
+            className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer"
           >
             Zatwierdź ({favorites.length})
           </button>
